@@ -28,7 +28,7 @@ class _GameScreenState extends State<GameScreen> {
   bool turnOfPlayer2 = true;
   bool turnOfPlayer3 = true;
 
-  List<PieceStatus> statusList = List.filled(16, PieceStatus.none);
+  List<PieceStatus> statusList = List.filled(25, PieceStatus.none);
   GameStatus gameStatus = GameStatus.play;
   List<Widget> buildLine = [Container()];
   double lineThickness = 4.0;
@@ -143,7 +143,7 @@ class _GameScreenState extends State<GameScreen> {
                 onPressed: () {
                   setState(() {
                     turnOfPlayer1 = true;
-                    statusList = List.filled(16, PieceStatus.none);
+                    statusList = List.filled(25, PieceStatus.none);
                     gameStatus = GameStatus.play;
                     buildLine = [Container()];
                   });
@@ -205,10 +205,10 @@ class _GameScreenState extends State<GameScreen> {
       ),
     ];
     List<Widget> _rowChildren = [];
-    for (int j = 0; j < 4; j++) {
+    for (int j = 0; j < 5; j++) {
       //横の行を作成するもの
-      for (int i = 0; i < 4; i++) {
-        int _index = j * 4 + i;
+      for (int i = 0; i < 5; i++) {
+        int _index = j * 5 + i;
         _rowChildren.add(
           Expanded(
             child: InkWell(
@@ -229,7 +229,7 @@ class _GameScreenState extends State<GameScreen> {
                 child: Row(
                   children: [
                     Expanded(child: build1(statusList[_index])),
-                    (i == 3)
+                    (i == 4)
                         ? Container()
                         : const VerticalDivider(
                             width: 0.0,
