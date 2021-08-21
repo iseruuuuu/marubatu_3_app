@@ -204,22 +204,32 @@ class _GameScreenState extends State<GameScreen> {
             turnOfPlayer1
                 ? const Icon(
                     FontAwesomeIcons.circle,
-                    size: 35,
+                    size: 40,
+                    color: Colors.blue,
                   )
                 : Container(),
             turnOfPlayer2
                 ? const Icon(
                     Icons.clear,
                     size: 50,
+                    color: Colors.red,
                   )
                 : Container(),
             turnOfPlayer3
                 ? const Icon(
                     FontAwesomeIcons.square,
+                    color: Colors.green,
                     size: 40,
                   )
                 : Container(),
-            const Text('のターン', style: TextStyle(fontSize: 30)),
+            const SizedBox(width: 5),
+            const Text(
+              'のターン',
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 35,
+              ),
+            ),
           ],
         );
       case GameStatus.draw:
