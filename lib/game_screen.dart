@@ -213,6 +213,7 @@ class _GameScreenState extends State<GameScreen> {
         return const Text("引き分けです。", style: TextStyle(fontSize: 30));
       case GameStatus.settlement:
         return Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             !turnOfPlayer1
                 ? const Icon(
