@@ -30,7 +30,11 @@ class _HomeScreenState extends State<HomeScreen> {
                   size: 40,
                   color: Colors.blue,
                 ),
-                Icon(Icons.clear, size: 50, color: Colors.red),
+                Icon(
+                  Icons.clear,
+                  size: 50,
+                  color: Colors.red,
+                ),
                 Icon(
                   FontAwesomeIcons.square,
                   size: 40,

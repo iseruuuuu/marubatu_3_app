@@ -1,7 +1,8 @@
 enum PieceStatus {
   none,
   circle,
-  cross
+  cross,
+  square,
 }
 
 enum GameStatus {
