@@ -12,7 +12,22 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  bool turnOfCircle = true;
+
+  //まる　　  1 = true, 　　  2 = true,
+  //ばつ　　  1 = false,　　  2 = false,
+  //四角　　  1 = false, 　　  2 = true,
+
+  //or
+
+  //まる　　  1 = true, 　　  2 = false,　　  3 = false,
+  //ばつ　　  1 = false,　　  2 = true,　　  3 = false,
+  //四角　　  1 = false, 　　  2 = false,　　  3 = true,
+
+
+  bool turnOfPlayer1 = true;
+  bool turnOfPlayer2 = true;
+  bool turnOfPlayer3 = true;
+
   List<PieceStatus> statusList = List.filled(16, PieceStatus.none);
   GameStatus gameStatus = GameStatus.play;
   List<Widget> buildLine = [Container()];
@@ -127,7 +142,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 onPressed: () {
                   setState(() {
-                    turnOfCircle = true;
+                    turnOfPlayer1 = true;
                     statusList = List.filled(16, PieceStatus.none);
                     gameStatus = GameStatus.play;
                     buildLine = [Container()];
@@ -148,7 +163,7 @@ class _MyHomePageState extends State<MyHomePage> {
         return Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            turnOfCircle
+            turnOfPlayer1
                 ? const Icon(
                     FontAwesomeIcons.circle,
                     size: 35,
@@ -165,7 +180,7 @@ class _MyHomePageState extends State<MyHomePage> {
       case GameStatus.settlement:
         return Row(
           children: [
-            !turnOfCircle
+            !turnOfPlayer1
                 ? const Icon(
                     FontAwesomeIcons.circle,
                     size: 35,
@@ -200,10 +215,10 @@ class _MyHomePageState extends State<MyHomePage> {
               onTap: gameStatus == GameStatus.play
                   ? () {
                       if (statusList[_index] == PieceStatus.none) {
-                        statusList[_index] = turnOfCircle
+                        statusList[_index] = turnOfPlayer1
                             ? PieceStatus.circle
                             : PieceStatus.cross;
-                        turnOfCircle = !turnOfCircle;
+                        turnOfPlayer1 = !turnOfPlayer1;
                         confirmResult();
                       }
                       setState(() {});
