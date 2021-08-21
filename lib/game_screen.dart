@@ -11,23 +11,12 @@ class GameScreen extends StatefulWidget {
 }
 
 class _GameScreenState extends State<GameScreen> {
-  //まる　　  1 = true, 　　  2 = true,
-  //ばつ　　  1 = false,　　  2 = false,
-  //四角　　  1 = false, 　　  2 = true,
-
-  bool turnOfPlay1 = true;
-  bool turnOfPlay2 = true;
-
-  //or
-
   //まる　　  1 = true, 　　  2 = false,　　  3 = false,
   //ばつ　　  1 = false,　　  2 = true,　　  3 = false,
   //四角　　  1 = false, 　　  2 = false,　　  3 = true,
-
   bool turnOfPlayer1 = true;
   bool turnOfPlayer2 = false;
   bool turnOfPlayer3 = false;
-
   List<PieceStatus> statusList = List.filled(25, PieceStatus.none);
   GameStatus gameStatus = GameStatus.play;
   List<Widget> buildLine = [Container()];
@@ -242,24 +231,34 @@ class _GameScreenState extends State<GameScreen> {
                 ? const Icon(
                     // FontAwesomeIcons.circle,
                     FontAwesomeIcons.square,
-                    size: 35,
+                    color: Colors.green,
+                    size: 40,
                   )
                 : Container(),
             turnOfPlayer2
                 ? const Icon(
                     FontAwesomeIcons.circle,
-                    // Icons.clear,
-                    size: 50,
+                    size: 40,
+                    color: Colors.blue,
                   )
                 : Container(),
             turnOfPlayer3
                 ? const Icon(
                     Icons.clear,
-                    // FontAwesomeIcons.square,
-                    size: 40,
+                    size: 50,
+                    color: Colors.red,
                   )
                 : Container(),
-            const Text("の勝ち!!", style: TextStyle(fontSize: 30)),
+            const SizedBox(
+              width: 5,
+            ),
+            const Text(
+              "の勝ち",
+              style: TextStyle(
+                fontSize: 35,
+                color: Colors.black,
+              ),
+            ),
           ],
         );
       default:
