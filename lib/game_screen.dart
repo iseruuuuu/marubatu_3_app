@@ -164,6 +164,14 @@ class _GameScreenState extends State<GameScreen> {
                   'クリア',
                   style: TextStyle(
                     fontSize: 20,
+                    color: ColorStyle.white,
+                  ),
+                ),
+                style: ElevatedButton.styleFrom(
+                  primary: ColorStyle.blue,
+                  onPrimary: ColorStyle.blue,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(100.0),
                   ),
                 ),
                 onPressed: () {
@@ -193,24 +201,24 @@ class _GameScreenState extends State<GameScreen> {
           children: [
             turnOfPlayer1
                 ? const Icon(
-                    FontAwesomeIcons.circle,
-                    size: 40,
-                    color: ColorStyle.blue,
-                  )
+              FontAwesomeIcons.circle,
+              size: 40,
+              color: ColorStyle.blue,
+            )
                 : Container(),
             turnOfPlayer2
                 ? const Icon(
-                    Icons.clear,
-                    size: 50,
-                    color: ColorStyle.red,
-                  )
+              Icons.clear,
+              size: 50,
+              color: ColorStyle.red,
+            )
                 : Container(),
             turnOfPlayer3
                 ? const Icon(
-                    FontAwesomeIcons.square,
-                    color: ColorStyle.green,
-                    size: 40,
-                  )
+              FontAwesomeIcons.square,
+              color: ColorStyle.green,
+              size: 40,
+            )
                 : Container(),
             const SizedBox(width: 5),
             const Text(
@@ -230,24 +238,24 @@ class _GameScreenState extends State<GameScreen> {
           children: [
             turnOfPlayer1
                 ? const Icon(
-                    FontAwesomeIcons.square,
-                    color: ColorStyle.green,
-                    size: 40,
-                  )
+              FontAwesomeIcons.square,
+              color: ColorStyle.green,
+              size: 40,
+            )
                 : Container(),
             turnOfPlayer2
                 ? const Icon(
-                    FontAwesomeIcons.circle,
-                    size: 40,
-                    color: ColorStyle.blue,
-                  )
+              FontAwesomeIcons.circle,
+              size: 40,
+              color: ColorStyle.blue,
+            )
                 : Container(),
             turnOfPlayer3
                 ? const Icon(
-                    Icons.clear,
-                    size: 50,
-                    color: ColorStyle.red,
-                  )
+              Icons.clear,
+              size: 50,
+              color: ColorStyle.red,
+            )
                 : Container(),
             const SizedBox(
               width: 5,
@@ -283,38 +291,38 @@ class _GameScreenState extends State<GameScreen> {
             child: InkWell(
               onTap: gameStatus == GameStatus.play
                   ? () {
-                      if (statusList[_index] == PieceStatus.none) {
-                        if (turnOfPlayer1 == true) {
-                          statusList[_index] = PieceStatus.circle;
-                          //true => false
-                          turnOfPlayer1 = false;
-                          //false => true
-                          turnOfPlayer2 = true;
-                          //true => false
-                          turnOfPlayer3 = false;
-                          confirmResult();
-                        } else if (turnOfPlayer2 == true) {
-                          statusList[_index] = PieceStatus.cross;
-                          //true => false
-                          turnOfPlayer1 = false;
-                          //true => false
-                          turnOfPlayer2 = false;
-                          //false => true
-                          turnOfPlayer3 = true;
-                          confirmResult();
-                        } else if (turnOfPlayer3 == true) {
-                          statusList[_index] = PieceStatus.square;
-                          //false => true
-                          turnOfPlayer1 = true;
-                          //true => false
-                          turnOfPlayer2 = false;
-                          //true => false
-                          turnOfPlayer3 = false;
-                          confirmResult();
-                        }
-                      }
-                      setState(() {});
-                    }
+                if (statusList[_index] == PieceStatus.none) {
+                  if (turnOfPlayer1 == true) {
+                    statusList[_index] = PieceStatus.circle;
+                    //true => false
+                    turnOfPlayer1 = false;
+                    //false => true
+                    turnOfPlayer2 = true;
+                    //true => false
+                    turnOfPlayer3 = false;
+                    confirmResult();
+                  } else if (turnOfPlayer2 == true) {
+                    statusList[_index] = PieceStatus.cross;
+                    //true => false
+                    turnOfPlayer1 = false;
+                    //true => false
+                    turnOfPlayer2 = false;
+                    //false => true
+                    turnOfPlayer3 = true;
+                    confirmResult();
+                  } else if (turnOfPlayer3 == true) {
+                    statusList[_index] = PieceStatus.square;
+                    //false => true
+                    turnOfPlayer1 = true;
+                    //true => false
+                    turnOfPlayer2 = false;
+                    //true => false
+                    turnOfPlayer3 = false;
+                    confirmResult();
+                  }
+                }
+                setState(() {});
+              }
                   : null,
               child: AspectRatio(
                 aspectRatio: 1.0,
@@ -324,9 +332,9 @@ class _GameScreenState extends State<GameScreen> {
                     (i == 4)
                         ? Container()
                         : const VerticalDivider(
-                            width: 0.0,
+                      width: 0.0,
                       color: ColorStyle.black,
-                          ),
+                    ),
                   ],
                 ),
               ),
@@ -339,10 +347,12 @@ class _GameScreenState extends State<GameScreen> {
           children: _rowChildren,
         ),
       );
-      _columnChildren.add(const Divider(
-        height: 0.0,
-        color: ColorStyle.black,
-      ));
+      _columnChildren.add(
+        const Divider(
+          height: 0.0,
+          color: ColorStyle.black,
+        ),
+      );
       _rowChildren = [];
     }
     return Stack(
@@ -392,11 +402,10 @@ class _GameScreenState extends State<GameScreen> {
     if (!statusList.contains(PieceStatus.none)) {
       gameStatus = GameStatus.draw;
     }
-
     //行における勝敗のパターン
     for (int i = 0; i < settlementListHorizontal.length; i++) {
       if (statusList[settlementListHorizontal[i][0]] ==
-              statusList[settlementListHorizontal[i][1]] &&
+          statusList[settlementListHorizontal[i][1]] &&
           statusList[settlementListHorizontal[i][1]] ==
               statusList[settlementListHorizontal[i][2]] &&
           statusList[settlementListHorizontal[i][0]] != PieceStatus.none) {
@@ -407,11 +416,10 @@ class _GameScreenState extends State<GameScreen> {
         gameStatus = GameStatus.settlement;
       }
     }
-
     //行における勝敗のパターン
     for (int i = 0; i < settlementListVertical.length; i++) {
       if (statusList[settlementListVertical[i][0]] ==
-              statusList[settlementListVertical[i][1]] &&
+          statusList[settlementListVertical[i][1]] &&
           statusList[settlementListVertical[i][1]] ==
               statusList[settlementListVertical[i][2]] &&
           statusList[settlementListVertical[i][0]] != PieceStatus.none) {
@@ -422,11 +430,10 @@ class _GameScreenState extends State<GameScreen> {
         gameStatus = GameStatus.settlement;
       }
     }
-
     //斜めにおける勝敗パターン
     for (int i = 0; i < settlementListDiagonal.length; i++) {
       if (statusList[settlementListDiagonal[i][0]] ==
-              statusList[settlementListDiagonal[i][1]] &&
+          statusList[settlementListDiagonal[i][1]] &&
           statusList[settlementListDiagonal[i][1]] ==
               statusList[settlementListDiagonal[i][2]] &&
           statusList[settlementListDiagonal[i][0]] != PieceStatus.none) {
