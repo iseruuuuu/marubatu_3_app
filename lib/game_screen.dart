@@ -330,12 +330,8 @@ class _GameScreenState extends State<GameScreen> {
 
     //行における勝敗のパターン
     for (int i = 0; i < settlementListHorizontal.length; i++) {
-      if (statusList[settlementListHorizontal[i][0]] ==
-              statusList[settlementListHorizontal[i][1]] &&
-          statusList[settlementListHorizontal[i][1]] ==
-              statusList[settlementListHorizontal[i][2]] &&
-          statusList[settlementListHorizontal[i][2]] ==
-              statusList[settlementListHorizontal[i][3]] &&
+      if (statusList[settlementListHorizontal[i][0]] == statusList[settlementListHorizontal[i][1]] &&
+          statusList[settlementListHorizontal[i][1]] == statusList[settlementListHorizontal[i][2]] &&
           statusList[settlementListHorizontal[i][0]] != PieceStatus.none) {
         buildLine.add(Container(
           margin: EdgeInsets.only(
@@ -347,12 +343,8 @@ class _GameScreenState extends State<GameScreen> {
 
     //行における勝敗のパターン
     for (int i = 0; i < settlementListVertical.length; i++) {
-      if (statusList[settlementListVertical[i][0]] ==
-              statusList[settlementListVertical[i][1]] &&
-          statusList[settlementListVertical[i][1]] ==
-              statusList[settlementListVertical[i][2]] &&
-          statusList[settlementListVertical[i][2]] ==
-              statusList[settlementListVertical[i][3]] &&
+      if (statusList[settlementListVertical[i][0]] == statusList[settlementListVertical[i][1]] &&
+          statusList[settlementListVertical[i][1]] == statusList[settlementListVertical[i][2]] &&
           statusList[settlementListVertical[i][0]] != PieceStatus.none) {
         buildLine.add(Container(
           margin: EdgeInsets.only(
@@ -364,12 +356,8 @@ class _GameScreenState extends State<GameScreen> {
 
     //斜めにおける勝敗パターン
     for (int i = 0; i < settlementListDiagonal.length; i++) {
-      if (statusList[settlementListDiagonal[i][0]] ==
-              statusList[settlementListDiagonal[i][1]] &&
-          statusList[settlementListDiagonal[i][1]] ==
-              statusList[settlementListDiagonal[i][2]] &&
-          statusList[settlementListDiagonal[i][2]] ==
-              statusList[settlementListDiagonal[i][3]] &&
+      if (statusList[settlementListDiagonal[i][0]] == statusList[settlementListDiagonal[i][1]] &&
+          statusList[settlementListDiagonal[i][1]] == statusList[settlementListDiagonal[i][2]] &&
           statusList[settlementListDiagonal[i][0]] != PieceStatus.none) {
         buildLine.add(
           Transform.rotate(
