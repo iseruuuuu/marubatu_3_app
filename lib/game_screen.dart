@@ -4,14 +4,14 @@ import 'package:barubatu_3_app/model/model.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key}) : super(key: key);
+class GameScreen extends StatefulWidget {
+  const GameScreen({Key? key}) : super(key: key);
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _GameScreenState createState() => _GameScreenState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _GameScreenState extends State<GameScreen> {
 
   //まる　　  1 = true, 　　  2 = true,
   //ばつ　　  1 = false,　　  2 = false,
