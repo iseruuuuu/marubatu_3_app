@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'package:barubatu_3_app/model/color.dart';
 import 'package:barubatu_3_app/model/model.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -98,16 +99,16 @@ class _GameScreenState extends State<GameScreen> {
   Widget build(BuildContext context) {
     lineWidth = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: ColorStyle.backGroundColor,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: ColorStyle.backGroundColor,
         elevation: 0,
         leading: Padding(
           padding: const EdgeInsets.only(left: 10),
           child: IconButton(
             icon: const Icon(
               Icons.arrow_back_ios,
-              color: Colors.blue,
+              color: ColorStyle.blue,
               size: 25,
             ),
             onPressed: () {
@@ -119,7 +120,7 @@ class _GameScreenState extends State<GameScreen> {
           IconButton(
             icon: const Icon(
               Icons.menu,
-              color: Colors.blue,
+              color: ColorStyle.blue,
             ),
             onPressed: () {
               showDialog(
@@ -194,20 +195,20 @@ class _GameScreenState extends State<GameScreen> {
                 ? const Icon(
                     FontAwesomeIcons.circle,
                     size: 40,
-                    color: Colors.blue,
+                    color: ColorStyle.blue,
                   )
                 : Container(),
             turnOfPlayer2
                 ? const Icon(
                     Icons.clear,
                     size: 50,
-                    color: Colors.red,
+                    color: ColorStyle.red,
                   )
                 : Container(),
             turnOfPlayer3
                 ? const Icon(
                     FontAwesomeIcons.square,
-                    color: Colors.green,
+                    color: ColorStyle.green,
                     size: 40,
                   )
                 : Container(),
@@ -215,7 +216,7 @@ class _GameScreenState extends State<GameScreen> {
             const Text(
               'のターン',
               style: TextStyle(
-                color: Colors.black,
+                color: ColorStyle.textColor,
                 fontSize: 35,
               ),
             ),
@@ -229,9 +230,8 @@ class _GameScreenState extends State<GameScreen> {
           children: [
             turnOfPlayer1
                 ? const Icon(
-                    // FontAwesomeIcons.circle,
                     FontAwesomeIcons.square,
-                    color: Colors.green,
+                    color: ColorStyle.green,
                     size: 40,
                   )
                 : Container(),
@@ -239,14 +239,14 @@ class _GameScreenState extends State<GameScreen> {
                 ? const Icon(
                     FontAwesomeIcons.circle,
                     size: 40,
-                    color: Colors.blue,
+                    color: ColorStyle.blue,
                   )
                 : Container(),
             turnOfPlayer3
                 ? const Icon(
                     Icons.clear,
                     size: 50,
-                    color: Colors.red,
+                    color: ColorStyle.red,
                   )
                 : Container(),
             const SizedBox(
@@ -256,7 +256,7 @@ class _GameScreenState extends State<GameScreen> {
               "の勝ち",
               style: TextStyle(
                 fontSize: 35,
-                color: Colors.black,
+                color: ColorStyle.textColor,
               ),
             ),
           ],
@@ -270,7 +270,7 @@ class _GameScreenState extends State<GameScreen> {
     List<Widget> _columnChildren = [
       const Divider(
         height: 0.0,
-        color: Colors.black,
+        color: ColorStyle.black,
       ),
     ];
     List<Widget> _rowChildren = [];
@@ -325,7 +325,7 @@ class _GameScreenState extends State<GameScreen> {
                         ? Container()
                         : const VerticalDivider(
                             width: 0.0,
-                            color: Colors.black,
+                      color: ColorStyle.black,
                           ),
                   ],
                 ),
@@ -341,7 +341,7 @@ class _GameScreenState extends State<GameScreen> {
       );
       _columnChildren.add(const Divider(
         height: 0.0,
-        color: Colors.black,
+        color: ColorStyle.black,
       ));
       _rowChildren = [];
     }
@@ -364,15 +364,15 @@ class _GameScreenState extends State<GameScreen> {
           child: const Icon(
             FontAwesomeIcons.circle,
             size: 60,
-            color: Colors.blue,
+            color: ColorStyle.blue,
           ),
         );
       case PieceStatus.cross:
         return Container(
           child: const Icon(
             Icons.clear,
-            size: 70,
-            color: Colors.red,
+            size: 75,
+            color: ColorStyle.red,
           ),
         );
       case PieceStatus.square:
@@ -380,7 +380,7 @@ class _GameScreenState extends State<GameScreen> {
           child: const Icon(
             FontAwesomeIcons.square,
             size: 60,
-            color: Colors.green,
+            color: ColorStyle.green,
           ),
         );
       default:
