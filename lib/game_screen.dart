@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:barubatu_3_app/model/model.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -15,6 +14,9 @@ class _GameScreenState extends State<GameScreen> {
   //まる　　  1 = true, 　　  2 = true,
   //ばつ　　  1 = false,　　  2 = false,
   //四角　　  1 = false, 　　  2 = true,
+
+  bool turnOfPlay1 = true;
+  bool turnOfPlay2 = true;
 
   //or
 
@@ -199,13 +201,13 @@ class _GameScreenState extends State<GameScreen> {
           children: [
             turnOfPlayer1
                 ? const Icon(
-                    FontAwesomeIcons.circle,
-                    size: 35,
-                  )
+              FontAwesomeIcons.circle,
+              size: 35,
+            )
                 : const Icon(
-                    Icons.clear,
-                    size: 40,
-                  ),
+              Icons.clear,
+              size: 40,
+            ),
             const Text('のターン', style: TextStyle(fontSize: 30)),
           ],
         );
@@ -217,13 +219,13 @@ class _GameScreenState extends State<GameScreen> {
           children: [
             !turnOfPlayer1
                 ? const Icon(
-                    FontAwesomeIcons.circle,
-                    size: 35,
-                  )
+              FontAwesomeIcons.circle,
+              size: 35,
+            )
                 : const Icon(
-                    Icons.clear,
-                    size: 40,
-                  ),
+              Icons.clear,
+              size: 40,
+            ),
             const Text("の勝ち!!", style: TextStyle(fontSize: 30)),
           ],
         );
@@ -249,15 +251,15 @@ class _GameScreenState extends State<GameScreen> {
             child: InkWell(
               onTap: gameStatus == GameStatus.play
                   ? () {
-                      if (statusList[_index] == PieceStatus.none) {
-                        statusList[_index] = turnOfPlayer1
-                            ? PieceStatus.circle
-                            : PieceStatus.cross;
-                        turnOfPlayer1 = !turnOfPlayer1;
-                        confirmResult();
-                      }
-                      setState(() {});
-                    }
+                if (statusList[_index] == PieceStatus.none) {
+                  statusList[_index] = turnOfPlayer1
+                      ? PieceStatus.circle
+                      : PieceStatus.cross;
+                  turnOfPlayer1 = !turnOfPlayer1;
+                  confirmResult();
+                }
+                setState(() {});
+              }
                   : null,
               child: AspectRatio(
                 aspectRatio: 1.0,
@@ -267,9 +269,9 @@ class _GameScreenState extends State<GameScreen> {
                     (i == 4)
                         ? Container()
                         : const VerticalDivider(
-                            width: 0.0,
-                            color: Colors.black,
-                          ),
+                      width: 0.0,
+                      color: Colors.black,
+                    ),
                   ],
                 ),
               ),
@@ -331,7 +333,7 @@ class _GameScreenState extends State<GameScreen> {
     //行における勝敗のパターン
     for (int i = 0; i < settlementListHorizontal.length; i++) {
       if (statusList[settlementListHorizontal[i][0]] ==
-              statusList[settlementListHorizontal[i][1]] &&
+          statusList[settlementListHorizontal[i][1]] &&
           statusList[settlementListHorizontal[i][1]] ==
               statusList[settlementListHorizontal[i][2]] &&
           statusList[settlementListHorizontal[i][0]] != PieceStatus.none) {
@@ -346,7 +348,7 @@ class _GameScreenState extends State<GameScreen> {
     //行における勝敗のパターン
     for (int i = 0; i < settlementListVertical.length; i++) {
       if (statusList[settlementListVertical[i][0]] ==
-              statusList[settlementListVertical[i][1]] &&
+          statusList[settlementListVertical[i][1]] &&
           statusList[settlementListVertical[i][1]] ==
               statusList[settlementListVertical[i][2]] &&
           statusList[settlementListVertical[i][0]] != PieceStatus.none) {
@@ -361,7 +363,7 @@ class _GameScreenState extends State<GameScreen> {
     //斜めにおける勝敗パターン
     for (int i = 0; i < settlementListDiagonal.length; i++) {
       if (statusList[settlementListDiagonal[i][0]] ==
-              statusList[settlementListDiagonal[i][1]] &&
+          statusList[settlementListDiagonal[i][1]] &&
           statusList[settlementListDiagonal[i][1]] ==
               statusList[settlementListDiagonal[i][2]] &&
           statusList[settlementListDiagonal[i][0]] != PieceStatus.none) {
