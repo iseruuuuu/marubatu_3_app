@@ -12,7 +12,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  //playerの設定。。。。◯->true   ,✖︎→false
   bool turnOfCircle = true;
   List<PieceStatus> statusList = List.filled(16, PieceStatus.none);
   GameStatus gameStatus = GameStatus.play;
