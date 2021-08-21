@@ -181,7 +181,6 @@ class _GameScreenState extends State<GameScreen> {
                     turnOfPlayer1 = true;
                     turnOfPlayer2 = false;
                     turnOfPlayer3 = false;
-
                     statusList = List.filled(25, PieceStatus.none);
                     gameStatus = GameStatus.play;
                     buildLine = [Container()];
@@ -273,11 +272,34 @@ class _GameScreenState extends State<GameScreen> {
               onTap: gameStatus == GameStatus.play
                   ? () {
                       if (statusList[_index] == PieceStatus.none) {
-                        statusList[_index] = turnOfPlayer1
-                            ? PieceStatus.circle
-                            : PieceStatus.cross;
-                        turnOfPlayer1 = !turnOfPlayer1;
-                        confirmResult();
+                        if (turnOfPlayer1 == true) {
+                          statusList[_index] = PieceStatus.circle;
+                          //true => false
+                          turnOfPlayer1 = false;
+                          //false => true
+                          turnOfPlayer2 = true;
+                          //true => false
+                          turnOfPlayer3 = false;
+                          confirmResult();
+                        } else if (turnOfPlayer2 == true) {
+                          statusList[_index] = PieceStatus.cross;
+                          //true => false
+                          turnOfPlayer1 = false;
+                          //true => false
+                          turnOfPlayer2 = false;
+                          //false => true
+                          turnOfPlayer3 = true;
+                          confirmResult();
+                        } else if (turnOfPlayer3 == true) {
+                          statusList[_index] = PieceStatus.square;
+                          //false => true
+                          turnOfPlayer1 = true;
+                          //true => false
+                          turnOfPlayer2 = false;
+                          //true => false
+                          turnOfPlayer3 = false;
+                          confirmResult();
+                        }
                       }
                       setState(() {});
                     }
@@ -329,8 +351,8 @@ class _GameScreenState extends State<GameScreen> {
         return Container(
           child: const Icon(
             FontAwesomeIcons.circle,
-            color: Colors.blue,
             size: 60,
+            color: Colors.blue,
           ),
         );
       case PieceStatus.cross:
@@ -339,6 +361,14 @@ class _GameScreenState extends State<GameScreen> {
             Icons.clear,
             size: 70,
             color: Colors.red,
+          ),
+        );
+      case PieceStatus.square:
+        return Container(
+          child: const Icon(
+            FontAwesomeIcons.square,
+            size: 60,
+            color: Colors.green,
           ),
         );
       default:
