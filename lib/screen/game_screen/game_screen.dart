@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:barubatu_3_app/model/color.dart';
 import 'package:barubatu_3_app/model/model.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -12,6 +13,8 @@ class GameScreen extends StatefulWidget {
 }
 
 class _GameScreenState extends State<GameScreen> {
+  // final controller = Get.put(GameScreenController(), tag: '');
+
   //まる　　  1 = true, 　　  2 = false,　　  3 = false,
   //ばつ　　  1 = false,　　  2 = true,　　  3 = false,
   //四角　　  1 = false, 　　  2 = false,　　  3 = true,
@@ -24,23 +27,18 @@ class _GameScreenState extends State<GameScreen> {
   double lineThickness = 5.0;
   late double lineWidth;
   final List<List<int>> settlementListHorizontal = [
-    //横の勝ち方　　　//3つ揃えると勝ちにする！！
     [0, 1, 2],
     [1, 2, 3],
     [2, 3, 4],
-
     [5, 6, 7],
     [6, 7, 8],
     [7, 8, 9],
-
     [10, 11, 12],
     [11, 12, 13],
     [12, 13, 14],
-
     [15, 16, 17],
     [16, 17, 18],
     [17, 18, 19],
-
     [20, 21, 22],
     [21, 22, 23],
     [22, 23, 24],
@@ -95,21 +93,55 @@ class _GameScreenState extends State<GameScreen> {
     [14, 18, 22],
   ];
 
+  void clear() {
+    setState(
+      () {
+        turnOfPlayer1 = true;
+        turnOfPlayer2 = false;
+        turnOfPlayer3 = false;
+        statusList = List.filled(25, PieceStatus.none);
+        gameStatus = GameStatus.play;
+        buildLine = [Container()];
+      },
+    );
+  }
+
+  void onTapImageDialog() {
+    showDialog(
+      context: context,
+      builder: (_) {
+        return AlertDialog(
+          title: const Center(
+            child: Text(
+              '勝ち手一覧',
+              style: TextStyle(
+                fontSize: 25,
+              ),
+            ),
+          ),
+          content: Image.asset(
+            'assets/images/1.png',
+          ),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     lineWidth = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: ColorStyle.backGroundColor,
+      backgroundColor: CupertinoColors.secondarySystemBackground,
       appBar: AppBar(
-        backgroundColor: ColorStyle.backGroundColor,
+        backgroundColor: CupertinoColors.secondarySystemBackground,
         elevation: 0,
         leading: Padding(
           padding: const EdgeInsets.only(left: 10),
           child: IconButton(
             icon: const Icon(
               Icons.arrow_back_ios,
-              color: ColorStyle.blue,
-              size: 25,
+              color: Colors.blueAccent,
+              size: 35,
             ),
             onPressed: () {
               Navigator.pop(context);
@@ -117,31 +149,15 @@ class _GameScreenState extends State<GameScreen> {
           ),
         ),
         actions: [
-          IconButton(
-            icon: const Icon(
-              Icons.menu,
-              color: ColorStyle.blue,
+          TextButton(
+            child: const Text(
+              '?',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 40,
+              ),
             ),
-            onPressed: () {
-              showDialog(
-                context: context,
-                builder: (_) {
-                  return AlertDialog(
-                    title: const Center(
-                      child: Text(
-                        '勝ち手一覧',
-                        style: TextStyle(
-                          fontSize: 25,
-                        ),
-                      ),
-                    ),
-                    content: Image.asset(
-                      'assets/images/1.png',
-                    ),
-                  );
-                },
-              );
-            },
+            onPressed: onTapImageDialog,
           ),
         ],
       ),
@@ -152,39 +168,6 @@ class _GameScreenState extends State<GameScreen> {
             padding: const EdgeInsets.all(8.0),
             child: Center(
               child: buildRow(),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: SizedBox(
-              width: MediaQuery.of(context).size.width / 1.5,
-              height: 50,
-              child: ElevatedButton(
-                child: const Text(
-                  'クリア',
-                  style: TextStyle(
-                    fontSize: 20,
-                    color: ColorStyle.white,
-                  ),
-                ),
-                style: ElevatedButton.styleFrom(
-                  primary: ColorStyle.blue,
-                  onPrimary: ColorStyle.blue,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(100.0),
-                  ),
-                ),
-                onPressed: () {
-                  setState(() {
-                    turnOfPlayer1 = true;
-                    turnOfPlayer2 = false;
-                    turnOfPlayer3 = false;
-                    statusList = List.filled(25, PieceStatus.none);
-                    gameStatus = GameStatus.play;
-                    buildLine = [Container()];
-                  });
-                },
-              ),
             ),
           ),
           buildColumn(),
@@ -201,61 +184,61 @@ class _GameScreenState extends State<GameScreen> {
           children: [
             turnOfPlayer1
                 ? const Icon(
-              FontAwesomeIcons.circle,
-              size: 40,
-              color: ColorStyle.blue,
-            )
+                    FontAwesomeIcons.circle,
+                    size: 50,
+                    color: ColorStyle.blue,
+                  )
                 : Container(),
             turnOfPlayer2
                 ? const Icon(
-              Icons.clear,
-              size: 50,
-              color: ColorStyle.red,
-            )
+                    Icons.clear,
+                    size: 60,
+                    color: ColorStyle.red,
+                  )
                 : Container(),
             turnOfPlayer3
                 ? const Icon(
-              FontAwesomeIcons.square,
-              color: ColorStyle.green,
-              size: 40,
-            )
+                    FontAwesomeIcons.square,
+                    color: ColorStyle.green,
+                    size: 50,
+                  )
                 : Container(),
             const SizedBox(width: 5),
             const Text(
               'のターン',
               style: TextStyle(
-                color: ColorStyle.textColor,
-                fontSize: 35,
+                color: Colors.black,
+                fontSize: 45,
               ),
             ),
           ],
         );
       case GameStatus.draw:
-        return const Text("引き分けです。", style: TextStyle(fontSize: 30));
+        return const Text("引き分けです", style: TextStyle(fontSize: 30));
       case GameStatus.settlement:
         return Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             turnOfPlayer1
                 ? const Icon(
-              FontAwesomeIcons.square,
-              color: ColorStyle.green,
-              size: 40,
-            )
+                    FontAwesomeIcons.square,
+                    color: ColorStyle.green,
+                    size: 50,
+                  )
                 : Container(),
             turnOfPlayer2
                 ? const Icon(
-              FontAwesomeIcons.circle,
-              size: 40,
-              color: ColorStyle.blue,
-            )
+                    FontAwesomeIcons.circle,
+                    size: 50,
+                    color: ColorStyle.blue,
+                  )
                 : Container(),
             turnOfPlayer3
                 ? const Icon(
-              Icons.clear,
-              size: 50,
-              color: ColorStyle.red,
-            )
+                    Icons.clear,
+                    size: 60,
+                    color: ColorStyle.red,
+                  )
                 : Container(),
             const SizedBox(
               width: 5,
@@ -263,7 +246,7 @@ class _GameScreenState extends State<GameScreen> {
             const Text(
               "の勝ち",
               style: TextStyle(
-                fontSize: 35,
+                fontSize: 45,
                 color: ColorStyle.textColor,
               ),
             ),
@@ -291,38 +274,29 @@ class _GameScreenState extends State<GameScreen> {
             child: InkWell(
               onTap: gameStatus == GameStatus.play
                   ? () {
-                if (statusList[_index] == PieceStatus.none) {
-                  if (turnOfPlayer1 == true) {
-                    statusList[_index] = PieceStatus.circle;
-                    //true => false
-                    turnOfPlayer1 = false;
-                    //false => true
-                    turnOfPlayer2 = true;
-                    //true => false
-                    turnOfPlayer3 = false;
-                    confirmResult();
-                  } else if (turnOfPlayer2 == true) {
-                    statusList[_index] = PieceStatus.cross;
-                    //true => false
-                    turnOfPlayer1 = false;
-                    //true => false
-                    turnOfPlayer2 = false;
-                    //false => true
-                    turnOfPlayer3 = true;
-                    confirmResult();
-                  } else if (turnOfPlayer3 == true) {
-                    statusList[_index] = PieceStatus.square;
-                    //false => true
-                    turnOfPlayer1 = true;
-                    //true => false
-                    turnOfPlayer2 = false;
-                    //true => false
-                    turnOfPlayer3 = false;
-                    confirmResult();
-                  }
-                }
-                setState(() {});
-              }
+                      if (statusList[_index] == PieceStatus.none) {
+                        if (turnOfPlayer1 == true) {
+                          statusList[_index] = PieceStatus.circle;
+                          turnOfPlayer1 = false;
+                          turnOfPlayer2 = true;
+                          turnOfPlayer3 = false;
+                          confirmResult();
+                        } else if (turnOfPlayer2 == true) {
+                          statusList[_index] = PieceStatus.cross;
+                          turnOfPlayer1 = false;
+                          turnOfPlayer2 = false;
+                          turnOfPlayer3 = true;
+                          confirmResult();
+                        } else if (turnOfPlayer3 == true) {
+                          statusList[_index] = PieceStatus.square;
+                          turnOfPlayer1 = true;
+                          turnOfPlayer2 = false;
+                          turnOfPlayer3 = false;
+                          confirmResult();
+                        }
+                      }
+                      setState(() {});
+                    }
                   : null,
               child: AspectRatio(
                 aspectRatio: 1.0,
@@ -332,9 +306,9 @@ class _GameScreenState extends State<GameScreen> {
                     (i == 4)
                         ? Container()
                         : const VerticalDivider(
-                      width: 0.0,
-                      color: ColorStyle.black,
-                    ),
+                            width: 0.0,
+                            color: ColorStyle.black,
+                          ),
                   ],
                 ),
               ),
@@ -405,7 +379,7 @@ class _GameScreenState extends State<GameScreen> {
     //行における勝敗のパターン
     for (int i = 0; i < settlementListHorizontal.length; i++) {
       if (statusList[settlementListHorizontal[i][0]] ==
-          statusList[settlementListHorizontal[i][1]] &&
+              statusList[settlementListHorizontal[i][1]] &&
           statusList[settlementListHorizontal[i][1]] ==
               statusList[settlementListHorizontal[i][2]] &&
           statusList[settlementListHorizontal[i][0]] != PieceStatus.none) {
@@ -419,7 +393,7 @@ class _GameScreenState extends State<GameScreen> {
     //行における勝敗のパターン
     for (int i = 0; i < settlementListVertical.length; i++) {
       if (statusList[settlementListVertical[i][0]] ==
-          statusList[settlementListVertical[i][1]] &&
+              statusList[settlementListVertical[i][1]] &&
           statusList[settlementListVertical[i][1]] ==
               statusList[settlementListVertical[i][2]] &&
           statusList[settlementListVertical[i][0]] != PieceStatus.none) {
@@ -433,7 +407,7 @@ class _GameScreenState extends State<GameScreen> {
     //斜めにおける勝敗パターン
     for (int i = 0; i < settlementListDiagonal.length; i++) {
       if (statusList[settlementListDiagonal[i][0]] ==
-          statusList[settlementListDiagonal[i][1]] &&
+              statusList[settlementListDiagonal[i][1]] &&
           statusList[settlementListDiagonal[i][1]] ==
               statusList[settlementListDiagonal[i][2]] &&
           statusList[settlementListDiagonal[i][0]] != PieceStatus.none) {
