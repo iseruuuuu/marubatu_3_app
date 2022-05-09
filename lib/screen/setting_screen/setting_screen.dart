@@ -1,12 +1,18 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:in_app_review/in_app_review.dart';
 import 'package:settings_ui/settings_ui.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class SettingScreen extends StatelessWidget {
+class SettingScreen extends StatefulWidget {
   const SettingScreen({Key? key}) : super(key: key);
 
+  @override
+  _SettingScreenState createState() => _SettingScreenState();
+}
+
+class _SettingScreenState extends State<SettingScreen>
+    with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     final InAppReview inAppReview = InAppReview.instance;
@@ -32,59 +38,69 @@ class SettingScreen extends StatelessWidget {
           ),
         ),
       ),
-      body: SettingsList(
-        sections: [
-          SettingsSection(
-            title: const Text(''),
-            tiles: <SettingsTile>[
-              SettingsTile.navigation(
-                leading: const Icon(Icons.local_police),
-                title: const Text('ライセンス'),
-                onPressed: (context) {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const LicensePage(),
+      body: Column(
+        children: [
+          SizedBox(
+            height: MediaQuery.of(context).size.height / 3,
+            width: MediaQuery.of(context).size.width,
+            child: SettingsList(
+              sections: [
+                SettingsSection(
+                  title: const Text(''),
+                  tiles: <SettingsTile>[
+                    SettingsTile.navigation(
+                      leading: const Icon(Icons.local_police),
+                      title: const Text('ライセンス'),
+                      onPressed: (context) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const LicensePage(),
+                          ),
+                        );
+                      },
                     ),
-                  );
-                },
-              ),
-              SettingsTile.navigation(
-                leading: const Icon(Icons.mail),
-                title: const Text('お問い合わせ'),
-                onPressed: (context) async {
-                  const url = 'https://forms.gle/eE8gJ2nQWghTfGzt6';
-                  if (await canLaunch(url)) {
-                    await launch(url);
-                  } else {
-                    openDialog(
-                      context: context,
-                      title: 'URLエラー',
-                      content: 'URLが開けませんでした。\n'
-                          'もう一度押してみるか、\n'
-                          '一度アプリを再起動してみてください。',
-                    );
-                  }
-                },
-              ),
-              SettingsTile.navigation(
-                leading: const Icon(Icons.star),
-                title: const Text('レビューする'),
-                onPressed: (context) async {
-                  if (await inAppReview.isAvailable()) {
-                    inAppReview.requestReview();
-                  } else {
-                    openDialog(
-                      context: context,
-                      title: 'レビューができませんでした。',
-                      content: 'レビューができませんでした。\n'
-                          'お手数ですが、もう一度お試しください',
-                    );
-                  }
-                },
-              ),
-            ],
+                    SettingsTile.navigation(
+                      leading: const Icon(Icons.mail),
+                      title: const Text('お問い合わせ'),
+                      onPressed: (context) async {
+                        const url = 'https://forms.gle/eE8gJ2nQWghTfGzt6';
+                        if (await canLaunch(url)) {
+                          await launch(url);
+                        } else {
+                          openDialog(
+                            context: context,
+                            title: 'URLエラー',
+                            content: 'URLが開けませんでした。\n'
+                                'もう一度押してみるか、\n'
+                                '一度アプリを再起動してみてください。',
+                          );
+                        }
+                      },
+                    ),
+                    SettingsTile.navigation(
+                      leading: const Icon(Icons.star),
+                      title: const Text('レビューする'),
+                      onPressed: (context) async {
+                        if (await inAppReview.isAvailable()) {
+                          inAppReview.requestReview();
+                        } else {
+                          openDialog(
+                            context: context,
+                            title: 'レビューができませんでした。',
+                            content: 'レビューができませんでした。\n'
+                                'お手数ですが、もう一度お試しください',
+                          );
+                        }
+                      },
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
+          Image.asset('assets/images/game.gif'),
+          const Spacer(),
         ],
       ),
     );
