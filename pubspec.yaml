@@ -72,6 +72,7 @@ flutter:
   assets:
     - assets/images/1.png
     - assets/images/game.gif
+    - assets/images/game1.gif
 fonts:
   - family: Canterbury
     fonts:
