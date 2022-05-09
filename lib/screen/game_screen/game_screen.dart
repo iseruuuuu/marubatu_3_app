@@ -1,8 +1,10 @@
 import 'dart:math';
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:barubatu_3_app/model/color.dart';
 import 'package:barubatu_3_app/model/model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class GameScreen extends StatefulWidget {
@@ -131,9 +133,9 @@ class _GameScreenState extends State<GameScreen> {
   Widget build(BuildContext context) {
     lineWidth = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: CupertinoColors.secondarySystemBackground,
+      backgroundColor: CupertinoColors.white,
       appBar: AppBar(
-        backgroundColor: CupertinoColors.secondarySystemBackground,
+        backgroundColor: CupertinoColors.white,
         elevation: 0,
         leading: Padding(
           padding: const EdgeInsets.only(left: 10),
@@ -164,11 +166,8 @@ class _GameScreenState extends State<GameScreen> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Center(
-              child: buildRow(),
-            ),
+          Center(
+            child: buildRow(),
           ),
           buildColumn(),
         ],
@@ -261,6 +260,7 @@ class _GameScreenState extends State<GameScreen> {
     List<Widget> _columnChildren = [
       const Divider(
         height: 0.0,
+        thickness: 2,
         color: ColorStyle.black,
       ),
     ];
@@ -307,6 +307,7 @@ class _GameScreenState extends State<GameScreen> {
                         ? Container()
                         : const VerticalDivider(
                             width: 0.0,
+                            thickness: 2,
                             color: ColorStyle.black,
                           ),
                   ],
@@ -324,6 +325,7 @@ class _GameScreenState extends State<GameScreen> {
       _columnChildren.add(
         const Divider(
           height: 0.0,
+          thickness: 2,
           color: ColorStyle.black,
         ),
       );
@@ -375,6 +377,7 @@ class _GameScreenState extends State<GameScreen> {
   void confirmResult() {
     if (!statusList.contains(PieceStatus.none)) {
       gameStatus = GameStatus.draw;
+      openWinningDialog(false);
     }
     //行における勝敗のパターン
     for (int i = 0; i < settlementListHorizontal.length; i++) {
@@ -383,11 +386,15 @@ class _GameScreenState extends State<GameScreen> {
           statusList[settlementListHorizontal[i][1]] ==
               statusList[settlementListHorizontal[i][2]] &&
           statusList[settlementListHorizontal[i][0]] != PieceStatus.none) {
-        buildLine.add(Container(
-          margin: EdgeInsets.only(
-              top: lineWidth / 3 * i + lineWidth / 6 - lineThickness / 2),
-        ));
+        buildLine.add(
+          Container(
+            margin: EdgeInsets.only(
+              top: lineWidth / 3 * i + lineWidth / 6 - lineThickness / 2,
+            ),
+          ),
+        );
         gameStatus = GameStatus.settlement;
+        openWinningDialog(true);
       }
     }
     //行における勝敗のパターン
@@ -397,11 +404,15 @@ class _GameScreenState extends State<GameScreen> {
           statusList[settlementListVertical[i][1]] ==
               statusList[settlementListVertical[i][2]] &&
           statusList[settlementListVertical[i][0]] != PieceStatus.none) {
-        buildLine.add(Container(
-          margin: EdgeInsets.only(
-              left: lineWidth / 3 * i + lineWidth / 6 - lineThickness / 2),
-        ));
+        buildLine.add(
+          Container(
+            margin: EdgeInsets.only(
+              left: lineWidth / 3 * i + lineWidth / 6 - lineThickness / 2,
+            ),
+          ),
+        );
         gameStatus = GameStatus.settlement;
+        openWinningDialog(true);
       }
     }
     //斜めにおける勝敗パターン
@@ -416,13 +427,61 @@ class _GameScreenState extends State<GameScreen> {
             alignment: i == 0 ? Alignment.topLeft : Alignment.topRight,
             angle: i == 0 ? -pi / 4 : pi / 4,
             child: Container(
-                width: lineThickness,
-                margin: EdgeInsets.only(
-                    left: i == 0 ? 0.0 : lineWidth - lineThickness)),
+              width: lineThickness,
+              margin: EdgeInsets.only(
+                left: i == 0 ? 0.0 : lineWidth - lineThickness,
+              ),
+            ),
           ),
         );
         gameStatus = GameStatus.settlement;
+        openWinningDialog(true);
       }
     }
+  }
+
+  void openWinningDialog(bool isWin) {
+    String whoWin = '';
+    double fontSize = 0.0;
+
+    if (isWin) {
+      if (turnOfPlayer1) {
+        whoWin = '□の勝ち';
+        fontSize = 30;
+      } else if (turnOfPlayer2) {
+        whoWin = '◯の勝ち';
+        fontSize = 30;
+      } else if (turnOfPlayer3) {
+        whoWin = '×の勝ち';
+        fontSize = 30;
+      }
+    } else {
+      whoWin = '引き分け';
+    }
+
+    AwesomeDialog(
+      context: context,
+      dialogType: DialogType.INFO_REVERSED,
+      barrierColor: Colors.grey.shade100,
+      dismissOnTouchOutside: true,
+      animType: AnimType.SCALE,
+      title: whoWin,
+      titleTextStyle: TextStyle(
+        fontWeight: FontWeight.bold,
+        fontSize: 35.w,
+        color: Colors.black,
+      ),
+      btnOkText: 'もう一度',
+      btnCancelText: 'タイトル',
+      btnCancelOnPress: () {
+        //タイトルへ
+        Navigator.pop(context);
+        // Navigator.pop(context);
+      },
+      btnOkOnPress: () {
+        //リセット
+        clear();
+      },
+    ).show();
   }
 }
