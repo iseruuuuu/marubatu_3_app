@@ -122,7 +122,7 @@ class _GameScreenState extends State<GameScreen> {
             ),
           ),
           content: Image.asset(
-            'assets/images/1.png',
+            'assets/images/dialog.png',
           ),
         );
       },
