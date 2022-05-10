@@ -15,6 +15,14 @@ class ChallengeListScreen extends StatelessWidget {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.white,
+        leading: IconButton(
+          iconSize: 35.w,
+          icon: Icon(
+            Icons.arrow_back_ios,
+            color: Colors.blueAccent,
+          ),
+          onPressed: controller.onTapBack,
+        ),
         actions: [
           IconButton(
             onPressed: controller.onTapTrophyScreen,
@@ -30,25 +38,65 @@ class ChallengeListScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            ButtonItem(
-              onPressed: controller.onTapLevel1,
-              text: 'レベル１',
+            ScaleTransition(
+              scale: controller.animationController.drive(
+                Tween<double>(
+                  begin: 1,
+                  end: 1.1,
+                ),
+              ),
+              child: ButtonItem(
+                onPressed: controller.onTapLevel1,
+                text: 'レベル１',
+              ),
             ),
-            ButtonItem(
-              onPressed: controller.onTapLevel2,
-              text: 'レベル２',
+            ScaleTransition(
+              scale: controller.animationController.drive(
+                Tween<double>(
+                  begin: 1,
+                  end: 1.13,
+                ),
+              ),
+              child: ButtonItem(
+                onPressed: controller.onTapLevel2,
+                text: 'レベル２',
+              ),
             ),
-            ButtonItem(
-              onPressed: controller.onTapLevel3,
-              text: 'レベル３',
+            ScaleTransition(
+              scale: controller.animationController.drive(
+                Tween<double>(
+                  begin: 1,
+                  end: 1.15,
+                ),
+              ),
+              child: ButtonItem(
+                onPressed: controller.onTapLevel3,
+                text: 'レベル３',
+              ),
             ),
-            ButtonItem(
-              onPressed: controller.onTapLevel4,
-              text: 'レベル４',
+            ScaleTransition(
+              scale: controller.animationController.drive(
+                Tween<double>(
+                  begin: 1,
+                  end: 1.17,
+                ),
+              ),
+              child: ButtonItem(
+                onPressed: controller.onTapLevel4,
+                text: 'レベル４',
+              ),
             ),
-            ButtonItem(
-              onPressed: controller.onTapLevel5,
-              text: 'レベル５',
+            ScaleTransition(
+              scale: controller.animationController.drive(
+                Tween<double>(
+                  begin: 1,
+                  end: 1.2,
+                ),
+              ),
+              child: ButtonItem(
+                onPressed: controller.onTapLevel5,
+                text: 'レベル５',
+              ),
             ),
           ],
         ),

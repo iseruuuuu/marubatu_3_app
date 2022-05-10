@@ -7,17 +7,30 @@ import '../challenge_screen/challenge_screen_1.dart';
 import '../challenge_screen/challenge_screen_2.dart';
 import '../challenge_screen/challenge_screen_5.dart';
 
-class ChallengeScreenController extends GetxController {
+class ChallengeScreenController extends GetxController
+    with GetSingleTickerProviderStateMixin {
   var stage1 = false.obs;
   var stage2 = false.obs;
   var stage3 = false.obs;
   var stage4 = false.obs;
   var stage5 = false.obs;
 
+  late AnimationController animationController;
+
   @override
   void onInit() {
     super.onInit();
     sharedPreference();
+    animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(
+        milliseconds: 1,
+      ),
+    )..repeat(reverse: true);
+  }
+
+  void onTapBack() {
+    Get.back();
   }
 
   Future<void> sharedPreference() async {
