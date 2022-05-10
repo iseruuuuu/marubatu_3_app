@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../model/color.dart';
 import '../../model/model.dart';
+import '../../preference/shared_preference.dart';
 
 class ChallengeScreen1 extends StatefulWidget {
   const ChallengeScreen1({Key? key}) : super(key: key);
@@ -500,17 +501,15 @@ class _ChallengeScreen1State extends State<ChallengeScreen1> {
     if (gameCount == 7) {
       whoWin = 'ゲームクリア';
       dialogType = DialogType.SUCCES;
+      setPreference();
     } else {
       whoWin = 'クリア失敗';
       dialogType = DialogType.ERROR;
-      //TODO 次のレベルが解放される or 何かすごいものをみせる
     }
-
     if (isWin) {
       whoWin = 'クリア失敗';
       dialogType = DialogType.ERROR;
     }
-
     AwesomeDialog(
       context: context,
       dialogType: dialogType,
@@ -526,13 +525,16 @@ class _ChallengeScreen1State extends State<ChallengeScreen1> {
       btnOkText: 'もう一度',
       btnCancelText: 'タイトル',
       btnCancelOnPress: () {
-        //タイトルへ
+        Navigator.pop(context);
         Navigator.pop(context);
       },
       btnOkOnPress: () {
-        //リセット
         clear();
       },
     ).show();
+  }
+
+  Future<void> setPreference() async {
+    await Preference().setBool(PreferenceKey.stage1, true);
   }
 }
