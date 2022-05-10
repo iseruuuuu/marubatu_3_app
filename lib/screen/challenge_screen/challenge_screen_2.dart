@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../model/color.dart';
 import '../../model/model.dart';
+import '../../preference/shared_preference.dart';
 
 class ChallengeScreen2 extends StatefulWidget {
   const ChallengeScreen2({Key? key}) : super(key: key);
@@ -500,6 +501,7 @@ class _ChallengeScreen2State extends State<ChallengeScreen2> {
     if (gameCount == 10) {
       whoWin = 'ゲームクリア';
       dialogType = DialogType.SUCCES;
+      setPreference();
     } else {
       whoWin = 'クリア失敗';
       dialogType = DialogType.ERROR;
@@ -528,11 +530,16 @@ class _ChallengeScreen2State extends State<ChallengeScreen2> {
       btnCancelOnPress: () {
         //タイトルへ
         Navigator.pop(context);
+        Navigator.pop(context);
       },
       btnOkOnPress: () {
         //リセット
         clear();
       },
     ).show();
+  }
+
+  Future<void> setPreference() async {
+    await Preference().setBool(PreferenceKey.stage2, true);
   }
 }
