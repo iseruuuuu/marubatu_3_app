@@ -23,9 +23,7 @@ class ChallengeScreenController extends GetxController
     sharedPreference();
     animationController = AnimationController(
       vsync: this,
-      duration: const Duration(
-        milliseconds: 1,
-      ),
+      duration: const Duration(seconds: 1),
     )..repeat(reverse: true);
   }
 
