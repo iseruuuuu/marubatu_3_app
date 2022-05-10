@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../model/color.dart';
 import '../../model/model.dart';
+import '../../preference/shared_preference.dart';
 
 class ChallengeScreen5 extends StatefulWidget {
   const ChallengeScreen5({Key? key}) : super(key: key);
@@ -493,6 +494,7 @@ class _ChallengeScreen5State extends State<ChallengeScreen5> {
     } else {
       whoWin = 'ゲームクリア';
       dialogType = DialogType.SUCCES;
+      setPreference();
 
       //TODO 次のレベルが解放される or 何かすごいものをみせる
     }
@@ -514,11 +516,16 @@ class _ChallengeScreen5State extends State<ChallengeScreen5> {
       btnCancelOnPress: () {
         //タイトルへ
         Navigator.pop(context);
+        Navigator.pop(context);
       },
       btnOkOnPress: () {
         //リセット
         clear();
       },
     ).show();
+  }
+
+  Future<void> setPreference() async {
+    await Preference().setBool(PreferenceKey.stage5, true);
   }
 }
