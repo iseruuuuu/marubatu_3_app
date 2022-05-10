@@ -4,10 +4,14 @@ import 'package:barubatu_3_app/screen/setting_screen/setting_screen.dart';
 import 'package:flutter/animation.dart';
 import 'package:get/get.dart';
 import 'package:new_version/new_version.dart';
+import 'package:audioplayers/audioplayers.dart';
 
 class HomeScreenController extends GetxController
     with GetSingleTickerProviderStateMixin {
   late AnimationController animationController;
+
+  static const tapSound = 'images/tap.mp3';
+  final AudioCache _cache = AudioCache(fixedPlayer: AudioPlayer());
 
   @override
   void onInit() {
@@ -25,6 +29,16 @@ class HomeScreenController extends GetxController
         seconds: 1,
       ),
     )..repeat(reverse: true);
+
+    loadSound();
+  }
+
+  void loadSound() async {
+    _cache.load(tapSound);
+  }
+
+  void playSound() async {
+    _cache.play(tapSound);
   }
 
   void openUpdateDialog(NewVersion newVersion) async {
@@ -47,13 +61,16 @@ class HomeScreenController extends GetxController
 
   void onTap() {
     Get.to(() => const GameScreen());
+    playSound();
   }
 
   void onTapChallenge() {
     Get.to(() => const ChallengeListScreen());
+    playSound();
   }
 
   void onTapSetting() {
     Get.to(() => const SettingScreen());
+    playSound();
   }
 }
