@@ -1,10 +1,14 @@
 import 'package:barubatu_3_app/screen/challenge_list_screen/challenge_list_screen.dart';
 import 'package:barubatu_3_app/screen/game_screen/game_screen.dart';
 import 'package:barubatu_3_app/screen/setting_screen/setting_screen.dart';
+import 'package:flutter/animation.dart';
 import 'package:get/get.dart';
 import 'package:new_version/new_version.dart';
 
-class HomeScreenController extends GetxController {
+class HomeScreenController extends GetxController
+    with GetSingleTickerProviderStateMixin {
+  late AnimationController animationController;
+
   @override
   void onInit() {
     super.onInit();
@@ -14,6 +18,13 @@ class HomeScreenController extends GetxController {
         iOSId: 'com.barubatu3App',
         iOSAppStoreCountry: 'JP');
     openUpdateDialog(newVersion);
+
+    animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(
+        seconds: 1,
+      ),
+    )..repeat(reverse: true);
   }
 
   void openUpdateDialog(NewVersion newVersion) async {
@@ -37,7 +48,7 @@ class HomeScreenController extends GetxController {
   void onTap() {
     Get.to(() => const GameScreen());
   }
-  
+
   void onTapChallenge() {
     Get.to(() => const ChallengeListScreen());
   }
