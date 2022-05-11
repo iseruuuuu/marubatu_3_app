@@ -90,6 +90,7 @@ flutter:
     - assets/images/grey5.png
 
     - assets/images/tap.mp3
+    - assets/images/background.mp3
 
 fonts:
   - family: Canterbury
