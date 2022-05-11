@@ -11,6 +11,7 @@ class HomeScreenController extends GetxController
   late AnimationController animationController;
 
   static const tapSound = 'images/tap.mp3';
+  static const backgroundMusic = 'images/background.mp3';
   final AudioCache _cache = AudioCache(fixedPlayer: AudioPlayer());
 
   @override
@@ -18,9 +19,10 @@ class HomeScreenController extends GetxController
     super.onInit();
 
     final newVersion = NewVersion(
-        androidId: 'com.barubatu_3_app',
-        iOSId: 'com.barubatu3App',
-        iOSAppStoreCountry: 'JP');
+      androidId: 'com.barubatu_3_app',
+      iOSId: 'com.barubatu3App',
+      iOSAppStoreCountry: 'JP',
+    );
     openUpdateDialog(newVersion);
 
     animationController = AnimationController(
@@ -31,10 +33,12 @@ class HomeScreenController extends GetxController
     )..repeat(reverse: true);
 
     loadSound();
+    _cache.loop(backgroundMusic);
   }
 
   void loadSound() async {
     _cache.load(tapSound);
+    _cache.load(backgroundMusic);
   }
 
   void playSound() async {
