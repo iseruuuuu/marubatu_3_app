@@ -19,6 +19,7 @@ class ChallengeScreenController extends GetxController
   late AnimationController animationController;
 
   static const tapSound = 'images/tap.mp3';
+  static const backgroundMusic = 'images/background.mp3';
   final AudioCache _cache = AudioCache(fixedPlayer: AudioPlayer());
 
   @override
@@ -32,6 +33,7 @@ class ChallengeScreenController extends GetxController
       ),
     )..repeat(reverse: true);
     loadSound();
+    _cache.loop(backgroundMusic);
   }
 
   void loadSound() async {
