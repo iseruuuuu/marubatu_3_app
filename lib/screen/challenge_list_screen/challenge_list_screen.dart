@@ -17,7 +17,7 @@ class ChallengeListScreen extends StatelessWidget {
         backgroundColor: Colors.white,
         leading: IconButton(
           iconSize: 35.w,
-          icon: Icon(
+          icon: const Icon(
             Icons.arrow_back_ios,
             color: Colors.blueAccent,
           ),
