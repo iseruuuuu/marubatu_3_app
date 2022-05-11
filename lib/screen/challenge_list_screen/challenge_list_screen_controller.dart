@@ -6,6 +6,7 @@ import '../../preference/shared_preference.dart';
 import '../challenge_screen/challenge_screen_1.dart';
 import '../challenge_screen/challenge_screen_2.dart';
 import '../challenge_screen/challenge_screen_5.dart';
+import 'package:audioplayers/audioplayers.dart';
 
 class ChallengeScreenController extends GetxController
     with GetSingleTickerProviderStateMixin {
@@ -17,6 +18,9 @@ class ChallengeScreenController extends GetxController
 
   late AnimationController animationController;
 
+  static const tapSound = 'images/tap.mp3';
+  final AudioCache _cache = AudioCache(fixedPlayer: AudioPlayer());
+
   @override
   void onInit() {
     super.onInit();
@@ -27,6 +31,15 @@ class ChallengeScreenController extends GetxController
         seconds: 1,
       ),
     )..repeat(reverse: true);
+    loadSound();
+  }
+
+  void loadSound() async {
+    _cache.load(tapSound);
+  }
+
+  void playSound() async {
+    _cache.play(tapSound);
   }
 
   @override
@@ -55,22 +68,27 @@ class ChallengeScreenController extends GetxController
 
   void onTapLevel1() {
     Get.to(() => const ChallengeScreen1());
+    playSound();
   }
 
   void onTapLevel2() {
     Get.to(() => const ChallengeScreen2());
+    playSound();
   }
 
   void onTapLevel3() {
     Get.to(() => const ChallengeScreen3());
+    playSound();
   }
 
   void onTapLevel4() {
     Get.to(() => const ChallengeScreen5());
+    playSound();
   }
 
   void onTapLevel5() {
     Get.to(() => const ChallengeScreen5());
+    playSound();
   }
 
   void onTapTrophyScreen() {
