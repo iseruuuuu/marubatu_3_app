@@ -23,8 +23,22 @@ class ChallengeScreenController extends GetxController
     sharedPreference();
     animationController = AnimationController(
       vsync: this,
-      duration: const Duration(seconds: 1),
+      duration: const Duration(
+        seconds: 1,
+      ),
     )..repeat(reverse: true);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    animationController.dispose();
+  }
+
+  @override
+  void onClose() {
+    super.onClose();
+    animationController.dispose();
   }
 
   void onTapBack() {
