@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:in_app_review/in_app_review.dart';
 import 'package:settings_ui/settings_ui.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -38,69 +39,81 @@ class _SettingScreenState extends State<SettingScreen>
           ),
         ),
       ),
-      body: Column(
-        children: [
-          SizedBox(
-            height: MediaQuery.of(context).size.height / 3,
-            width: MediaQuery.of(context).size.width,
-            child: SettingsList(
-              sections: [
-                SettingsSection(
-                  title: const Text(''),
-                  tiles: <SettingsTile>[
-                    SettingsTile.navigation(
-                      leading: const Icon(Icons.local_police),
-                      title: const Text('ライセンス'),
-                      onPressed: (context) {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const LicensePage(),
-                          ),
-                        );
-                      },
+      body: SettingsList(
+        sections: [
+          SettingsSection(
+            title: const Text(''),
+            tiles: <SettingsTile>[
+              SettingsTile.navigation(
+                leading: const Icon(Icons.local_police),
+                title: const Text('ライセンス'),
+                onPressed: (context) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const LicensePage(),
                     ),
-                    SettingsTile.navigation(
-                      leading: const Icon(Icons.mail),
-                      title: const Text('お問い合わせ'),
-                      onPressed: (context) async {
-                        const url = 'https://forms.gle/eE8gJ2nQWghTfGzt6';
-                        if (await canLaunch(url)) {
-                          await launch(url);
-                        } else {
-                          openDialog(
-                            context: context,
-                            title: 'URLエラー',
-                            content: 'URLが開けませんでした。\n'
-                                'もう一度押してみるか、\n'
-                                '一度アプリを再起動してみてください。',
-                          );
-                        }
-                      },
-                    ),
-                    SettingsTile.navigation(
-                      leading: const Icon(Icons.star),
-                      title: const Text('レビューする'),
-                      onPressed: (context) async {
-                        if (await inAppReview.isAvailable()) {
-                          inAppReview.requestReview();
-                        } else {
-                          openDialog(
-                            context: context,
-                            title: 'レビューができませんでした。',
-                            content: 'レビューができませんでした。\n'
-                                'お手数ですが、もう一度お試しください',
-                          );
-                        }
-                      },
-                    ),
-                  ],
-                ),
-              ],
-            ),
+                  );
+                },
+              ),
+              SettingsTile.navigation(
+                leading: const Icon(Icons.mail),
+                title: const Text('お問い合わせ'),
+                onPressed: (context) async {
+                  const url = 'https://forms.gle/eE8gJ2nQWghTfGzt6';
+                  if (await canLaunch(url)) {
+                    await launch(url);
+                  } else {
+                    openDialog(
+                      context: context,
+                      title: 'URLエラー',
+                      content: 'URLが開けませんでした。\n'
+                          'もう一度押してみるか、\n'
+                          '一度アプリを再起動してみてください。',
+                    );
+                  }
+                },
+              ),
+              SettingsTile.navigation(
+                leading: const Icon(Icons.star),
+                title: const Text('レビューする'),
+                onPressed: (context) async {
+                  if (await inAppReview.isAvailable()) {
+                    inAppReview.requestReview();
+                  } else {
+                    openDialog(
+                      context: context,
+                      title: 'レビューができませんでした。',
+                      content: 'レビューができませんでした。\n'
+                          'お手数ですが、もう一度お試しください',
+                    );
+                  }
+                },
+              ),
+            ],
           ),
-          Image.asset('assets/images/game.gif'),
-          const Spacer(),
+          SettingsSection(
+            title: const Text('音楽使用'),
+            tiles: <SettingsTile>[
+              SettingsTile.navigation(
+                leading: Icon(Icons.music_note),
+                title: Text(
+                  '音楽使用',
+                  style: TextStyle(
+                    color: Colors.grey.shade700,
+                    fontSize: 15.w,
+                  ),
+                ),
+                trailing: Text(
+                  '魔王魂',
+                  style: TextStyle(
+                    color: Colors.grey.shade700,
+                    fontSize: 20.w,
+                  ),
+                ),
+              ),
+            ],
+          ),
         ],
       ),
     );
