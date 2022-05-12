@@ -97,6 +97,7 @@ class _GameScreenState extends State<GameScreen> {
   ];
 
   static const tapSound = 'images/game_tap.mp3';
+  static const gameClear = 'images/game_clear.mp3';
   final AudioCache _cache = AudioCache(fixedPlayer: AudioPlayer());
 
   void loadSound() async {
@@ -453,7 +454,12 @@ class _GameScreenState extends State<GameScreen> {
     }
   }
 
+  void playClearSound() {
+    _cache.play(gameClear);
+  }
+
   void openWinningDialog(bool isWin) {
+    playClearSound();
     String whoWin = '';
     double fontSize = 0.0;
 
