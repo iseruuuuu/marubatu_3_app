@@ -7,6 +7,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../model/color.dart';
 import '../../model/model.dart';
 import '../../preference/shared_preference.dart';
+import 'package:audioplayers/audioplayers.dart';
 
 class ChallengeScreen4 extends StatefulWidget {
   const ChallengeScreen4({Key? key}) : super(key: key);
@@ -177,6 +178,27 @@ class _ChallengeScreen4State extends State<ChallengeScreen4> {
     );
   }
 
+  static const tapSound = 'images/game_tap.mp3';
+  static const gameClear = 'images/game_clear.mp3';
+  static const noGameClear = 'images/no_game_clear.mp3';
+  final AudioCache _cache = AudioCache(fixedPlayer: AudioPlayer());
+
+  void loadSound() async {
+    _cache.load(tapSound);
+  }
+
+  void playSound() async {
+    _cache.play(tapSound);
+  }
+
+  void clearGame() {
+    _cache.play(gameClear);
+  }
+
+  void noClearGame() {
+    _cache.play(noGameClear);
+  }
+
   @override
   Widget build(BuildContext context) {
     lineWidth = MediaQuery.of(context).size.width;
@@ -214,9 +236,7 @@ class _ChallengeScreen4State extends State<ChallengeScreen4> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          Center(
-            child: buildRow(),
-          ),
+          buildRow(),
           buildColumn(),
         ],
       ),
@@ -426,7 +446,8 @@ class _ChallengeScreen4State extends State<ChallengeScreen4> {
   }
 
   void confirmResult() {
-    if (gameCount >= 23) {
+    playSound();
+    if (gameCount >= 25) {
       openWinningDialog(true);
     } else {
       if (!statusList.contains(PieceStatus.none)) {
@@ -499,16 +520,19 @@ class _ChallengeScreen4State extends State<ChallengeScreen4> {
     String whoWin = '';
     DialogType dialogType = DialogType.ERROR;
     if (gameCount == 24) {
+      clearGame();
       whoWin = 'ゲームクリア';
       dialogType = DialogType.SUCCES;
       setPreference();
     } else {
+      noClearGame();
       whoWin = 'クリア失敗';
       dialogType = DialogType.ERROR;
       //TODO 次のレベルが解放される or 何かすごいものをみせる
     }
 
     if (isWin) {
+      noClearGame();
       whoWin = 'クリア失敗';
       dialogType = DialogType.ERROR;
     }
