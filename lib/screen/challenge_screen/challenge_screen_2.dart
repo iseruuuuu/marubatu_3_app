@@ -7,6 +7,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../model/color.dart';
 import '../../model/model.dart';
 import '../../preference/shared_preference.dart';
+import 'package:audioplayers/audioplayers.dart';
+
 
 class ChallengeScreen2 extends StatefulWidget {
   const ChallengeScreen2({Key? key}) : super(key: key);
@@ -175,6 +177,27 @@ class _ChallengeScreen2State extends State<ChallengeScreen2> {
         );
       },
     );
+  }
+
+  static const tapSound = 'images/game_tap.mp3';
+  static const gameClear = 'images/game_clear.mp3';
+  static const noGameClear = 'images/no_game_clear.mp3';
+  final AudioCache _cache = AudioCache(fixedPlayer: AudioPlayer());
+
+  void loadSound() async {
+    _cache.load(tapSound);
+  }
+
+  void playSound() async {
+    _cache.play(tapSound);
+  }
+
+  void clearGame() {
+    _cache.play(gameClear);
+  }
+
+  void noClearGame() {
+    _cache.play(noGameClear);
   }
 
   @override
@@ -426,6 +449,7 @@ class _ChallengeScreen2State extends State<ChallengeScreen2> {
   }
 
   void confirmResult() {
+    playSound();
     if (gameCount >= 11) {
       openWinningDialog(true);
     } else {
@@ -499,16 +523,19 @@ class _ChallengeScreen2State extends State<ChallengeScreen2> {
     String whoWin = '';
     DialogType dialogType = DialogType.ERROR;
     if (gameCount == 10) {
+      clearGame();
       whoWin = 'ゲームクリア';
       dialogType = DialogType.SUCCES;
       setPreference();
     } else {
+      noClearGame();
       whoWin = 'クリア失敗';
       dialogType = DialogType.ERROR;
       //TODO 次のレベルが解放される or 何かすごいものをみせる
     }
 
     if (isWin) {
+      noClearGame();
       whoWin = 'クリア失敗';
       dialogType = DialogType.ERROR;
     }
