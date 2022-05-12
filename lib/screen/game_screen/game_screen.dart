@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:audioplayers/audioplayers.dart';
 
 class GameScreen extends StatefulWidget {
   const GameScreen({Key? key}) : super(key: key);
@@ -94,6 +95,17 @@ class _GameScreenState extends State<GameScreen> {
     [13, 17, 21],
     [14, 18, 22],
   ];
+
+  static const tapSound = 'images/game_tap.mp3';
+  final AudioCache _cache = AudioCache(fixedPlayer: AudioPlayer());
+
+  void loadSound() async {
+    _cache.load(tapSound);
+  }
+
+  void playSound() async {
+    _cache.play(tapSound);
+  }
 
   void clear() {
     setState(
@@ -375,6 +387,7 @@ class _GameScreenState extends State<GameScreen> {
   }
 
   void confirmResult() {
+    playSound();
     if (!statusList.contains(PieceStatus.none)) {
       gameStatus = GameStatus.draw;
       openWinningDialog(false);
