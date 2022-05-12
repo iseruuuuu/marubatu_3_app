@@ -44,6 +44,7 @@ dependencies:
   flutter_animator: ^3.2.1
   awesome_dialog: ^2.2.1
   new_version: ^0.3.0
+  flutter_image_slideshow: ^0.1.2
 
 
 dev_dependencies:
@@ -91,6 +92,8 @@ flutter:
 
     - assets/images/tap.mp3
     - assets/images/background.mp3
+    - assets/images/trophy_b.mp3
+    - assets/images/game_tap.mp3
 
 fonts:
   - family: Canterbury
