@@ -96,6 +96,7 @@ flutter:
     - assets/images/game_tap.mp3
     - assets/images/game_clear.mp3
     - assets/images/no_game_clear.mp3
+    - assets/images/game_bgm.mp3
 
 fonts:
   - family: Canterbury
