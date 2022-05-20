@@ -26,40 +26,40 @@ class TrophyScreen extends StatefulWidget {
 }
 
 class _TrophyScreenState extends State<TrophyScreen> with RouteAware {
-  static const backgroundMusic = 'images/trophy_b.mp3';
-  final AudioCache _cache = AudioCache(fixedPlayer: AudioPlayer());
-  AudioPlayer? _player;
+  // static const backgroundMusic = 'images/trophy_b.mp3';
+  // final AudioCache _cache = AudioCache(fixedPlayer: AudioPlayer());
+  // AudioPlayer? _player;
 
-  void bgmPlayer({required String name, bool isLoop = true}) {
-    () async {
-      await _player?.stop();
-      await _player?.dispose();
-      if (isLoop) {
-        _player = await _cache.loop(name, mode: PlayerMode.MEDIA_PLAYER);
-      } else {
-        _player = await _cache.play(name, mode: PlayerMode.MEDIA_PLAYER);
-      }
-    }();
-  }
+  // void bgmPlayer({required String name, bool isLoop = true}) {
+  //   () async {
+  //     await _player?.stop();
+  //     await _player?.dispose();
+  //     if (isLoop) {
+  //       _player = await _cache.loop(name, mode: PlayerMode.MEDIA_PLAYER);
+  //     } else {
+  //       _player = await _cache.play(name, mode: PlayerMode.MEDIA_PLAYER);
+  //     }
+  //   }();
+  // }
 
-  void stopBgm() async {
-    await _player?.stop();
-  }
-
-  Future<void> disposeBgm() async {
-    return await _player?.dispose();
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    bgmPlayer(name: backgroundMusic);
-  }
+  // void stopBgm() async {
+  //   await _player?.stop();
+  // }
+  //
+  // Future<void> disposeBgm() async {
+  //   return await _player?.dispose();
+  // }
+  //
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   bgmPlayer(name: backgroundMusic);
+  // }
 
   @override
   void dispose() {
     super.dispose();
-    stopBgm();
+    // stopBgm();
   }
 
   @override
@@ -84,7 +84,7 @@ class _TrophyScreenState extends State<TrophyScreen> with RouteAware {
               size: 35,
             ),
             onPressed: () {
-              stopBgm();
+              // stopBgm();
               Navigator.pop(context);
             },
           ),

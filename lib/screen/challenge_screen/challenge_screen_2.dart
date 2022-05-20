@@ -104,7 +104,7 @@ class _ChallengeScreen2State extends State<ChallengeScreen2> {
   void initState() {
     super.initState();
     openFirstDialog();
-    bgmPlayer(name: backgroundMusic);
+    // bgmPlayer(name: backgroundMusic);
     loadSound();
   }
 
@@ -186,20 +186,20 @@ class _ChallengeScreen2State extends State<ChallengeScreen2> {
   static const noGameClear = 'images/no_game_clear.mp3';
   final AudioCache _cache = AudioCache(fixedPlayer: AudioPlayer());
 
-  static const backgroundMusic = 'images/game_bgm.mp3';
+  // static const backgroundMusic = 'images/game_bgm.mp3';
   AudioPlayer? _player;
 
-  void bgmPlayer({required String name, bool isLoop = true}) {
-        () async {
-      await _player?.stop();
-      await _player?.dispose();
-      if (isLoop) {
-        _player = await _cache.loop(name, mode: PlayerMode.MEDIA_PLAYER);
-      } else {
-        _player = await _cache.play(name, mode: PlayerMode.MEDIA_PLAYER);
-      }
-    }();
-  }
+  // void bgmPlayer({required String name, bool isLoop = true}) {
+  //       () async {
+  //     await _player?.stop();
+  //     await _player?.dispose();
+  //     if (isLoop) {
+  //       _player = await _cache.loop(name, mode: PlayerMode.MEDIA_PLAYER);
+  //     } else {
+  //       _player = await _cache.play(name, mode: PlayerMode.MEDIA_PLAYER);
+  //     }
+  //   }();
+  // }
 
   void stopBgm() async {
     await _player?.stop();

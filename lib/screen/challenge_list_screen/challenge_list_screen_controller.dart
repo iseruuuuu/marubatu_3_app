@@ -8,9 +8,10 @@ import '../challenge_screen/challenge_screen_2.dart';
 import '../challenge_screen/challenge_screen_4.dart';
 import '../challenge_screen/challenge_screen_5.dart';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:flutter/material.dart';
 
 class ChallengeScreenController extends GetxController
-    with GetSingleTickerProviderStateMixin {
+    with GetSingleTickerProviderStateMixin, WidgetsBindingObserver, RouteAware {
   var stage1 = false.obs;
   var stage2 = false.obs;
   var stage3 = false.obs;
@@ -19,10 +20,13 @@ class ChallengeScreenController extends GetxController
 
   late AnimationController animationController;
 
-  static const tapSound = 'images/tap.mp3';
-  static const backgroundMusic = 'images/background.mp3';
-  final AudioCache _cache = AudioCache(fixedPlayer: AudioPlayer());
-  AudioPlayer? _player;
+  // static const bgm = 'images/background.mp3';
+  // final AudioCache bgmCache = AudioCache(fixedPlayer: AudioPlayer());
+  // AudioPlayer? bgmPlayer;
+
+  static const tap = 'images/tap.mp3';
+  final AudioCache tapCache = AudioCache(fixedPlayer: AudioPlayer());
+  AudioPlayer? tapPlayer;
 
   @override
   void onInit() {
@@ -34,59 +38,61 @@ class ChallengeScreenController extends GetxController
         seconds: 1,
       ),
     )..repeat(reverse: true);
-    bgmPlayer(name: backgroundMusic);
-    loadSound();
-  }
-
-  void bgmPlayer({required String name, bool isLoop = true}) {
-    () async {
-      await _player?.stop();
-      await _player?.dispose();
-      if (isLoop) {
-        _player = await _cache.loop(name, mode: PlayerMode.MEDIA_PLAYER);
-      } else {
-        _player = await _cache.play(name, mode: PlayerMode.MEDIA_PLAYER);
-      }
-    }();
-  }
-
-  void loadSound() async {
-    _cache.load(tapSound);
-  }
-
-  void playSound() async {
-    _cache.play(tapSound);
-  }
-
-  void stopSound() {
-    _cache.clearAll();
-  }
-
-  void stopBgm() async {
-    await _player?.stop();
-  }
-
-  Future<void> disposeBgm() async {
-    return await _player?.dispose();
+    // loadBgm(name: bgm);
+    loadTap();
+    WidgetsBinding.instance?.addObserver(this);
   }
 
   @override
   void dispose() {
-    super.dispose();
-    stopBgm();
+    WidgetsBinding.instance?.removeObserver(this);
     animationController.dispose();
+    // onBackground();
+    super.dispose();
   }
+
+  // @override
+  // void didChangeAppLifecycleState(AppLifecycleState state) {
+  //   if (state == AppLifecycleState.resumed) {
+  //     onForeground();
+  //   } else if (state == AppLifecycleState.paused) {
+  //     onBackground();
+  //   }
+  // }
+
+  // void loadBgm({required String name, bool isLoop = true}) {
+  //   () async {
+  //     await bgmPlayer?.stop();
+  //     await bgmPlayer?.dispose();
+  //     bgmPlayer = await bgmCache.loop(name, mode: PlayerMode.MEDIA_PLAYER);
+  //   }();
+  // }
+
+  void loadTap() async {
+    tapCache.load(tap);
+  }
+
+  void playTap() async {
+    tapCache.play(tap);
+  }
+
+  // void onBackground() {
+  //   bgmPlayer?.pause();
+  // }
+  //
+  // void onForeground() {
+  //   bgmPlayer?.resume();
+  // }
 
   @override
   void onClose() {
-    super.onClose();
     animationController.dispose();
+    super.onClose();
   }
 
   void onTapBack() {
     Get.back();
-    stopSound();
-    stopBgm();
+    // onBackground();
   }
 
   Future<void> sharedPreference() async {
@@ -98,33 +104,43 @@ class ChallengeScreenController extends GetxController
   }
 
   void onTapLevel1() {
-    Get.to(() => const ChallengeScreen1());
-    playSound();
-    stopSound();
+    Get.to(() => const ChallengeScreen1())?.then((value) {
+      // onForeground();
+    });
+    // onBackground();
+    playTap();
   }
 
   void onTapLevel2() {
-    Get.to(() => const ChallengeScreen2());
-    playSound();
-    stopBgm();
+    Get.to(() => const ChallengeScreen2())?.then((value) {
+      // onForeground();
+    });
+    // onBackground();
+    playTap();
   }
 
   void onTapLevel3() {
-    Get.to(() => const ChallengeScreen3());
-    playSound();
-    stopBgm();
+    Get.to(() => const ChallengeScreen3())?.then((value) {
+      // onForeground();
+    });
+    // onBackground();
+    playTap();
   }
 
   void onTapLevel4() {
-    Get.to(() => const ChallengeScreen4());
-    playSound();
-    stopBgm();
+    Get.to(() => const ChallengeScreen4())?.then((value) {
+      // onForeground();
+    });
+    // onBackground();
+    playTap();
   }
 
   void onTapLevel5() {
-    Get.to(() => const ChallengeScreen5());
-    playSound();
-    stopBgm();
+    Get.to(() => const ChallengeScreen5())?.then((value) {
+      // onForeground();
+    });
+    // onBackground();
+    playTap();
   }
 
   void onTapTrophyScreen() {
@@ -136,8 +152,10 @@ class ChallengeScreenController extends GetxController
         isClear4: stage4.value,
         isClear5: stage5.value,
       ),
-    );
-    playSound();
-    stopBgm();
+    )?.then((value) {
+      // onForeground();
+    });
+    // onBackground();
+    playTap();
   }
 }

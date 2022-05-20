@@ -2,18 +2,21 @@ import 'package:barubatu_3_app/screen/challenge_list_screen/challenge_list_scree
 import 'package:barubatu_3_app/screen/game_screen/game_screen.dart';
 import 'package:barubatu_3_app/screen/setting_screen/setting_screen.dart';
 import 'package:flutter/animation.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:new_version/new_version.dart';
 import 'package:audioplayers/audioplayers.dart';
 
 class HomeScreenController extends GetxController
-    with GetSingleTickerProviderStateMixin {
+    with GetSingleTickerProviderStateMixin, WidgetsBindingObserver, RouteAware {
   late AnimationController animationController;
 
-  static const tapSound = 'images/tap.mp3';
-  static const backgroundMusic = 'images/background.mp3';
-  final AudioCache _cache = AudioCache(fixedPlayer: AudioPlayer());
-  AudioPlayer? _player;
+  //static const bgm = 'images/background.mp3';
+  //final AudioCache bgmCache = AudioCache(fixedPlayer: AudioPlayer());
+  //AudioPlayer? bgmPlayer;
+  static const tap = 'images/tap.mp3';
+  final AudioCache tapCache = AudioCache(fixedPlayer: AudioPlayer());
+  AudioPlayer? tapPlayer;
 
   @override
   void onInit() {
@@ -30,48 +33,54 @@ class HomeScreenController extends GetxController
         seconds: 1,
       ),
     )..repeat(reverse: true);
-    bgmPlayer(name: backgroundMusic);
-    loadSound();
-  }
-
-  void bgmPlayer({required String name, bool isLoop = true}) {
-    () async {
-      await _player?.stop();
-      await _player?.dispose();
-      if (isLoop) {
-        _player = await _cache.loop(name, mode: PlayerMode.MEDIA_PLAYER);
-      } else {
-        _player = await _cache.play(name, mode: PlayerMode.MEDIA_PLAYER);
-      }
-    }();
-  }
-
-  void loadSound() async {
-    _cache.load(tapSound);
-  }
-
-  void playSound() async {
-    _cache.play(tapSound);
-  }
-
-  void stopBgm() async {
-    await _player?.stop();
-  }
-
-  Future<void> disposeBgm() async {
-    return await _player?.dispose();
+    // loadBgm(name: bgm);
+    loadTap();
+    WidgetsBinding.instance?.addObserver(this);
   }
 
   @override
   void dispose() {
     super.dispose();
-    stopBgm();
+    WidgetsBinding.instance?.removeObserver(this);
+    // onBackground();
   }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      // onForeground();
+    } else if (state == AppLifecycleState.paused) {
+      // onBackground();
+    }
+  }
+
+  // void loadBgm({required String name, bool isLoop = true}) {
+  //   () async {
+  //     await bgmPlayer?.stop();
+  //     await bgmPlayer?.dispose();
+  //     bgmPlayer = await bgmCache.loop(name, mode: PlayerMode.MEDIA_PLAYER);
+  //   }();
+  // }
+
+  void loadTap() async {
+    tapCache.load(tap);
+  }
+
+  void playTap() async {
+    tapCache.play(tap);
+  }
+
+  // void onBackground() {
+  //   bgmPlayer?.pause();
+  // }
+  //
+  // void onForeground() {
+  //   bgmPlayer?.resume();
+  // }
 
   void openUpdateDialog(NewVersion newVersion) async {
     final status = await newVersion.getVersionStatus();
     if (status != null && status.canUpdate) {
-      //アップデートが必要か否かチェック
       String storeVersion = status.storeVersion;
       String releaseNote = status.releaseNotes.toString();
       newVersion.showUpdateDialog(
@@ -87,20 +96,26 @@ class HomeScreenController extends GetxController
   }
 
   void onTap() {
-    Get.to(() => const GameScreen());
-    playSound();
-    stopBgm();
+    Get.to(() => const GameScreen())?.then((value) {
+      //onForeground();
+    });
+    playTap();
+    // onBackground();
   }
 
   void onTapChallenge() {
-    Get.to(() => const ChallengeListScreen());
-    playSound();
-    stopBgm();
+    Get.to(() => const ChallengeListScreen())?.then((value) {
+      //onForeground();
+    });
+    playTap();
+    // onBackground();
   }
 
   void onTapSetting() {
-    Get.to(() => const SettingScreen());
-    playSound();
-    stopBgm();
+    Get.to(() => const SettingScreen())?.then((value) {
+      // onForeground();
+    });
+    playTap();
+    // onBackground();
   }
 }
