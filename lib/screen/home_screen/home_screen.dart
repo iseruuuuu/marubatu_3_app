@@ -37,147 +37,147 @@ class HomeScreen extends StatelessWidget {
                 ),
               ],
             ),
-            DefaultTextStyle(
-              style: const TextStyle(
-                fontSize: 40.0,
-                color: Colors.black,
-              ),
-              child: AnimatedTextKit(
-                animatedTexts: [
-                  WavyAnimatedText('▲ ■ ● ゲーム'),
-                ],
-                repeatForever: true,
-              ),
-            ),
-            SizedBox(
-              width: 250.0,
-              height: 50,
-              child: DefaultTextStyle(
-                style: const TextStyle(
-                  fontSize: 35,
-                  color: Colors.white,
-                  shadows: [
-                    Shadow(
-                      blurRadius: 7.0,
-                      color: Colors.white,
-                      offset: Offset(0, 0),
-                    ),
-                  ],
-                ),
-                child: AnimatedTextKit(
-                  repeatForever: true,
-                  isRepeatingAnimation: true,
-                  animatedTexts: [
-                    FlickerAnimatedText(
-                      '▲ ■ ● ゲーム',
-                      textStyle: const TextStyle(color: Colors.blue),
-                    ),
-                    FlickerAnimatedText(
-                      '▲ ■ ● ゲーム',
-                      textStyle: const TextStyle(color: Colors.red),
-                    ),
-                    FlickerAnimatedText(
-                      '▲ ■ ● ゲーム',
-                      textStyle: const TextStyle(color: Colors.green),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            SizedBox(
-              width: 250.0,
-              height: 50,
-              child: DefaultTextStyle(
-                style: const TextStyle(
-                  fontSize: 32.0,
-                  fontWeight: FontWeight.bold,
-                ),
-                child: Center(
-                  child: AnimatedTextKit(
-                    repeatForever: true,
-                    animatedTexts: [
-                      FadeAnimatedText('▲ ■ ● ゲーム',
-                          duration: const Duration(seconds: 2),
-                          textStyle: const TextStyle(color: Colors.blue),
-                          fadeOutBegin: 0.9,
-                          fadeInEnd: 0.7),
-                      FadeAnimatedText('▲ ■ ● ゲーム',
-                          duration: const Duration(seconds: 2),
-                          textStyle: const TextStyle(color: Colors.red),
-                          fadeOutBegin: 0.9,
-                          fadeInEnd: 0.7),
-                      FadeAnimatedText('▲ ■ ● ゲーム',
-                          duration: const Duration(seconds: 2),
-                          textStyle: const TextStyle(color: Colors.green),
-                          fadeOutBegin: 0.9,
-                          fadeInEnd: 0.7),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(
-              width: MediaQuery.of(context).size.width,
-              height: 70,
-              child: DefaultTextStyle(
-                style: const TextStyle(
-                  fontSize: 50.0,
-                  fontFamily: 'SF',
-                ),
-                child: Center(
-                  child: AnimatedTextKit(
-                    repeatForever: true,
-                    animatedTexts: [
-                      ScaleAnimatedText(
-                        '▲ ■ ● ゲーム4',
-                        scalingFactor: 0.2,
-                        textStyle: const TextStyle(color: Colors.blue),
-                      ),
-                      ScaleAnimatedText(
-                        '▲ ■ ● ゲーム4',
-                        scalingFactor: 0.2,
-                        textStyle: const TextStyle(color: Colors.red),
-                      ),
-                      ScaleAnimatedText(
-                        '▲ ■ ● ゲーム4',
-                        scalingFactor: 0.2,
-                        textStyle: const TextStyle(color: Colors.green),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 60,
-              child: DefaultTextStyle(
-                style: const TextStyle(
-                  fontSize: 30.0,
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Center(
-                    child: AnimatedTextKit(
-                      repeatForever: true,
-                      animatedTexts: [
-                        TypewriterAnimatedText('▲ ■ ● ゲーム5',
-                            textStyle: const TextStyle(color: Colors.blue),
-                            curve: Curves.easeIn,
-                            speed: const Duration(milliseconds: 80)),
-                        TypewriterAnimatedText('▲ ■ ● ゲーム5',
-                            textStyle: const TextStyle(color: Colors.red),
-                            curve: Curves.easeIn,
-                            speed: const Duration(milliseconds: 80)),
-                        TypewriterAnimatedText('▲ ■ ● ゲーム5',
-                            textStyle: const TextStyle(color: Colors.green),
-                            curve: Curves.easeIn,
-                            speed: const Duration(milliseconds: 80)),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ),
+            // DefaultTextStyle(
+            //   style: const TextStyle(
+            //     fontSize: 40.0,
+            //     color: Colors.black,
+            //   ),
+            //   child: AnimatedTextKit(
+            //     animatedTexts: [
+            //       WavyAnimatedText('▲ ■ ● ゲーム'),
+            //     ],
+            //     repeatForever: true,
+            //   ),
+            // ),
+            // SizedBox(
+            //   width: 250.0,
+            //   height: 50,
+            //   child: DefaultTextStyle(
+            //     style: const TextStyle(
+            //       fontSize: 35,
+            //       color: Colors.white,
+            //       shadows: [
+            //         Shadow(
+            //           blurRadius: 7.0,
+            //           color: Colors.white,
+            //           offset: Offset(0, 0),
+            //         ),
+            //       ],
+            //     ),
+            //     child: AnimatedTextKit(
+            //       repeatForever: true,
+            //       isRepeatingAnimation: true,
+            //       animatedTexts: [
+            //         FlickerAnimatedText(
+            //           '▲ ■ ● ゲーム',
+            //           textStyle: const TextStyle(color: Colors.blue),
+            //         ),
+            //         FlickerAnimatedText(
+            //           '▲ ■ ● ゲーム',
+            //           textStyle: const TextStyle(color: Colors.red),
+            //         ),
+            //         FlickerAnimatedText(
+            //           '▲ ■ ● ゲーム',
+            //           textStyle: const TextStyle(color: Colors.green),
+            //         ),
+            //       ],
+            //     ),
+            //   ),
+            // ),
+            // SizedBox(
+            //   width: 250.0,
+            //   height: 50,
+            //   child: DefaultTextStyle(
+            //     style: const TextStyle(
+            //       fontSize: 32.0,
+            //       fontWeight: FontWeight.bold,
+            //     ),
+            //     child: Center(
+            //       child: AnimatedTextKit(
+            //         repeatForever: true,
+            //         animatedTexts: [
+            //           FadeAnimatedText('▲ ■ ● ゲーム',
+            //               duration: const Duration(seconds: 2),
+            //               textStyle: const TextStyle(color: Colors.blue),
+            //               fadeOutBegin: 0.9,
+            //               fadeInEnd: 0.7),
+            //           FadeAnimatedText('▲ ■ ● ゲーム',
+            //               duration: const Duration(seconds: 2),
+            //               textStyle: const TextStyle(color: Colors.red),
+            //               fadeOutBegin: 0.9,
+            //               fadeInEnd: 0.7),
+            //           FadeAnimatedText('▲ ■ ● ゲーム',
+            //               duration: const Duration(seconds: 2),
+            //               textStyle: const TextStyle(color: Colors.green),
+            //               fadeOutBegin: 0.9,
+            //               fadeInEnd: 0.7),
+            //         ],
+            //       ),
+            //     ),
+            //   ),
+            // ),
+            // SizedBox(
+            //   width: MediaQuery.of(context).size.width,
+            //   height: 70,
+            //   child: DefaultTextStyle(
+            //     style: const TextStyle(
+            //       fontSize: 50.0,
+            //       fontFamily: 'SF',
+            //     ),
+            //     child: Center(
+            //       child: AnimatedTextKit(
+            //         repeatForever: true,
+            //         animatedTexts: [
+            //           ScaleAnimatedText(
+            //             '▲ ■ ● ゲーム4',
+            //             scalingFactor: 0.2,
+            //             textStyle: const TextStyle(color: Colors.blue),
+            //           ),
+            //           ScaleAnimatedText(
+            //             '▲ ■ ● ゲーム4',
+            //             scalingFactor: 0.2,
+            //             textStyle: const TextStyle(color: Colors.red),
+            //           ),
+            //           ScaleAnimatedText(
+            //             '▲ ■ ● ゲーム4',
+            //             scalingFactor: 0.2,
+            //             textStyle: const TextStyle(color: Colors.green),
+            //           ),
+            //         ],
+            //       ),
+            //     ),
+            //   ),
+            // ),
+            // SizedBox(
+            //   height: 60,
+            //   child: DefaultTextStyle(
+            //     style: const TextStyle(
+            //       fontSize: 30.0,
+            //     ),
+            //     child: Padding(
+            //       padding: const EdgeInsets.all(8.0),
+            //       child: Center(
+            //         child: AnimatedTextKit(
+            //           repeatForever: true,
+            //           animatedTexts: [
+            //             TypewriterAnimatedText('▲ ■ ● ゲーム5',
+            //                 textStyle: const TextStyle(color: Colors.blue),
+            //                 curve: Curves.easeIn,
+            //                 speed: const Duration(milliseconds: 80)),
+            //             TypewriterAnimatedText('▲ ■ ● ゲーム5',
+            //                 textStyle: const TextStyle(color: Colors.red),
+            //                 curve: Curves.easeIn,
+            //                 speed: const Duration(milliseconds: 80)),
+            //             TypewriterAnimatedText('▲ ■ ● ゲーム5',
+            //                 textStyle: const TextStyle(color: Colors.green),
+            //                 curve: Curves.easeIn,
+            //                 speed: const Duration(milliseconds: 80)),
+            //           ],
+            //         ),
+            //       ),
+            //     ),
+            //   ),
+            // ),
             const SizedBox(height: 40),
             ScaleTransition(
               scale: controller.animationController.drive(
