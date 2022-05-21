@@ -1,6 +1,9 @@
-import 'package:barubatu_3_app/model/color.dart';
+// Flutter imports:
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+// Project imports:
+import 'package:barubatu_3_app/model/color.dart';
 
 class ButtonItem extends StatelessWidget {
   const ButtonItem({

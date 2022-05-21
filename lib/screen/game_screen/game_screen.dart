@@ -1,12 +1,19 @@
+// Dart imports:
 import 'dart:math';
-import 'package:awesome_dialog/awesome_dialog.dart';
-import 'package:barubatu_3_app/model/color.dart';
-import 'package:barubatu_3_app/model/model.dart';
+
+// Flutter imports:
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:audioplayers/audioplayers.dart';
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:audioplayers/audioplayers.dart';
+
+// Project imports:
+import 'package:barubatu_3_app/model/color.dart';
+import 'package:barubatu_3_app/model/model.dart';
 
 class GameScreen extends StatefulWidget {
   const GameScreen({Key? key}) : super(key: key);

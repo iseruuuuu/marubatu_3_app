@@ -1,9 +1,14 @@
+// Flutter imports:
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../gen/assets.gen.dart';
-import 'package:audioplayers/audioplayers.dart';
+
+// Project imports:
+import 'package:barubatu_3_app/gen/assets.gen.dart';
 
 class TrophyScreen extends StatefulWidget {
   const TrophyScreen({

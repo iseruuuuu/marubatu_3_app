@@ -1,14 +1,19 @@
-import 'package:barubatu_3_app/screen/challenge_screen/challenge_screen_3.dart';
-import 'package:barubatu_3_app/screen/trophy_screen/trophy_screen.dart';
+// Flutter imports:
 import 'package:flutter/animation.dart';
-import 'package:get/get.dart';
-import '../../preference/shared_preference.dart';
-import '../challenge_screen/challenge_screen_1.dart';
-import '../challenge_screen/challenge_screen_2.dart';
-import '../challenge_screen/challenge_screen_4.dart';
-import '../challenge_screen/challenge_screen_5.dart';
-import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:audioplayers/audioplayers.dart';
+import 'package:get/get.dart';
+
+// Project imports:
+import 'package:barubatu_3_app/preference/shared_preference.dart';
+import 'package:barubatu_3_app/screen/challenge_screen/challenge_screen_1.dart';
+import 'package:barubatu_3_app/screen/challenge_screen/challenge_screen_2.dart';
+import 'package:barubatu_3_app/screen/challenge_screen/challenge_screen_3.dart';
+import 'package:barubatu_3_app/screen/challenge_screen/challenge_screen_4.dart';
+import 'package:barubatu_3_app/screen/challenge_screen/challenge_screen_5.dart';
+import 'package:barubatu_3_app/screen/trophy_screen/trophy_screen.dart';
 
 class ChallengeScreenController extends GetxController
     with GetSingleTickerProviderStateMixin, WidgetsBindingObserver, RouteAware {

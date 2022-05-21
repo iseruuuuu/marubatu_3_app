@@ -1,11 +1,16 @@
+// Flutter imports:
+import 'package:flutter/animation.dart';
+import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:audioplayers/audioplayers.dart';
+import 'package:get/get.dart';
+import 'package:new_version/new_version.dart';
+
+// Project imports:
 import 'package:barubatu_3_app/screen/challenge_list_screen/challenge_list_screen.dart';
 import 'package:barubatu_3_app/screen/game_screen/game_screen.dart';
 import 'package:barubatu_3_app/screen/setting_screen/setting_screen.dart';
-import 'package:flutter/animation.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:new_version/new_version.dart';
-import 'package:audioplayers/audioplayers.dart';
 
 class HomeScreenController extends GetxController
     with GetSingleTickerProviderStateMixin, WidgetsBindingObserver, RouteAware {

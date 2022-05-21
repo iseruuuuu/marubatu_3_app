@@ -1,9 +1,14 @@
-import 'package:animated_text_kit/animated_text_kit.dart';
-import 'package:barubatu_3_app/model/color.dart';
+// Flutter imports:
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+
+// Project imports:
+import 'package:barubatu_3_app/model/color.dart';
 import 'children/button_item.dart';
 import 'home_screen_controller.dart';
 
