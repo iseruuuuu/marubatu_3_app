@@ -183,7 +183,7 @@ class HomeScreen extends StatelessWidget {
               scale: controller.animationController.drive(
                 Tween<double>(
                   begin: 1,
-                  end: 1.13,
+                  end: 1.08,
                 ),
               ),
               child: ButtonItem(
@@ -195,8 +195,8 @@ class HomeScreen extends StatelessWidget {
             ScaleTransition(
               scale: controller.animationController.drive(
                 Tween<double>(
-                  begin: 1,
-                  end: 1.13,
+                  begin: 1.08,
+                  end: 1,
                 ),
               ),
               child: ButtonItem(
@@ -209,7 +209,7 @@ class HomeScreen extends StatelessWidget {
               scale: controller.animationController.drive(
                 Tween<double>(
                   begin: 1,
-                  end: 1.13,
+                  end: 1.08,
                 ),
               ),
               child: ButtonItem(
