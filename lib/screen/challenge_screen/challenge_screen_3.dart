@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:panara_dialogs/panara_dialogs.dart';
 import '../../model/color.dart';
 import '../../model/model.dart';
 import '../../preference/shared_preference.dart';
@@ -108,41 +109,20 @@ class _ChallengeScreen3State extends State<ChallengeScreen3> {
   }
 
   void openFirstDialog() {
-    Future.delayed(
-      Duration.zero,
-      () {
-        showCupertinoDialog(
-          context: context,
-          builder: (context) {
-            return CupertinoAlertDialog(
-              title: const Text(
-                'ミッション3',
-                style: TextStyle(
-                  fontSize: 25,
-                  color: Colors.red,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              content: const Text(
-                '15ターンちょうどでいずれかで勝て!!',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              actions: [
-                CupertinoDialogAction(
-                  child: const Text("OK"),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                ),
-              ],
-            );
-          },
-        );
-      },
-    );
+    Future.delayed(Duration.zero, () {
+      PanaraInfoDialog.show(
+        context,
+        title: "ミッション3\n\n"
+            '15ターンピッタリに\n'
+            '□が勝て!!',
+        message: '',
+        buttonText: "閉じる",
+        onTapDismiss: () {
+          Navigator.pop(context);
+        },
+        panaraDialogType: PanaraDialogType.normal,
+      );
+    });
   }
 
   void clear() {
@@ -163,6 +143,7 @@ class _ChallengeScreen3State extends State<ChallengeScreen3> {
   static const gameClear = 'images/game_clear.mp3';
   static const noGameClear = 'images/no_game_clear.mp3';
   final AudioCache _cache = AudioCache(fixedPlayer: AudioPlayer());
+
   // static const backgroundMusic = 'images/game_bgm.mp3';
   AudioPlayer? _player;
 
