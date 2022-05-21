@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:panara_dialogs/panara_dialogs.dart';
 import '../../model/color.dart';
 import '../../model/model.dart';
 import '../../preference/shared_preference.dart';
@@ -106,41 +107,19 @@ class _ChallengeScreen5State extends State<ChallengeScreen5> {
   }
 
   void openFirstDialog() {
-    Future.delayed(
-      Duration.zero,
-      () {
-        showCupertinoDialog(
-          context: context,
-          builder: (context) {
-            return CupertinoAlertDialog(
-              title: const Text(
-                'ミッション5',
-                style: TextStyle(
-                  fontSize: 25,
-                  color: Colors.red,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              content: const Text(
-                '引き分けにしろ!',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              actions: [
-                CupertinoDialogAction(
-                  child: const Text("OK"),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                ),
-              ],
-            );
-          },
-        );
-      },
-    );
+    Future.delayed(Duration.zero, () {
+      PanaraInfoDialog.show(
+        context,
+        title: "ミッション5\n\n"
+            '引き分けにしろ!!',
+        message: '',
+        buttonText: "閉じる",
+        onTapDismiss: () {
+          Navigator.pop(context);
+        },
+        panaraDialogType: PanaraDialogType.normal,
+      );
+    });
   }
 
   void clear() {
