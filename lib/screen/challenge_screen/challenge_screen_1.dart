@@ -18,8 +18,6 @@ class ChallengeScreen1 extends StatefulWidget {
 }
 
 class _ChallengeScreen1State extends State<ChallengeScreen1> {
-  // final controller = Get.put(GameScreenController(), tag: '');
-
   //まる　　  1 = true, 　　  2 = false,　　  3 = false,
   //ばつ　　  1 = false,　　  2 = true,　　  3 = false,
   //四角　　  1 = false, 　　  2 = false,　　  3 = true,
@@ -31,6 +29,15 @@ class _ChallengeScreen1State extends State<ChallengeScreen1> {
   List<Widget> buildLine = [Container()];
   double lineThickness = 5.0;
   late double lineWidth;
+  int gameCount = 0;
+  static const tapSound = 'images/game_tap.mp3';
+  static const gameClear = 'images/game_clear.mp3';
+  static const noGameClear = 'images/no_game_clear.mp3';
+  final AudioCache _cache = AudioCache(fixedPlayer: AudioPlayer());
+
+  // static const backgroundMusic = 'images/game_bgm.mp3';
+  AudioPlayer? _player;
+
   final List<List<int>> settlementListHorizontal = [
     [0, 1, 2],
     [1, 2, 3],
@@ -50,7 +57,7 @@ class _ChallengeScreen1State extends State<ChallengeScreen1> {
   ];
 
   final List<List<int>> settlementListVertical = [
-    //縦の勝ち方　　　//3つ揃えると勝ちにする！！
+    //縦の勝ち方
     [0, 5, 10],
     [5, 10, 15],
     [10, 15, 20],
@@ -98,8 +105,6 @@ class _ChallengeScreen1State extends State<ChallengeScreen1> {
     [14, 18, 22],
   ];
 
-  int gameCount = 0;
-
   @override
   void initState() {
     super.initState();
@@ -125,47 +130,16 @@ class _ChallengeScreen1State extends State<ChallengeScreen1> {
   }
 
   void clear() {
-    setState(
-      () {
-        turnOfPlayer1 = true;
-        turnOfPlayer2 = false;
-        turnOfPlayer3 = false;
-        statusList = List.filled(25, PieceStatus.none);
-        gameStatus = GameStatus.play;
-        buildLine = [Container()];
-        gameCount = 0;
-      },
-    );
+    setState(() {
+      turnOfPlayer1 = true;
+      turnOfPlayer2 = false;
+      turnOfPlayer3 = false;
+      statusList = List.filled(25, PieceStatus.none);
+      gameStatus = GameStatus.play;
+      buildLine = [Container()];
+      gameCount = 0;
+    });
   }
-
-  void onTapImageDialog() {
-    showDialog(
-      context: context,
-      builder: (_) {
-        return AlertDialog(
-          title: const Center(
-            child: Text(
-              '勝ち手一覧',
-              style: TextStyle(
-                fontSize: 25,
-              ),
-            ),
-          ),
-          content: Image.asset(
-            'assets/images/1.png',
-          ),
-        );
-      },
-    );
-  }
-
-  static const tapSound = 'images/game_tap.mp3';
-  static const gameClear = 'images/game_clear.mp3';
-  static const noGameClear = 'images/no_game_clear.mp3';
-  final AudioCache _cache = AudioCache(fixedPlayer: AudioPlayer());
-
-  // static const backgroundMusic = 'images/game_bgm.mp3';
-  AudioPlayer? _player;
 
   // void bgmPlayer({required String name, bool isLoop = true}) {
   //   () async {
@@ -220,14 +194,12 @@ class _ChallengeScreen1State extends State<ChallengeScreen1> {
         leading: Padding(
           padding: const EdgeInsets.only(left: 10),
           child: IconButton(
+            iconSize: 45,
             icon: const Icon(
-              Icons.arrow_back_ios,
+              Icons.arrow_back,
               color: Colors.blueAccent,
-              size: 35,
             ),
-            onPressed: () {
-              Navigator.pop(context);
-            },
+            onPressed: () => Navigator.pop(context),
           ),
         ),
         actions: [
@@ -258,78 +230,85 @@ class _ChallengeScreen1State extends State<ChallengeScreen1> {
   Widget buildRow() {
     switch (gameStatus) {
       case GameStatus.play:
-        return Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            turnOfPlayer1
-                ? const Icon(
-                    FontAwesomeIcons.circle,
-                    size: 50,
-                    color: ColorStyle.blue,
-                  )
-                : Container(),
-            turnOfPlayer2
-                ? const Icon(
-                    Icons.clear,
-                    size: 60,
-                    color: ColorStyle.red,
-                  )
-                : Container(),
-            turnOfPlayer3
-                ? const Icon(
-                    FontAwesomeIcons.square,
-                    color: ColorStyle.green,
-                    size: 50,
-                  )
-                : Container(),
-            const SizedBox(width: 5),
-            const Text(
-              'のターン',
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 45,
+        return Material(
+          elevation: 10,
+          child: Container(
+            width: MediaQuery.of(context).size.width - 50,
+            height: 100.w,
+            decoration: BoxDecoration(
+              border: Border.all(
+                width: 3,
+                color: Colors.grey.shade700,
               ),
             ),
-          ],
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                turnOfPlayer1
+                    ? const Icon(
+                        FontAwesomeIcons.circle,
+                        size: 80,
+                        color: ColorStyle.blue,
+                      )
+                    : const Icon(
+                        FontAwesomeIcons.circle,
+                        size: 80,
+                        color: Colors.grey,
+                      ),
+                turnOfPlayer2
+                    ? const Icon(
+                        Icons.clear,
+                        size: 100,
+                        color: ColorStyle.red,
+                      )
+                    : const Icon(
+                        Icons.clear,
+                        size: 100,
+                        color: Colors.grey,
+                      ),
+                turnOfPlayer3
+                    ? const Icon(
+                        FontAwesomeIcons.square,
+                        color: ColorStyle.green,
+                        size: 80,
+                      )
+                    : const Icon(
+                        FontAwesomeIcons.square,
+                        color: Colors.grey,
+                        size: 80,
+                      ),
+              ],
+            ),
+          ),
         );
       case GameStatus.draw:
         return const Text("引き分けです", style: TextStyle(fontSize: 30));
       case GameStatus.settlement:
-        return Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            turnOfPlayer1
-                ? const Icon(
-                    FontAwesomeIcons.square,
-                    color: ColorStyle.green,
-                    size: 50,
-                  )
-                : Container(),
-            turnOfPlayer2
-                ? const Icon(
-                    FontAwesomeIcons.circle,
-                    size: 50,
-                    color: ColorStyle.blue,
-                  )
-                : Container(),
-            turnOfPlayer3
-                ? const Icon(
-                    Icons.clear,
-                    size: 60,
-                    color: ColorStyle.red,
-                  )
-                : Container(),
-            const SizedBox(
-              width: 5,
-            ),
-            const Text(
-              "の勝ち",
-              style: TextStyle(
-                fontSize: 45,
-                color: ColorStyle.textColor,
+        return Material(
+          elevation: 10,
+          child: Container(
+            width: MediaQuery.of(context).size.width - 50,
+            height: 100.w,
+            decoration: BoxDecoration(
+              border: Border.all(
+                width: 3,
+                color: Colors.grey.shade700,
               ),
             ),
-          ],
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: const [
+                Icon(Icons.star, color: Colors.yellow, size: 50),
+                SizedBox(width: 5),
+                Text(
+                  'ゲームクリア',
+                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                ),
+                SizedBox(width: 5),
+                Icon(Icons.star, color: Colors.yellow, size: 50),
+              ],
+            ),
+          ),
         );
       default:
         return Container();
@@ -531,26 +510,30 @@ class _ChallengeScreen1State extends State<ChallengeScreen1> {
   void openWinningDialog(bool isWin) {
     String whoWin = '';
     DialogType dialogType = DialogType.ERROR;
+    var dismiss = false;
     if (gameCount == 7) {
       clearGame();
       whoWin = 'ゲームクリア';
       dialogType = DialogType.SUCCES;
+      dismiss = true;
       setPreference();
     } else {
       noClearGame();
       whoWin = 'クリア失敗';
       dialogType = DialogType.ERROR;
+      dismiss = false;
     }
     if (isWin) {
       noClearGame();
       whoWin = 'クリア失敗';
+      dismiss = false;
       dialogType = DialogType.ERROR;
     }
     AwesomeDialog(
       context: context,
       dialogType: dialogType,
       barrierColor: Colors.grey.shade100,
-      dismissOnTouchOutside: true,
+      dismissOnTouchOutside: dismiss,
       animType: AnimType.SCALE,
       title: whoWin,
       titleTextStyle: TextStyle(
