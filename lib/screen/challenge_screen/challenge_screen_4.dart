@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:panara_dialogs/panara_dialogs.dart';
 import '../../model/color.dart';
 import '../../model/model.dart';
 import '../../preference/shared_preference.dart';
@@ -108,41 +109,20 @@ class _ChallengeScreen4State extends State<ChallengeScreen4> {
   }
 
   void openFirstDialog() {
-    Future.delayed(
-      Duration.zero,
-      () {
-        showCupertinoDialog(
-          context: context,
-          builder: (context) {
-            return CupertinoAlertDialog(
-              title: const Text(
-                'ミッション4',
-                style: TextStyle(
-                  fontSize: 25,
-                  color: Colors.red,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              content: const Text(
-                '24ターンちょうどでいずれかで勝て!!',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              actions: [
-                CupertinoDialogAction(
-                  child: const Text("OK"),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                ),
-              ],
-            );
-          },
-        );
-      },
-    );
+    Future.delayed(Duration.zero, () {
+      PanaraInfoDialog.show(
+        context,
+        title: "ミッション4\n\n"
+            '24ターンピッタリに\n'
+            '□が勝て!!',
+        message: '',
+        buttonText: "閉じる",
+        onTapDismiss: () {
+          Navigator.pop(context);
+        },
+        panaraDialogType: PanaraDialogType.normal,
+      );
+    });
   }
 
   void clear() {
@@ -155,27 +135,6 @@ class _ChallengeScreen4State extends State<ChallengeScreen4> {
         gameStatus = GameStatus.play;
         buildLine = [Container()];
         gameCount = 0;
-      },
-    );
-  }
-
-  void onTapImageDialog() {
-    showDialog(
-      context: context,
-      builder: (_) {
-        return AlertDialog(
-          title: const Center(
-            child: Text(
-              '勝ち手一覧',
-              style: TextStyle(
-                fontSize: 25,
-              ),
-            ),
-          ),
-          content: Image.asset(
-            'assets/images/1.png',
-          ),
-        );
       },
     );
   }
@@ -213,7 +172,6 @@ class _ChallengeScreen4State extends State<ChallengeScreen4> {
     super.dispose();
     stopBgm();
   }
-
 
   void loadSound() async {
     _cache.load(tapSound);
