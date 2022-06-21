@@ -332,7 +332,7 @@ class _GameScreenState extends State<GameScreen> {
           elevation: 10,
           child: Container(
             width: MediaQuery.of(context).size.width - 50,
-            height: 100.w,
+            height: 90.w,
             decoration: BoxDecoration(
               border: Border.all(
                 width: 3,
@@ -352,7 +352,7 @@ class _GameScreenState extends State<GameScreen> {
           elevation: 10,
           child: Container(
             width: MediaQuery.of(context).size.width - 50,
-            height: 100.w,
+            height: 90.w,
             decoration: BoxDecoration(
               border: Border.all(
                 width: 3,
