@@ -1,16 +1,19 @@
 // Flutter imports:
+import 'package:barubatu_3_app/admob/ad_state.dart';
 import 'package:flutter/animation.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:audioplayers/audioplayers.dart';
 import 'package:get/get.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:new_version/new_version.dart';
 
 // Project imports:
 import 'package:barubatu_3_app/screen/challenge_list_screen/challenge_list_screen.dart';
 import 'package:barubatu_3_app/screen/game_screen/game_screen.dart';
 import 'package:barubatu_3_app/screen/setting_screen/setting_screen.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreenController extends GetxController
     with GetSingleTickerProviderStateMixin, WidgetsBindingObserver, RouteAware {
@@ -23,9 +26,12 @@ class HomeScreenController extends GetxController
   final AudioCache tapCache = AudioCache(fixedPlayer: AudioPlayer());
   AudioPlayer? tapPlayer;
 
+  // late BannerAd banner;
+
   @override
   void onInit() {
     super.onInit();
+    // loadAd();
     final newVersion = NewVersion(
       androidId: 'com.barubatu_3_app',
       iOSId: 'com.barubatu3App',
@@ -41,7 +47,20 @@ class HomeScreenController extends GetxController
     // loadBgm(name: bgm);
     loadTap();
     WidgetsBinding.instance?.addObserver(this);
+
   }
+
+  // void loadAd() {
+  //   final adState = Provider.of<AdState>(Get.overlayContext!);
+  //   adState.initialization.then((status) {
+  //       banner = BannerAd(
+  //         adUnitId: adState.bannerAdUnitId,
+  //         size: AdSize.banner,
+  //         request: const AdRequest(),
+  //         listener: adState.adListener,
+  //       )..load();
+  //   });
+  // }
 
   @override
   void dispose() {

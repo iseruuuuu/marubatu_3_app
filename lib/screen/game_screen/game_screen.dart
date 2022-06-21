@@ -2,6 +2,7 @@
 import 'dart:math';
 
 // Flutter imports:
+import 'package:barubatu_3_app/admob/ad_state.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -14,6 +15,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 // Project imports:
 import 'package:barubatu_3_app/model/color.dart';
 import 'package:barubatu_3_app/model/model.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:provider/provider.dart';
 
 class GameScreen extends StatefulWidget {
   const GameScreen({Key? key}) : super(key: key);
@@ -107,11 +110,33 @@ class _GameScreenState extends State<GameScreen> {
     [14, 18, 22],
   ];
 
+  late BannerAd banner;
+
   @override
   void initState() {
     super.initState();
     // bgmPlayer(name: backgroundMusic);
     loadSound();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    loadAd();
+  }
+
+  void loadAd() {
+    final adState = Provider.of<AdState>(context);
+    adState.initialization.then((status) {
+      setState(() {
+        banner = BannerAd(
+          adUnitId: adState.bannerAdUnitId,
+          size: AdSize.banner,
+          request: const AdRequest(),
+          listener: adState.adListener,
+        )..load();
+      });
+    });
   }
 
   // void bgmPlayer({required String name, bool isLoop = true}) {
@@ -229,12 +254,19 @@ class _GameScreenState extends State<GameScreen> {
         ],
       ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Center(
             child: buildRow(),
           ),
           buildColumn(),
+          SizedBox(
+            width: MediaQuery.of(context).size.width,
+            height: 50,
+            child: AdWidget(
+              ad: banner,
+            ),
+          ),
         ],
       ),
     );
