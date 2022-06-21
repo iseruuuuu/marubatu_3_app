@@ -256,6 +256,7 @@ class _GameScreenState extends State<GameScreen> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
+          SizedBox(),
           Center(
             child: buildRow(),
           ),
@@ -279,7 +280,7 @@ class _GameScreenState extends State<GameScreen> {
           elevation: 10,
           child: Container(
             width: MediaQuery.of(context).size.width - 50,
-            height: 100.w,
+            height: 90.w,
             decoration: BoxDecoration(
               border: Border.all(
                 width: 3,
@@ -292,42 +293,60 @@ class _GameScreenState extends State<GameScreen> {
                 turnOfPlayer1
                     ? const Icon(
                         FontAwesomeIcons.circle,
-                        size: 80,
+                        size: 60,
                         color: ColorStyle.blue,
                       )
                     : const Icon(
                         FontAwesomeIcons.circle,
-                        size: 80,
+                        size: 60,
                         color: Colors.grey,
                       ),
                 turnOfPlayer2
                     ? const Icon(
                         Icons.clear,
-                        size: 100,
+                        size: 80,
                         color: ColorStyle.red,
                       )
                     : const Icon(
                         Icons.clear,
-                        size: 100,
+                        size: 80,
                         color: Colors.grey,
                       ),
                 turnOfPlayer3
                     ? const Icon(
                         FontAwesomeIcons.square,
                         color: ColorStyle.green,
-                        size: 80,
+                        size: 60,
                       )
                     : const Icon(
                         FontAwesomeIcons.square,
                         color: Colors.grey,
-                        size: 80,
+                        size: 60,
                       ),
               ],
             ),
           ),
         );
       case GameStatus.draw:
-        return const Text("引き分けです", style: TextStyle(fontSize: 30));
+        return Material(
+          elevation: 10,
+          child: Container(
+            width: MediaQuery.of(context).size.width - 50,
+            height: 100.w,
+            decoration: BoxDecoration(
+              border: Border.all(
+                width: 3,
+                color: Colors.grey.shade700,
+              ),
+            ),
+            child: Center(
+              child: Text(
+                "引き分けです",
+                style: TextStyle(fontSize: 30.w),
+              ),
+            ),
+          ),
+        );
       case GameStatus.settlement:
         return Material(
           elevation: 10,
@@ -344,16 +363,16 @@ class _GameScreenState extends State<GameScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 turnOfPlayer2
-                    ? const Icon(
+                    ? Icon(
                         FontAwesomeIcons.circle,
-                        size: 80,
+                        size: 50.w,
                         color: ColorStyle.blue,
                       )
                     : Container(),
                 turnOfPlayer3
                     ? const Icon(
                         Icons.clear,
-                        size: 100,
+                        size: 70,
                         color: ColorStyle.red,
                       )
                     : Container(),
@@ -361,10 +380,10 @@ class _GameScreenState extends State<GameScreen> {
                     ? const Icon(
                         FontAwesomeIcons.square,
                         color: ColorStyle.green,
-                        size: 80,
+                        size: 50,
                       )
                     : Container(),
-                const Text("の勝利", style: TextStyle(fontSize: 60)),
+                Text("の勝利", style: TextStyle(fontSize: 45.w)),
               ],
             ),
           ),
