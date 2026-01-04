@@ -6,7 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 // Project imports:
-import 'package:barubatu_3_app/screen/home_screen/home_screen.dart';
+import 'package:barubatu_3_app/ui/home/home_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
