@@ -1,22 +1,13 @@
-// Dart imports:
 import 'dart:math';
-
-// Flutter imports:
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-// Package imports:
-import 'package:audioplayers/audioplayers.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
-// Project imports:
-import 'package:barubatu_3_app/model/color.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:barubatu_3_app/model/model.dart';
 
 class GameScreen extends StatefulWidget {
-  const GameScreen({Key? key}) : super(key: key);
+  const GameScreen({super.key});
 
   @override
   _GameScreenState createState() => _GameScreenState();
@@ -34,12 +25,8 @@ class _GameScreenState extends State<GameScreen> {
   List<Widget> buildLine = [Container()];
   double lineThickness = 5.0;
   late double lineWidth;
-  static const tapSound = 'images/game_tap.mp3';
-  static const gameClear = 'images/game_clear.mp3';
-  final AudioPlayer _sfxPlayer = AudioPlayer();
 
-  // static const backgroundMusic = 'images/game_bgm.mp3';
-  AudioPlayer? _player;
+  // BGMは使用しません
   final List<List<int>> settlementListHorizontal = [
     [0, 1, 2],
     [1, 2, 3],
@@ -109,44 +96,6 @@ class _GameScreenState extends State<GameScreen> {
   @override
   void initState() {
     super.initState();
-    // bgmPlayer(name: backgroundMusic);
-    loadSound();
-  }
-
-  // void bgmPlayer({required String name, bool isLoop = true}) {
-  //       () async {
-  //     await _player?.stop();
-  //     await _player?.dispose();
-  //     if (isLoop) {
-  //       _player = await _cache.loop(name, mode: PlayerMode.MEDIA_PLAYER);
-  //     } else {
-  //       _player = await _cache.play(name, mode: PlayerMode.MEDIA_PLAYER);
-  //     }
-  //   }();
-  // }
-
-  void stopBgm() async {
-    await _player?.stop();
-  }
-
-  Future<void> disposeBgm() async {
-    return await _player?.dispose();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    stopBgm();
-    _sfxPlayer.dispose();
-  }
-
-  void loadSound() async {
-    await _sfxPlayer.setPlayerMode(PlayerMode.lowLatency);
-  }
-
-  void playSound() async {
-    await _sfxPlayer.stop();
-    await _sfxPlayer.play(AssetSource(tapSound));
   }
 
   void clear() {
@@ -185,18 +134,19 @@ class _GameScreenState extends State<GameScreen> {
   Widget build(BuildContext context) {
     lineWidth = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: CupertinoColors.white,
+      extendBodyBehindAppBar: true,
+      backgroundColor: Colors.black,
       appBar: AppBar(
-        backgroundColor: CupertinoColors.white,
+        backgroundColor: Colors.black.withValues(alpha: 0.25),
         elevation: 0,
         title: TextButton(
           onPressed: () {
             clear();
           },
-          child: const Text(
+          child: Text(
             'リセット',
             style: TextStyle(
-              color: Colors.black,
+              color: Color(0xFF00FFA3),
               fontSize: 20,
               fontWeight: FontWeight.bold,
             ),
@@ -208,7 +158,7 @@ class _GameScreenState extends State<GameScreen> {
             iconSize: 45,
             icon: const Icon(
               Icons.arrow_back,
-              color: Colors.blueAccent,
+              color: Color(0xFF00FFA3),
               size: 35,
             ),
             onPressed: () {
@@ -218,25 +168,39 @@ class _GameScreenState extends State<GameScreen> {
         ),
         actions: [
           TextButton(
-            child: const Text(
+            onPressed: onTapImageDialog,
+            child: Text(
               '?',
               style: TextStyle(
+                fontSize: 32,
+                color: Color(0xFF00FFA3),
                 fontWeight: FontWeight.bold,
-                fontSize: 40,
               ),
             ),
-            onPressed: onTapImageDialog,
           ),
         ],
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      body: Stack(
         children: [
-          SizedBox(),
-          Center(
-            child: buildRow(),
+          Positioned.fill(
+            child: Image.asset(
+              'assets/home/background.png',
+              fit: BoxFit.cover,
+            ),
           ),
-          buildColumn(),
+          SafeArea(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                SizedBox(),
+                Center(child: buildRow()),
+                Padding(
+                  padding: const EdgeInsets.all(12),
+                  child: buildColumn(),
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );
@@ -247,53 +211,78 @@ class _GameScreenState extends State<GameScreen> {
       case GameStatus.play:
         return Material(
           elevation: 10,
-          child: Container(
-            width: MediaQuery.of(context).size.width - 50,
-            height: 90.w,
-            decoration: BoxDecoration(
-              border: Border.all(
-                width: 3,
-                color: Colors.grey.shade700,
+          child: Stack(
+            children: [
+              Container(
+                width: MediaQuery.of(context).size.width - 20,
+                height: 120,
+                decoration: BoxDecoration(
+                  color: const Color(0xFF0F172A),
+                  border: Border.all(width: 3, color: const Color(0xFFFFFFFF)),
+                  borderRadius: BorderRadius.zero,
+                ),
               ),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                turnOfPlayer1
-                    ? const Icon(
-                        FontAwesomeIcons.circle,
-                        size: 60,
-                        color: ColorStyle.blue,
-                      )
-                    : const Icon(
-                        FontAwesomeIcons.circle,
-                        size: 60,
-                        color: Colors.grey,
-                      ),
-                turnOfPlayer2
-                    ? const Icon(
-                        Icons.clear,
-                        size: 80,
-                        color: ColorStyle.red,
-                      )
-                    : const Icon(
-                        Icons.clear,
-                        size: 80,
-                        color: Colors.grey,
-                      ),
-                turnOfPlayer3
-                    ? const Icon(
-                        FontAwesomeIcons.square,
-                        color: ColorStyle.green,
-                        size: 60,
-                      )
-                    : const Icon(
-                        FontAwesomeIcons.square,
-                        color: Colors.grey,
-                        size: 60,
-                      ),
-              ],
-            ),
+              // 内側ハイライト
+              Positioned(
+                left: 8,
+                right: 8,
+                top: 6,
+                child: Container(
+                  height: 14,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12),
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        Colors.white.withValues(alpha: 0.06),
+                        Colors.white.withValues(alpha: 0.0),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              Positioned.fill(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    turnOfPlayer1
+                        ? const Icon(
+                            FontAwesomeIcons.circle,
+                            size: 60,
+                            color: Colors.blue,
+                          )
+                        : const Icon(
+                            FontAwesomeIcons.circle,
+                            size: 60,
+                            color: Colors.grey,
+                          ),
+                    turnOfPlayer2
+                        ? const Icon(
+                            Icons.clear,
+                            size: 80,
+                            color: Colors.red,
+                          )
+                        : const Icon(
+                            Icons.clear,
+                            size: 80,
+                            color: Colors.grey,
+                          ),
+                    turnOfPlayer3
+                        ? const Icon(
+                            FontAwesomeIcons.square,
+                            color: Colors.green,
+                            size: 60,
+                          )
+                        : const Icon(
+                            FontAwesomeIcons.square,
+                            color: Colors.grey,
+                            size: 60,
+                          ),
+                  ],
+                ),
+              ),
+            ],
           ),
         );
       case GameStatus.draw:
@@ -303,15 +292,17 @@ class _GameScreenState extends State<GameScreen> {
             width: MediaQuery.of(context).size.width - 50,
             height: 90.w,
             decoration: BoxDecoration(
-              border: Border.all(
-                width: 3,
-                color: Colors.grey.shade700,
-              ),
+              color: const Color(0xFF0F172A),
+              border: Border.all(width: 3, color: const Color(0xFF5FEAD1)),
             ),
             child: Center(
               child: Text(
-                "引き分けです",
-                style: TextStyle(fontSize: 30.w),
+                '引き分けです',
+                style: GoogleFonts.dotGothic16(
+                  fontSize: 24.w,
+                  color: const Color(0xFF5FEAD1),
+                  letterSpacing: 1.0,
+                ),
               ),
             ),
           ),
@@ -323,10 +314,8 @@ class _GameScreenState extends State<GameScreen> {
             width: MediaQuery.of(context).size.width - 50,
             height: 90.w,
             decoration: BoxDecoration(
-              border: Border.all(
-                width: 3,
-                color: Colors.grey.shade700,
-              ),
+              color: const Color(0xFF0F172A),
+              border: Border.all(width: 3, color: const Color(0xFF5FEAD1)),
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -335,66 +324,72 @@ class _GameScreenState extends State<GameScreen> {
                     ? Icon(
                         FontAwesomeIcons.circle,
                         size: 50.w,
-                        color: ColorStyle.blue,
+                        color: const Color(0xFF4FDFFF),
                       )
                     : Container(),
                 turnOfPlayer3
                     ? const Icon(
                         Icons.clear,
                         size: 70,
-                        color: ColorStyle.red,
+                        color: Color(0xFFFF6B6B),
                       )
                     : Container(),
                 turnOfPlayer1
                     ? const Icon(
                         FontAwesomeIcons.square,
-                        color: ColorStyle.green,
+                        color: Color(0xFF6EE7B7),
                         size: 50,
                       )
                     : Container(),
-                Text("の勝利", style: TextStyle(fontSize: 45.w)),
+                const SizedBox(width: 8),
+                Text(
+                  'の勝利',
+                  style: GoogleFonts.dotGothic16(
+                    fontSize: 26.w,
+                    color: const Color(0xFF5FEAD1),
+                    letterSpacing: 1.0,
+                  ),
+                ),
               ],
             ),
           ),
         );
-      default:
-        return Container();
     }
   }
 
   Widget buildColumn() {
-    List<Widget> _columnChildren = [
+    List<Widget> columnChildren = [
       const Divider(
         height: 0.0,
-        thickness: 2,
-        color: ColorStyle.black,
-      ),
+        thickness: 4,
+        color: Color(0xFFFFFFFF),
+      )
     ];
-    List<Widget> _rowChildren = [];
+    List<Widget> rowChildren = [];
     for (int j = 0; j < 5; j++) {
       //横の行を作成するもの
       for (int i = 0; i < 5; i++) {
-        int _index = j * 5 + i;
-        _rowChildren.add(
+        int index = j * 5 + i;
+        rowChildren.add(
           Expanded(
             child: InkWell(
               onTap: gameStatus == GameStatus.play
                   ? () {
-                      if (statusList[_index] == PieceStatus.none) {
+                      if (statusList[index] == PieceStatus.none) {
                         if (turnOfPlayer1 == true) {
-                          statusList[_index] = PieceStatus.circle;
+                          statusList[index] = PieceStatus.circle;
                           turnOfPlayer1 = false;
                           turnOfPlayer2 = true;
                           turnOfPlayer3 = false;
                           confirmResult();
                         } else if (turnOfPlayer2 == true) {
-                          statusList[_index] = PieceStatus.cross;
+                          statusList[index] = PieceStatus.cross;
                           turnOfPlayer1 = false;
                           turnOfPlayer2 = false;
                           turnOfPlayer3 = true;
                           confirmResult();
                         } else if (turnOfPlayer3 == true) {
-                          statusList[_index] = PieceStatus.square;
+                          statusList[index] = PieceStatus.square;
                           turnOfPlayer1 = true;
                           turnOfPlayer2 = false;
                           turnOfPlayer3 = false;
@@ -408,13 +403,13 @@ class _GameScreenState extends State<GameScreen> {
                 aspectRatio: 1.0,
                 child: Row(
                   children: [
-                    Expanded(child: build1(statusList[_index])),
+                    Expanded(child: build1(statusList[index])),
                     (i == 4)
                         ? Container()
                         : const VerticalDivider(
                             width: 0.0,
-                            thickness: 2,
-                            color: ColorStyle.black,
+                            thickness: 4,
+                            color: Color(0xFFFFFFFF),
                           ),
                   ],
                 ),
@@ -423,19 +418,37 @@ class _GameScreenState extends State<GameScreen> {
           ),
         );
       }
-      _columnChildren.add(Row(children: _rowChildren));
-      _columnChildren.add(
+      columnChildren.add(Row(children: rowChildren));
+      columnChildren.add(
         const Divider(
           height: 0.0,
-          thickness: 2,
-          color: ColorStyle.black,
+          thickness: 4,
+          color: Color(0xFFFFFFFF),
         ),
       );
-      _rowChildren = [];
+      rowChildren = [];
     }
     return Stack(
       children: [
-        Column(children: _columnChildren),
+        // 盤面の暗めオーバーレイ
+        Positioned.fill(
+          child: Container(color: const Color(0x990F172A)),
+        ),
+        Column(children: columnChildren),
+        // 左右端の縦ライン（外枠）
+        Positioned(
+          left: 0,
+          top: 0,
+          bottom: 0,
+          child: Container(width: 6, color: const Color(0xFFFFFFFF)),
+        ),
+        Positioned(
+          right: 0,
+          top: 0,
+          bottom: 0,
+          child: Container(width: 6, color: const Color(0xFFFFFFFF)),
+        ),
+        // 既存の勝敗ライン
         Stack(children: buildLine),
       ],
     );
@@ -444,13 +457,25 @@ class _GameScreenState extends State<GameScreen> {
   Container build1(PieceStatus pieceStatus) {
     switch (pieceStatus) {
       case PieceStatus.none:
-        return Container();
+        return Container(
+          alignment: Alignment.center,
+          child: gameStatus == GameStatus.play
+              ? Container(
+                  width: 6,
+                  height: 6,
+                  decoration: BoxDecoration(
+                    color: Colors.white.withValues(alpha: 0.15),
+                    shape: BoxShape.circle,
+                  ),
+                )
+              : null,
+        );
       case PieceStatus.circle:
         return Container(
           child: const Icon(
             FontAwesomeIcons.circle,
             size: 60,
-            color: ColorStyle.blue,
+            color: Color(0xFF4FDFFF),
           ),
         );
       case PieceStatus.cross:
@@ -458,7 +483,7 @@ class _GameScreenState extends State<GameScreen> {
           child: const Icon(
             Icons.clear,
             size: 75,
-            color: ColorStyle.red,
+            color: Color(0xFFFF6B6B),
           ),
         );
       case PieceStatus.square:
@@ -466,16 +491,13 @@ class _GameScreenState extends State<GameScreen> {
           child: const Icon(
             FontAwesomeIcons.square,
             size: 60,
-            color: ColorStyle.green,
+            color: Color(0xFF6EE7B7),
           ),
         );
-      default:
-        return Container();
     }
   }
 
   void confirmResult() {
-    playSound();
     if (!statusList.contains(PieceStatus.none)) {
       gameStatus = GameStatus.draw;
       openWinningDialog(false);
@@ -541,15 +563,7 @@ class _GameScreenState extends State<GameScreen> {
     }
   }
 
-  void playClearSound() {
-    () async {
-      await _sfxPlayer.stop();
-      await _sfxPlayer.play(AssetSource(gameClear));
-    }();
-  }
-
   void openWinningDialog(bool isWin) {
-    playClearSound();
     String whoWin = '';
     if (isWin) {
       if (turnOfPlayer1) {
