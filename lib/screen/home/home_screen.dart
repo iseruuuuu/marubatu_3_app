@@ -2,11 +2,8 @@ import 'package:barubatu_3_app/screen/challenge_list_screen/challenge_list_scree
 import 'package:barubatu_3_app/screen/game_screen/game_screen.dart';
 import 'package:barubatu_3_app/screen/setting_screen/setting_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:barubatu_3_app/model/color.dart';
-import 'component/button_item.dart';
+import 'component/sprite_button.dart';
 import 'home_screen_controller.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -16,77 +13,76 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF0D0D16),
-      body: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [Color(0xFF0D0D16), Color(0xFF111122)],
+      backgroundColor: const Color(0xFF0D1224),
+      body: Stack(
+        children: [
+          // 背景グラデーション
+          Positioned.fill(
+            child: Image.asset(
+              'assets/home/background.png',
+              fit: BoxFit.cover,
+            ),
           ),
-        ),
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Spacer(),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Icon(FontAwesomeIcons.circle,
-                      size: 42, color: ColorStyle.blue),
-                  const SizedBox(width: 8),
-                  const Icon(Icons.clear, size: 48, color: ColorStyle.red),
-                  const SizedBox(width: 8),
-                  const Icon(
-                    FontAwesomeIcons.square,
-                    size: 42,
-                    color: ColorStyle.green,
+          // 本文
+          Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Spacer(),
+                _HeaderImage(),
+                const SizedBox(height: 32),
+                // メニュー
+                ScaleTransition(
+                  scale: controller.animationController.drive(
+                    Tween<double>(begin: 1, end: 1.04),
                   ),
-                  const SizedBox(width: 12),
-                  Text(
-                    'GAME',
-                    style: GoogleFonts.pressStart2p(
-                      fontSize: 36,
-                      color: const Color(0xFF00FFA3),
-                      letterSpacing: 2,
-                    ),
+                  child: SpriteButton(
+                    onPressed: () => Get.to(() => const GameScreen()),
+                    bgImagePath: 'assets/home/circle_button.png',
                   ),
-                ],
-              ),
-              const SizedBox(height: 56),
-              ScaleTransition(
-                scale: controller.animationController.drive(
-                  Tween<double>(begin: 1, end: 1.05),
                 ),
-                child: ButtonItem(
-                  onPressed: () => Get.to(() => const GameScreen()),
-                  text: '3人で対戦',
+                const SizedBox(height: 20),
+                ScaleTransition(
+                  scale: controller.animationController.drive(
+                    Tween<double>(begin: 1.04, end: 1),
+                  ),
+                  child: SpriteButton(
+                    onPressed: () => Get.to(() => const ChallengeListScreen()),
+                    bgImagePath: 'assets/home/cross_button.png',
+                  ),
                 ),
-              ),
-              const SizedBox(height: 56),
-              ScaleTransition(
-                scale: controller.animationController.drive(
-                  Tween<double>(begin: 1.05, end: 1),
+                const SizedBox(height: 20),
+                ScaleTransition(
+                  scale: controller.animationController.drive(
+                    Tween<double>(begin: 1, end: 1.04),
+                  ),
+                  child: SpriteButton(
+                    onPressed: () => Get.to(() => const SettingScreen()),
+                    bgImagePath: 'assets/home/square_button.png',
+                  ),
                 ),
-                child: ButtonItem(
-                  onPressed: () => Get.to(() => const ChallengeListScreen()),
-                  text: 'チャレンジモード',
-                ),
-              ),
-              const SizedBox(height: 56),
-              ScaleTransition(
-                scale: controller.animationController.drive(
-                  Tween<double>(begin: 1, end: 1.05),
-                ),
-                child: ButtonItem(
-                  onPressed: () => Get.to(() => const SettingScreen()),
-                  text: 'SETTING',
-                ),
-              ),
-              const Spacer(),
-            ],
+                const Spacer(),
+              ],
+            ),
           ),
+        ],
+      ),
+    );
+  }
+}
+
+class _HeaderImage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 12),
+      child: AspectRatio(
+        aspectRatio: 800 / 533, // 参考画像比率
+        child: Image.asset(
+          'assets/home/header.png',
+          width: width * 0.96,
+          fit: BoxFit.contain,
         ),
       ),
     );
