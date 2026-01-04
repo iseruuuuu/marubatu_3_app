@@ -63,10 +63,12 @@ class _SettingScreenState extends State<SettingScreen>
                 leading: const Icon(Icons.mail),
                 title: const Text('お問い合わせ'),
                 onPressed: (context) async {
-                  const url = 'https://forms.gle/eE8gJ2nQWghTfGzt6';
-                  if (await canLaunch(url)) {
-                    await launch(url);
+                  final uri = Uri.parse('https://forms.gle/eE8gJ2nQWghTfGzt6');
+                  final canOpen = await canLaunchUrl(uri);
+                  if (canOpen) {
+                    await launchUrl(uri, mode: LaunchMode.externalApplication);
                   } else {
+                    if (!mounted) return;
                     openDialog(
                       context: context,
                       title: 'URLエラー',
@@ -81,9 +83,11 @@ class _SettingScreenState extends State<SettingScreen>
                 leading: const Icon(Icons.star),
                 title: const Text('レビューする'),
                 onPressed: (context) async {
-                  if (await inAppReview.isAvailable()) {
-                    inAppReview.requestReview();
+                  final available = await inAppReview.isAvailable();
+                  if (available) {
+                    await inAppReview.requestReview();
                   } else {
+                    if (!mounted) return;
                     openDialog(
                       context: context,
                       title: 'レビューができませんでした。',
@@ -99,7 +103,7 @@ class _SettingScreenState extends State<SettingScreen>
             title: const Text('音楽使用'),
             tiles: <SettingsTile>[
               SettingsTile.navigation(
-                leading: Icon(Icons.music_note),
+                leading: const Icon(Icons.music_note),
                 title: Text(
                   '音楽使用',
                   style: TextStyle(

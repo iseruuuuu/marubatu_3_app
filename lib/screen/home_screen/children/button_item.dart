@@ -19,6 +19,13 @@ class ButtonItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: onPressed,
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Colors.grey.shade100,
+        foregroundColor: Colors.grey.shade100,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+      ),
       child: Container(
         width: 280,
         height: 60,
@@ -42,13 +49,6 @@ class ButtonItem extends StatelessWidget {
               fontWeight: FontWeight.bold,
             ),
           ),
-        ),
-      ),
-      style: ElevatedButton.styleFrom(
-        primary: Colors.grey.shade100,
-        onPrimary: Colors.grey.shade100,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.0),
         ),
       ),
     );

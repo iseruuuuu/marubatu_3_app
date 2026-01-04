@@ -19,13 +19,17 @@ dependencies:
   url_launcher: ^6.0.18
   in_app_review: ^2.0.4
   animated_text_kit: ^4.2.1
-  flutter_screenutil: ^5.0.0+2
+  flutter_screenutil: 5.5.3+2
   flutter_animator: ^3.2.1
   awesome_dialog: ^2.2.1
   new_version: ^0.3.0
   flutter_image_slideshow: ^0.1.2
-  panara_dialogs: ^0.0.5
+  panara_dialogs: ^0.1.5
   import_sorter: ^4.6.0
+  get: ^4.6.1
+  shared_preferences: ^2.2.2
+  enum_to_string: ^2.2.1
+  audioplayers: ^0.20.1
 
 
   google_mobile_ads: ^1.3.0
@@ -35,13 +39,23 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  flutter_lints: ^1.0.0
-  get: ^4.6.1
+  flutter_lints: ^2.0.3
   build_runner: ^2.1.10
-  shared_preferences:
-  enum_to_string: ^2.0.1
   flutter_native_splash: ^2.1.3+1
-  audioplayers: ^0.20.1
+
+dependency_overrides:
+  # Flutter 3.7 / Dart 2.19 系に合わせた互換バージョン固定
+  win32: 2.4.1
+  package_info_plus: 1.4.3+1
+  package_info_plus_windows: 1.0.5
+  package_info_plus_linux: 1.0.5
+  package_info_plus_macos: 1.3.0
+  package_info_plus_platform_interface: 1.0.2
+  vector_math: 2.1.4
+  material_color_utilities: 0.2.0
+  characters: 1.2.1
+  collection: 1.17.0
+  meta: 1.8.0
 
 flutter_native_splash:
   color: '#ffffff'

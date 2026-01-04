@@ -1,5 +1,3 @@
-// Flutter imports:
-import 'package:flutter/animation.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -43,14 +41,13 @@ class ChallengeScreenController extends GetxController
         seconds: 1,
       ),
     )..repeat(reverse: true);
-    // loadBgm(name: bgm);
     loadTap();
-    WidgetsBinding.instance?.addObserver(this);
+    WidgetsBinding.instance.addObserver(this);
   }
 
   @override
   void dispose() {
-    WidgetsBinding.instance?.removeObserver(this);
+    WidgetsBinding.instance.removeObserver(this);
     animationController.dispose();
     // onBackground();
     super.dispose();

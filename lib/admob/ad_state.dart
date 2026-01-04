@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 class AdState {
@@ -19,10 +20,10 @@ class AdState {
 
   BannerAdListener get adListener => _adListener;
   final BannerAdListener _adListener = BannerAdListener(
-    onAdLoaded: (ad) => print('Ad loaded: ${ad.adUnitId}.'),
-    onAdClosed: (ad) => print('Ad closed: ${ad.adUnitId}.'),
+    onAdLoaded: (ad) => debugPrint('Ad loaded: ${ad.adUnitId}.'),
+    onAdClosed: (ad) => debugPrint('Ad closed: ${ad.adUnitId}.'),
     onAdFailedToLoad: (ad, error) =>
-        print('Ad failed to load: ${ad.adUnitId}, $error.'),
-    onAdOpened: (ad) => print('Ad opened: ${ad.adUnitId}.'),
+        debugPrint('Ad failed to load: ${ad.adUnitId}, $error.'),
+    onAdOpened: (ad) => debugPrint('Ad opened: ${ad.adUnitId}.'),
   );
 }
