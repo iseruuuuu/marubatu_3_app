@@ -56,6 +56,12 @@ dependency_overrides:
   characters: 1.2.1
   collection: 1.17.0
   meta: 1.8.0
+flutter_launcher_icons:
+  android: true
+  ios: true
+  remove_alpha_ios: true
+  image_path: "assets/launcher_icon/icon.png"
+  adaptive_icon_foreground: "assets/launcher_icon/icon.png"
 
 flutter_native_splash:
   color: '#ffffff'
