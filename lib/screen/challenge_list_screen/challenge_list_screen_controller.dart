@@ -28,8 +28,7 @@ class ChallengeScreenController extends GetxController
   // AudioPlayer? bgmPlayer;
 
   static const tap = 'images/tap.mp3';
-  final AudioCache tapCache = AudioCache(fixedPlayer: AudioPlayer());
-  AudioPlayer? tapPlayer;
+  final AudioPlayer tapPlayer = AudioPlayer();
 
   @override
   void onInit() {
@@ -71,11 +70,12 @@ class ChallengeScreenController extends GetxController
   // }
 
   void loadTap() async {
-    tapCache.load(tap);
+    await tapPlayer.setPlayerMode(PlayerMode.lowLatency);
   }
 
   void playTap() async {
-    tapCache.play(tap);
+    await tapPlayer.stop();
+    await tapPlayer.play(AssetSource(tap));
   }
 
   // void onBackground() {
@@ -88,6 +88,7 @@ class ChallengeScreenController extends GetxController
 
   @override
   void onClose() {
+    tapPlayer.dispose();
     animationController.dispose();
     super.onClose();
   }

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 // Package imports:
 import 'package:audioplayers/audioplayers.dart';
 import 'package:get/get.dart';
-import 'package:new_version/new_version.dart';
 
 // Project imports:
 import 'package:barubatu_3_app/screen/challenge_list_screen/challenge_list_screen.dart';
@@ -18,21 +17,13 @@ class HomeScreenController extends GetxController
   //final AudioCache bgmCache = AudioCache(fixedPlayer: AudioPlayer());
   //AudioPlayer? bgmPlayer;
   static const tap = 'images/tap.mp3';
-  final AudioCache tapCache = AudioCache(fixedPlayer: AudioPlayer());
-  AudioPlayer? tapPlayer;
+  final AudioPlayer tapPlayer = AudioPlayer();
 
   // late BannerAd banner;
 
   @override
   void onInit() {
     super.onInit();
-    // loadAd();
-    final newVersion = NewVersion(
-      androidId: 'com.barubatu_3_app',
-      iOSId: 'com.barubatu3App',
-      iOSAppStoreCountry: 'JP',
-    );
-    openUpdateDialog(newVersion);
     animationController = AnimationController(
       vsync: this,
       duration: const Duration(
@@ -60,6 +51,7 @@ class HomeScreenController extends GetxController
   void dispose() {
     super.dispose();
     WidgetsBinding.instance.removeObserver(this);
+    tapPlayer.dispose();
     // onBackground();
   }
 
@@ -81,11 +73,12 @@ class HomeScreenController extends GetxController
   // }
 
   void loadTap() async {
-    tapCache.load(tap);
+    await tapPlayer.setPlayerMode(PlayerMode.lowLatency);
   }
 
   void playTap() async {
-    tapCache.play(tap);
+    await tapPlayer.stop();
+    await tapPlayer.play(AssetSource(tap));
   }
 
   // void onBackground() {
@@ -96,22 +89,7 @@ class HomeScreenController extends GetxController
   //   bgmPlayer?.resume();
   // }
 
-  void openUpdateDialog(NewVersion newVersion) async {
-    final status = await newVersion.getVersionStatus();
-    if (status != null && status.canUpdate) {
-      String storeVersion = status.storeVersion;
-      String releaseNote = status.releaseNotes.toString();
-      newVersion.showUpdateDialog(
-        context: Get.context!,
-        versionStatus: status,
-        dialogTitle: 'アップデートが必要です。',
-        dialogText:
-            'Ver.$storeVersionが公開されています。\n最新バージョンにアップデートをお願いします。\n\nバージョンアップ内容は以下の通りです。\n$releaseNote',
-        updateButtonText: 'アップデート',
-        allowDismissal: false,
-      );
-    }
-  }
+  // アップデートダイアログ機能は削除しました（new_version 依存排除のため）。
 
   void onTap() {
     Get.to(() => const GameScreen())?.then((value) {

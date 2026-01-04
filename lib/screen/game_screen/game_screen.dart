@@ -2,7 +2,6 @@
 import 'dart:math';
 
 // Flutter imports:
-import 'package:barubatu_3_app/admob/ad_state.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -15,8 +14,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 // Project imports:
 import 'package:barubatu_3_app/model/color.dart';
 import 'package:barubatu_3_app/model/model.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:provider/provider.dart';
 
 class GameScreen extends StatefulWidget {
   const GameScreen({Key? key}) : super(key: key);
@@ -39,7 +36,7 @@ class _GameScreenState extends State<GameScreen> {
   late double lineWidth;
   static const tapSound = 'images/game_tap.mp3';
   static const gameClear = 'images/game_clear.mp3';
-  final AudioCache _cache = AudioCache(fixedPlayer: AudioPlayer());
+  final AudioPlayer _sfxPlayer = AudioPlayer();
 
   // static const backgroundMusic = 'images/game_bgm.mp3';
   AudioPlayer? _player;
@@ -109,34 +106,11 @@ class _GameScreenState extends State<GameScreen> {
     [13, 17, 21],
     [14, 18, 22],
   ];
-
-  late BannerAd banner;
-
   @override
   void initState() {
     super.initState();
     // bgmPlayer(name: backgroundMusic);
     loadSound();
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    loadAd();
-  }
-
-  void loadAd() {
-    final adState = Provider.of<AdState>(context);
-    adState.initialization.then((status) {
-      setState(() {
-        banner = BannerAd(
-          adUnitId: adState.bannerAdUnitId,
-          size: AdSize.banner,
-          request: const AdRequest(),
-          listener: adState.adListener,
-        )..load();
-      });
-    });
   }
 
   // void bgmPlayer({required String name, bool isLoop = true}) {
@@ -163,14 +137,16 @@ class _GameScreenState extends State<GameScreen> {
   void dispose() {
     super.dispose();
     stopBgm();
+    _sfxPlayer.dispose();
   }
 
   void loadSound() async {
-    _cache.load(tapSound);
+    await _sfxPlayer.setPlayerMode(PlayerMode.lowLatency);
   }
 
   void playSound() async {
-    _cache.play(tapSound);
+    await _sfxPlayer.stop();
+    await _sfxPlayer.play(AssetSource(tapSound));
   }
 
   void clear() {
@@ -261,13 +237,6 @@ class _GameScreenState extends State<GameScreen> {
             child: buildRow(),
           ),
           buildColumn(),
-          SizedBox(
-            width: MediaQuery.of(context).size.width,
-            height: 50,
-            child: AdWidget(
-              ad: banner,
-            ),
-          ),
         ],
       ),
     );
@@ -573,7 +542,10 @@ class _GameScreenState extends State<GameScreen> {
   }
 
   void playClearSound() {
-    _cache.play(gameClear);
+    () async {
+      await _sfxPlayer.stop();
+      await _sfxPlayer.play(AssetSource(gameClear));
+    }();
   }
 
   void openWinningDialog(bool isWin) {
@@ -592,10 +564,10 @@ class _GameScreenState extends State<GameScreen> {
     }
     AwesomeDialog(
       context: context,
-      dialogType: DialogType.INFO_REVERSED,
+      dialogType: DialogType.infoReverse,
       barrierColor: Colors.grey.shade100,
       dismissOnTouchOutside: true,
-      animType: AnimType.SCALE,
+      animType: AnimType.scale,
       title: whoWin,
       titleTextStyle: const TextStyle(
         fontWeight: FontWeight.bold,

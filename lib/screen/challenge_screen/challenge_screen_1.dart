@@ -40,7 +40,7 @@ class _ChallengeScreen1State extends State<ChallengeScreen1> {
   static const tapSound = 'images/game_tap.mp3';
   static const gameClear = 'images/game_clear.mp3';
   static const noGameClear = 'images/no_game_clear.mp3';
-  final AudioCache _cache = AudioCache(fixedPlayer: AudioPlayer());
+  final AudioPlayer _sfxPlayer = AudioPlayer();
 
   // static const backgroundMusic = 'images/game_bgm.mp3';
   AudioPlayer? _player;
@@ -172,22 +172,30 @@ class _ChallengeScreen1State extends State<ChallengeScreen1> {
   void dispose() {
     super.dispose();
     stopBgm();
+    _sfxPlayer.dispose();
   }
 
   void loadSound() async {
-    _cache.load(tapSound);
+    await _sfxPlayer.setPlayerMode(PlayerMode.lowLatency);
   }
 
   void playSound() async {
-    _cache.play(tapSound);
+    await _sfxPlayer.stop();
+    await _sfxPlayer.play(AssetSource(tapSound));
   }
 
   void clearGame() {
-    _cache.play(gameClear);
+    () async {
+      await _sfxPlayer.stop();
+      await _sfxPlayer.play(AssetSource(gameClear));
+    }();
   }
 
   void noClearGame() {
-    _cache.play(noGameClear);
+    () async {
+      await _sfxPlayer.stop();
+      await _sfxPlayer.play(AssetSource(noGameClear));
+    }();
   }
 
   @override
@@ -516,32 +524,32 @@ class _ChallengeScreen1State extends State<ChallengeScreen1> {
 
   void openWinningDialog(bool isWin) {
     String whoWin = '';
-    DialogType dialogType = DialogType.ERROR;
+    DialogType dialogType = DialogType.error;
     var dismiss = false;
     if (gameCount == 7) {
       clearGame();
       whoWin = 'ゲームクリア';
-      dialogType = DialogType.SUCCES;
+      dialogType = DialogType.success;
       dismiss = true;
       setPreference();
     } else {
       noClearGame();
       whoWin = 'クリア失敗';
-      dialogType = DialogType.ERROR;
+      dialogType = DialogType.error;
       dismiss = false;
     }
     if (isWin) {
       noClearGame();
       whoWin = 'クリア失敗';
       dismiss = false;
-      dialogType = DialogType.ERROR;
+      dialogType = DialogType.error;
     }
     AwesomeDialog(
       context: context,
       dialogType: dialogType,
       barrierColor: Colors.grey.shade100,
       dismissOnTouchOutside: dismiss,
-      animType: AnimType.SCALE,
+      animType: AnimType.scale,
       title: whoWin,
       titleTextStyle: TextStyle(
         fontWeight: FontWeight.bold,

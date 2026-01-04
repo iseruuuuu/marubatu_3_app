@@ -1,5 +1,4 @@
 // Flutter imports:
-import 'package:barubatu_3_app/admob/ad_state.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -8,21 +7,10 @@ import 'package:get/get.dart';
 
 // Project imports:
 import 'package:barubatu_3_app/screen/home_screen/home_screen.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:provider/provider.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  MobileAds.instance.initialize();
-  final initFuture = MobileAds.instance.initialize();
-  final adState = AdState(initFuture);
-  runApp(
-    Provider.value(
-      value: adState,
-      builder: (context, child) => const MyApp(),
-    ),
-  );
-  // runApp(const MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
