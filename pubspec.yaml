@@ -25,6 +25,7 @@ dependencies:
   audioplayers: ^6.5.1
   provider: ^6.1.5+1
   enum_to_string: ^2.2.1
+  google_fonts: ^6.2.1
 
 dev_dependencies:
   flutter_test:
@@ -54,22 +55,5 @@ flutter_native_splash:
 flutter:
   uses-material-design: true
   assets:
-    - assets/images/dialog.png
-    - assets/images/game.gif
-    - assets/images/gold1.png
-    - assets/images/gold2.png
-    - assets/images/gold3.png
-    - assets/images/gold4.png
-    - assets/images/gold5.png
-    - assets/images/grey1.png
-    - assets/images/grey2.png
-    - assets/images/grey3.png
-    - assets/images/grey4.png
-    - assets/images/grey5.png
-    - assets/images/tap.mp3
-    - assets/images/background.mp3
-    - assets/images/trophy_b.mp3
-    - assets/images/game_tap.mp3
-    - assets/images/game_clear.mp3
-    - assets/images/no_game_clear.mp3
-    - assets/images/game_bgm.mp3
+    - assets/images/
+    - assets/home/
