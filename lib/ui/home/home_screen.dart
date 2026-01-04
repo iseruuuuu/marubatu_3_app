@@ -1,5 +1,5 @@
 import 'package:barubatu_3_app/screen/challenge_list_screen/challenge_list_screen.dart';
-import 'package:barubatu_3_app/screen/game_screen/game_screen.dart';
+import 'package:barubatu_3_app/ui/game/game_screen.dart';
 import 'package:barubatu_3_app/screen/setting_screen/setting_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
