@@ -99,28 +99,6 @@ class _SettingScreenState extends State<SettingScreen>
               ),
             ],
           ),
-          SettingsSection(
-            title: const Text('音楽使用'),
-            tiles: <SettingsTile>[
-              SettingsTile.navigation(
-                leading: const Icon(Icons.music_note),
-                title: Text(
-                  '音楽使用',
-                  style: TextStyle(
-                    color: Colors.grey.shade700,
-                    fontSize: 15.w,
-                  ),
-                ),
-                trailing: Text(
-                  '魔王魂',
-                  style: TextStyle(
-                    color: Colors.grey.shade700,
-                    fontSize: 20.w,
-                  ),
-                ),
-              ),
-            ],
-          ),
         ],
       ),
     );

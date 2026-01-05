@@ -6,6 +6,7 @@ import 'package:barubatu_3_app/core/game/game_turn_style.dart';
 import 'package:barubatu_3_app/core/game/win_style.dart';
 import 'package:barubatu_3_app/ui/components/app_dialog.dart';
 import 'package:barubatu_3_app/model/model.dart';
+import 'package:barubatu_3_app/preference/shared_preference.dart';
 
 class ChallengeScreen extends StatefulWidget {
   const ChallengeScreen({super.key, required this.id});
@@ -293,6 +294,7 @@ class _ChallengeScreenState extends State<ChallengeScreen> {
                                           // チャレンジ判定
                                           if (rule.isCleared(statusList)) {
                                             gameStatus = GameStatus.settlement;
+                                            _saveClearPreference();
                                             _openClearDialog();
                                           } else {
                                             final info =
@@ -410,6 +412,29 @@ class _ChallengeScreenState extends State<ChallengeScreen> {
         ],
       ),
     );
+  }
+
+  void _saveClearPreference() {
+    PreferenceKey key;
+    switch (widget.id) {
+      case ChallengeId.level1:
+        key = PreferenceKey.stage1;
+        break;
+      case ChallengeId.level2:
+        key = PreferenceKey.stage2;
+        break;
+      case ChallengeId.level3:
+        key = PreferenceKey.stage3;
+        break;
+      case ChallengeId.level4:
+        key = PreferenceKey.stage4;
+        break;
+      case ChallengeId.level5:
+        key = PreferenceKey.stage5;
+        break;
+    }
+    // 非同期で保存（待たずに継続）
+    Preference().setBool(key, true);
   }
 
   void _openClearDialog() {

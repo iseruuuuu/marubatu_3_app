@@ -1,14 +1,15 @@
+import 'package:barubatu_3_app/ui/screen/trophy_screen/trophy_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'challenge_list_screen_controller.dart';
-import 'package:barubatu_3_app/ui/screen/challenge/challenge_screen.dart' as unified;
+import 'package:barubatu_3_app/ui/screen/challenge/challenge_screen.dart'
+    as unified;
 import 'package:barubatu_3_app/core/challenge/clear_style.dart';
-import 'package:barubatu_3_app/screen/trophy_screen/trophy_screen.dart';
 
 class ChallengeListScreen extends StatelessWidget {
-  const ChallengeListScreen({super.key}); 
+  const ChallengeListScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
