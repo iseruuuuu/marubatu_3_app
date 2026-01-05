@@ -1,8 +1,8 @@
+import 'package:barubatu_3_app/ui/screen/game/game_screen_controler.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:barubatu_3_app/ui/game/game_screen_controler.dart';
 import 'package:barubatu_3_app/ui/components/app_dialog.dart';
 import 'package:barubatu_3_app/model/model.dart';
 
