@@ -13,6 +13,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isEnglish = Localizations.localeOf(context).languageCode == 'en';
     return Scaffold(
       backgroundColor: const Color(0xFF0D1224),
       body: Stack(
@@ -38,9 +39,10 @@ class HomeScreen extends StatelessWidget {
                     Tween<double>(begin: 1, end: 1.04),
                   ),
                   child: SpriteButton(
-                    onPressed: () async =>
-                        await Get.to<void>(() => const GameScreen()),
-                    bgImagePath: 'assets/home/circle_button.png',
+                    onPressed: () => Get.to<void>(() => const GameScreen()),
+                    bgImagePath: isEnglish
+                        ? 'assets/home/circle_button_en.png'
+                        : 'assets/home/circle_button.png',
                   ),
                 ),
                 const SizedBox(height: 20),
@@ -49,9 +51,11 @@ class HomeScreen extends StatelessWidget {
                     Tween<double>(begin: 1.04, end: 1),
                   ),
                   child: SpriteButton(
-                    onPressed: () async =>
-                        await Get.to<void>(() => const ChallengeListScreen()),
-                    bgImagePath: 'assets/home/cross_button.png',
+                    onPressed: () =>
+                        Get.to<void>(() => const ChallengeListScreen()),
+                    bgImagePath: isEnglish
+                        ? 'assets/home/cross_button_en.png'
+                        : 'assets/home/cross_button.png',
                   ),
                 ),
                 const SizedBox(height: 20),

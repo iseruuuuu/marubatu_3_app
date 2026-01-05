@@ -1,8 +1,6 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:barubatu_3_app/gen/l10n/l10n.dart';
 import 'package:flutter/material.dart';
-
-// This file centralizes dialog presentation as a simple, namespaced API.
-// ignore_for_file: avoid_classes_with_only_static_members, discarded_futures
 
 class AppDialog {
   static Future<void> showWinDialog(
@@ -20,8 +18,8 @@ class AppDialog {
         fontSize: 30,
         color: Colors.black,
       ),
-      btnOkText: 'もう一度',
-      btnCancelText: 'タイトル',
+      btnOkText: L10n.of(context).btnOkAgain,
+      btnCancelText: L10n.of(context).btnCancelTitle,
       btnCancelOnPress: onCancel,
       btnOkOnPress: onOk,
     ).show();
@@ -32,10 +30,10 @@ class AppDialog {
       context: context,
       builder: (_) {
         return AlertDialog(
-          title: const Center(
+          title: Center(
             child: Text(
-              '勝ち手一覧',
-              style: TextStyle(
+              L10n.of(context).winListTitle,
+              style: const TextStyle(
                 fontSize: 25,
               ),
             ),

@@ -1,4 +1,5 @@
 import 'package:barubatu_3_app/gen/assets.gen.dart';
+import 'package:barubatu_3_app/gen/l10n/l10n.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -26,7 +27,7 @@ class TrophyScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: CupertinoColors.white,
         elevation: 0,
-        title: const Text('Your Record'),
+        title: Text(L10n.of(context).trophyTitle),
         titleTextStyle: TextStyle(
           color: Colors.black,
           fontWeight: FontWeight.bold,

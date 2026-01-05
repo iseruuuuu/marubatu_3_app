@@ -1,3 +1,4 @@
+import 'package:barubatu_3_app/gen/l10n/l10n.dart';
 import 'package:barubatu_3_app/model/model.dart';
 import 'package:barubatu_3_app/ui/components/app_dialog.dart';
 import 'package:barubatu_3_app/ui/screen/game/game_screen_controler.dart';
@@ -41,9 +42,9 @@ class _GameScreenState extends State<GameScreen> {
               buildLine = [Container()];
             });
           },
-          child: const Text(
-            'リセット',
-            style: TextStyle(
+          child: Text(
+            L10n.of(context).reset,
+            style: const TextStyle(
               color: Color(0xFF00FFA3),
               fontSize: 20,
               fontWeight: FontWeight.bold,
@@ -214,7 +215,7 @@ class _GameScreenState extends State<GameScreen> {
                             ),
                             child: Center(
                               child: Text(
-                                '引き分けです',
+                                L10n.of(context).drawMessage,
                                 style: GoogleFonts.dotGothic16(
                                   fontSize: 24.w,
                                   color: const Color(0xFF5FEAD1),
@@ -429,14 +430,14 @@ class _GameScreenState extends State<GameScreen> {
     var whoWin = '';
     if (isWin) {
       if (c.turnOfPlayer1) {
-        whoWin = '□の勝ち';
+        whoWin = L10n.of(context).winSquare;
       } else if (c.turnOfPlayer2) {
-        whoWin = '◯の勝ち';
+        whoWin = L10n.of(context).winCircle;
       } else if (c.turnOfPlayer3) {
-        whoWin = '×の勝ち';
+        whoWin = L10n.of(context).winCross;
       }
     } else {
-      whoWin = '引き分け';
+      whoWin = L10n.of(context).drawMessage;
     }
     // Don't await; just present.
     // ignore: discarded_futures
