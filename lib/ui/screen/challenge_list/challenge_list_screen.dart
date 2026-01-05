@@ -1,11 +1,7 @@
 import 'package:barubatu_3_app/core/challenge/clear_style.dart';
-import 'package:barubatu_3_app/core/challenge/clear_style.dart';
 import 'package:barubatu_3_app/gen/l10n/l10n.dart';
 import 'package:barubatu_3_app/ui/screen/challenge/challenge_screen.dart'
     as unified;
-import 'package:barubatu_3_app/ui/screen/challenge/challenge_screen.dart'
-    as unified;
-import 'package:barubatu_3_app/ui/screen/challenge_list/challenge_list_screen_controller.dart';
 import 'package:barubatu_3_app/ui/screen/challenge_list/challenge_list_screen_controller.dart';
 import 'package:barubatu_3_app/ui/screen/trophy_screen/trophy_screen.dart';
 import 'package:flutter/material.dart';
