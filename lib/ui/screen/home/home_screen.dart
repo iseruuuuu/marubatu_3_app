@@ -1,6 +1,6 @@
-import 'package:barubatu_3_app/screen/setting_screen/setting_screen.dart';
 import 'package:barubatu_3_app/ui/screen/challenge_list/challenge_list_screen.dart';
 import 'package:barubatu_3_app/ui/screen/game/game_screen.dart';
+import 'package:barubatu_3_app/ui/screen/setting/setting_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'component/sprite_button.dart';
