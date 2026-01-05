@@ -7,6 +7,7 @@ import 'package:barubatu_3_app/core/game/win_style.dart';
 import 'package:barubatu_3_app/ui/components/app_dialog.dart';
 import 'package:barubatu_3_app/model/model.dart';
 import 'package:barubatu_3_app/preference/shared_preference.dart';
+import 'package:barubatu_3_app/gen/l10n/l10n.dart';
 
 class ChallengeScreen extends StatefulWidget {
   const ChallengeScreen({super.key, required this.id});
@@ -52,7 +53,7 @@ class _ChallengeScreenState extends State<ChallengeScreen> {
         backgroundColor: Colors.black.withValues(alpha: 0.25),
         elevation: 0,
         title: Text(
-          rule.title,
+          _localizedTitle(context),
           style: GoogleFonts.dotGothic16(
             color: const Color(0xFF00FFA3),
             fontSize: 22,
@@ -74,9 +75,9 @@ class _ChallengeScreenState extends State<ChallengeScreen> {
         actions: [
           TextButton(
             onPressed: clear,
-            child: const Text(
-              'リセット',
-              style: TextStyle(
+            child: Text(
+              L10n.of(context).reset,
+              style: const TextStyle(
                 color: Color(0xFF00FFA3),
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
@@ -144,7 +145,7 @@ class _ChallengeScreenState extends State<ChallengeScreen> {
                         const SizedBox(width: 8),
                         Flexible(
                           child: Text(
-                            rule.description,
+                            _localizedDescription(context),
                             textAlign: TextAlign.center,
                             style: GoogleFonts.mPlusRounded1c(
                               fontSize: 18,
@@ -440,7 +441,7 @@ class _ChallengeScreenState extends State<ChallengeScreen> {
   void _openClearDialog() {
     AppDialog.showWinDialog(
       context,
-      title: 'クリア！',
+      title: L10n.of(context).dialogClearTitle,
       onCancel: () {
         Navigator.pop(context);
       },
@@ -453,7 +454,7 @@ class _ChallengeScreenState extends State<ChallengeScreen> {
   void _openDrawDialog() {
     AppDialog.showWinDialog(
       context,
-      title: '引き分け',
+      title: L10n.of(context).dialogDrawTitle,
       onCancel: () {
         Navigator.pop(context);
       },
@@ -466,7 +467,7 @@ class _ChallengeScreenState extends State<ChallengeScreen> {
   void _openFailDialog() {
     AppDialog.showWinDialog(
       context,
-      title: '失敗',
+      title: L10n.of(context).dialogFailTitle,
       onCancel: () {
         Navigator.pop(context);
       },
@@ -474,5 +475,37 @@ class _ChallengeScreenState extends State<ChallengeScreen> {
         clear();
       },
     );
+  }
+
+  String _localizedTitle(BuildContext context) {
+    final l = L10n.of(context);
+    switch (widget.id) {
+      case ChallengeId.level1:
+        return l.challengeTitle1;
+      case ChallengeId.level2:
+        return l.challengeTitle2;
+      case ChallengeId.level3:
+        return l.challengeTitle3;
+      case ChallengeId.level4:
+        return l.challengeTitle4;
+      case ChallengeId.level5:
+        return l.challengeTitle5;
+    }
+  }
+
+  String _localizedDescription(BuildContext context) {
+    final l = L10n.of(context);
+    switch (widget.id) {
+      case ChallengeId.level1:
+        return l.challengeDesc1;
+      case ChallengeId.level2:
+        return l.challengeDesc2;
+      case ChallengeId.level3:
+        return l.challengeDesc3;
+      case ChallengeId.level4:
+        return l.challengeDesc4;
+      case ChallengeId.level5:
+        return l.challengeDesc5;
+    }
   }
 }

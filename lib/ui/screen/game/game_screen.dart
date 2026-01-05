@@ -1,3 +1,4 @@
+import 'package:barubatu_3_app/gen/l10n/l10n.dart';
 import 'package:barubatu_3_app/ui/screen/game/game_screen_controler.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -42,7 +43,7 @@ class _GameScreenState extends State<GameScreen> {
             });
           },
           child: Text(
-            'リセット',
+            L10n.of(context).reset,
             style: TextStyle(
               color: Color(0xFF00FFA3),
               fontSize: 20,
@@ -209,7 +210,7 @@ class _GameScreenState extends State<GameScreen> {
                             ),
                             child: Center(
                               child: Text(
-                                '引き分けです',
+                                L10n.of(context).drawMessage,
                                 style: GoogleFonts.dotGothic16(
                                   fontSize: 24.w,
                                   color: const Color(0xFF5FEAD1),
@@ -425,14 +426,14 @@ class _GameScreenState extends State<GameScreen> {
     String whoWin = '';
     if (isWin) {
       if (c.turnOfPlayer1) {
-        whoWin = '□の勝ち';
+        whoWin = L10n.of(context).winSquare;
       } else if (c.turnOfPlayer2) {
-        whoWin = '◯の勝ち';
+        whoWin = L10n.of(context).winCircle;
       } else if (c.turnOfPlayer3) {
-        whoWin = '×の勝ち';
+        whoWin = L10n.of(context).winCross;
       }
     } else {
-      whoWin = '引き分け';
+      whoWin = L10n.of(context).drawMessage;
     }
     AppDialog.showWinDialog(
       context,

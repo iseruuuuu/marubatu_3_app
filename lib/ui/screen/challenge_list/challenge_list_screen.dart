@@ -7,6 +7,7 @@ import 'challenge_list_screen_controller.dart';
 import 'package:barubatu_3_app/ui/screen/challenge/challenge_screen.dart'
     as unified;
 import 'package:barubatu_3_app/core/challenge/clear_style.dart';
+import 'package:barubatu_3_app/gen/l10n/l10n.dart';
 
 class ChallengeListScreen extends StatelessWidget {
   const ChallengeListScreen({super.key});
@@ -70,7 +71,7 @@ class ChallengeListScreen extends StatelessWidget {
                       ),
                     ),
                     child: _MenuButton(
-                      label: 'レベル１',
+                      label: L10n.of(context).challengeLevel1,
                       onPressed: () {
                         Get.to(() =>
                             unified.ChallengeScreen(id: ChallengeId.level1));
@@ -85,7 +86,7 @@ class ChallengeListScreen extends StatelessWidget {
                       ),
                     ),
                     child: _MenuButton(
-                      label: 'レベル２',
+                      label: L10n.of(context).challengeLevel2,
                       onPressed: () {
                         Get.to(() =>
                             unified.ChallengeScreen(id: ChallengeId.level2));
@@ -100,7 +101,7 @@ class ChallengeListScreen extends StatelessWidget {
                       ),
                     ),
                     child: _MenuButton(
-                      label: 'レベル３',
+                      label: L10n.of(context).challengeLevel3,
                       onPressed: () {
                         Get.to(() =>
                             unified.ChallengeScreen(id: ChallengeId.level3));
@@ -115,7 +116,7 @@ class ChallengeListScreen extends StatelessWidget {
                       ),
                     ),
                     child: _MenuButton(
-                      label: 'レベル４',
+                      label: L10n.of(context).challengeLevel4,
                       onPressed: () {
                         Get.to(() =>
                             unified.ChallengeScreen(id: ChallengeId.level4));
@@ -130,7 +131,7 @@ class ChallengeListScreen extends StatelessWidget {
                       ),
                     ),
                     child: _MenuButton(
-                      label: 'レベル５',
+                      label: L10n.of(context).challengeLevel5,
                       onPressed: () {
                         Get.to(() =>
                             unified.ChallengeScreen(id: ChallengeId.level5));

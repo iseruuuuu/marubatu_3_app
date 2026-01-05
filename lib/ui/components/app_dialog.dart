@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:barubatu_3_app/gen/l10n/l10n.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 
 class AppDialog {
@@ -20,8 +21,8 @@ class AppDialog {
         fontSize: 30,
         color: Colors.black,
       ),
-      btnOkText: 'もう一度',
-      btnCancelText: 'タイトル',
+      btnOkText: L10n.of(context).btnOkAgain,
+      btnCancelText: L10n.of(context).btnCancelTitle,
       btnCancelOnPress: onCancel,
       btnOkOnPress: onOk,
     ).show();
@@ -32,10 +33,10 @@ class AppDialog {
       context: context,
       builder: (_) {
         return AlertDialog(
-          title: const Center(
+          title: Center(
             child: Text(
-              '勝ち手一覧',
-              style: TextStyle(
+              L10n.of(context).winListTitle,
+              style: const TextStyle(
                 fontSize: 25,
               ),
             ),
