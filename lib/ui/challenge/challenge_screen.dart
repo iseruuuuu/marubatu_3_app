@@ -98,12 +98,62 @@ class _ChallengeScreenState extends State<ChallengeScreen> {
               children: [
                 // 説明
                 Padding(
-                  padding: const EdgeInsets.only(top: 8),
-                  child: Text(
-                    rule.description,
-                    style: GoogleFonts.mPlusRounded1c(
-                      fontSize: 14,
-                      color: Colors.white.withValues(alpha: 0.8),
+                  padding: const EdgeInsets.fromLTRB(16, 12, 16, 0),
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 16, vertical: 12),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(16),
+                      gradient: const LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [
+                          Color(0xFF0B1220),
+                          Color(0xFF0F172A),
+                        ],
+                      ),
+                      border: Border.all(
+                        color: const Color(0xFF00FFA3).withValues(alpha: 0.7),
+                        width: 2,
+                      ),
+                      boxShadow: [
+                        BoxShadow(
+                          color:
+                              const Color(0xFF00FFA3).withValues(alpha: 0.25),
+                          blurRadius: 20,
+                          spreadRadius: 1,
+                        ),
+                        BoxShadow(
+                          color:
+                              const Color(0xFF00FFA3).withValues(alpha: 0.10),
+                          blurRadius: 40,
+                          spreadRadius: 8,
+                        ),
+                      ],
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const Icon(
+                          FontAwesomeIcons.flagCheckered,
+                          color: Color(0xFF00FFA3),
+                          size: 18,
+                        ),
+                        const SizedBox(width: 8),
+                        Flexible(
+                          child: Text(
+                            rule.description,
+                            textAlign: TextAlign.center,
+                            style: GoogleFonts.mPlusRounded1c(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w800,
+                              color: Colors.white,
+                              letterSpacing: 0.5,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
