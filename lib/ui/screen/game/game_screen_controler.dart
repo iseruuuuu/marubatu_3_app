@@ -1,8 +1,8 @@
 import 'package:barubatu_3_app/core/game/game_turn_style.dart';
 import 'package:barubatu_3_app/core/game/win_style.dart';
 import 'package:barubatu_3_app/model/model.dart';
-import 'package:flutter/material.dart';
 import 'package:barubatu_3_app/ui/components/app_dialog.dart';
+import 'package:flutter/material.dart';
 
 class GameScreenControler {
   bool turnOfPlayer1 = true;
@@ -20,8 +20,12 @@ class GameScreenControler {
   }
 
   void handleTap(int index) {
-    if (gameStatus != GameStatus.play) return;
-    if (statusList[index] != PieceStatus.none) return;
+    if (gameStatus != GameStatus.play) {
+      return;
+    }
+    if (statusList[index] != PieceStatus.none) {
+      return;
+    }
 
     final t = GameTurnStyle.placePieceAndRotate(
       index,

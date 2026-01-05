@@ -1,12 +1,12 @@
+import 'package:barubatu_3_app/core/challenge/clear_style.dart';
+import 'package:barubatu_3_app/ui/screen/challenge/challenge_screen.dart'
+    as unified;
+import 'package:barubatu_3_app/ui/screen/challenge_list/challenge_list_screen_controller.dart';
 import 'package:barubatu_3_app/ui/screen/trophy_screen/trophy_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'challenge_list_screen_controller.dart';
-import 'package:barubatu_3_app/ui/screen/challenge/challenge_screen.dart'
-    as unified;
-import 'package:barubatu_3_app/core/challenge/clear_style.dart';
 
 class ChallengeListScreen extends StatelessWidget {
   const ChallengeListScreen({super.key});
@@ -30,8 +30,8 @@ class ChallengeListScreen extends StatelessWidget {
         ),
         actions: [
           IconButton(
-            onPressed: () {
-              Get.to(
+            onPressed: () async {
+              await Get.to<void>(
                 () => TrophyScreen(
                   isClear1: controller.stage1.value,
                   isClear2: controller.stage2.value,
@@ -71,9 +71,12 @@ class ChallengeListScreen extends StatelessWidget {
                     ),
                     child: _MenuButton(
                       label: 'レベル１',
-                      onPressed: () {
-                        Get.to(() =>
-                            unified.ChallengeScreen(id: ChallengeId.level1));
+                      onPressed: () async {
+                        await Get.to<void>(
+                          () => const unified.ChallengeScreen(
+                            id: ChallengeId.level1,
+                          ),
+                        );
                       },
                     ),
                   ),
@@ -86,9 +89,12 @@ class ChallengeListScreen extends StatelessWidget {
                     ),
                     child: _MenuButton(
                       label: 'レベル２',
-                      onPressed: () {
-                        Get.to(() =>
-                            unified.ChallengeScreen(id: ChallengeId.level2));
+                      onPressed: () async {
+                        await Get.to<void>(
+                          () => const unified.ChallengeScreen(
+                            id: ChallengeId.level2,
+                          ),
+                        );
                       },
                     ),
                   ),
@@ -101,9 +107,12 @@ class ChallengeListScreen extends StatelessWidget {
                     ),
                     child: _MenuButton(
                       label: 'レベル３',
-                      onPressed: () {
-                        Get.to(() =>
-                            unified.ChallengeScreen(id: ChallengeId.level3));
+                      onPressed: () async {
+                        await Get.to<void>(
+                          () => const unified.ChallengeScreen(
+                            id: ChallengeId.level3,
+                          ),
+                        );
                       },
                     ),
                   ),
@@ -116,9 +125,12 @@ class ChallengeListScreen extends StatelessWidget {
                     ),
                     child: _MenuButton(
                       label: 'レベル４',
-                      onPressed: () {
-                        Get.to(() =>
-                            unified.ChallengeScreen(id: ChallengeId.level4));
+                      onPressed: () async {
+                        await Get.to<void>(
+                          () => const unified.ChallengeScreen(
+                            id: ChallengeId.level4,
+                          ),
+                        );
                       },
                     ),
                   ),
@@ -131,9 +143,12 @@ class ChallengeListScreen extends StatelessWidget {
                     ),
                     child: _MenuButton(
                       label: 'レベル５',
-                      onPressed: () {
-                        Get.to(() =>
-                            unified.ChallengeScreen(id: ChallengeId.level5));
+                      onPressed: () async {
+                        await Get.to<void>(
+                          () => const unified.ChallengeScreen(
+                            id: ChallengeId.level5,
+                          ),
+                        );
                       },
                     ),
                   ),
@@ -154,7 +169,7 @@ class _MenuButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final accent = const Color(0xFF00FFA3);
+    const accent = Color(0xFF00FFA3);
     return SizedBox(
       width: MediaQuery.of(context).size.width * 0.82,
       height: 64,
@@ -208,7 +223,7 @@ class _MenuButton extends StatelessWidget {
                           end: Alignment.bottomCenter,
                           colors: [
                             Colors.white.withValues(alpha: 0.08),
-                            Colors.white.withValues(alpha: 0.0),
+                            Colors.white.withValues(alpha: 0),
                           ],
                         ),
                       ),

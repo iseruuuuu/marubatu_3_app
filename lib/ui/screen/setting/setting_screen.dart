@@ -1,9 +1,5 @@
-// Flutter imports:
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-// Package imports:
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:in_app_review/in_app_review.dart';
 import 'package:settings_ui/settings_ui.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -12,14 +8,13 @@ class SettingScreen extends StatefulWidget {
   const SettingScreen({super.key});
 
   @override
-  _SettingScreenState createState() => _SettingScreenState();
+  State<SettingScreen> createState() => _SettingScreenState();
 }
 
-class _SettingScreenState extends State<SettingScreen>
-    with TickerProviderStateMixin {
+class _SettingScreenState extends State<SettingScreen> {
   @override
   Widget build(BuildContext context) {
-    final InAppReview inAppReview = InAppReview.instance;
+    final inAppReview = InAppReview.instance;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: CupertinoColors.secondarySystemBackground,
@@ -50,10 +45,10 @@ class _SettingScreenState extends State<SettingScreen>
               SettingsTile.navigation(
                 leading: const Icon(Icons.local_police),
                 title: const Text('ライセンス'),
-                onPressed: (context) {
-                  Navigator.push(
+                onPressed: (context) async {
+                  await Navigator.push(
                     context,
-                    MaterialPageRoute(
+                    MaterialPageRoute<void>(
                       builder: (context) => const LicensePage(),
                     ),
                   );
@@ -68,8 +63,10 @@ class _SettingScreenState extends State<SettingScreen>
                   if (canOpen) {
                     await launchUrl(uri, mode: LaunchMode.externalApplication);
                   } else {
-                    if (!mounted) return;
-                    openDialog(
+                    if (!context.mounted) {
+                      return;
+                    }
+                    await openDialog(
                       context: context,
                       title: 'URLエラー',
                       content: 'URLが開けませんでした。\n'
@@ -87,8 +84,10 @@ class _SettingScreenState extends State<SettingScreen>
                   if (available) {
                     await inAppReview.requestReview();
                   } else {
-                    if (!mounted) return;
-                    openDialog(
+                    if (!context.mounted) {
+                      return;
+                    }
+                    await openDialog(
                       context: context,
                       title: 'レビューができませんでした。',
                       content: 'レビューができませんでした。\n'
@@ -104,12 +103,12 @@ class _SettingScreenState extends State<SettingScreen>
     );
   }
 
-  void openDialog({
+  Future<void> openDialog({
     required BuildContext context,
     required String title,
     required String content,
-  }) {
-    showCupertinoDialog(
+  }) async {
+    await showCupertinoDialog<void>(
       context: context,
       builder: (context) {
         return CupertinoAlertDialog(
@@ -117,7 +116,7 @@ class _SettingScreenState extends State<SettingScreen>
           content: Text(content),
           actions: [
             CupertinoDialogAction(
-              child: const Text("OK"),
+              child: const Text('OK'),
               onPressed: () {
                 Navigator.of(context).pop();
               },

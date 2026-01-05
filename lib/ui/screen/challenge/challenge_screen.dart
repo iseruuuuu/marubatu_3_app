@@ -1,15 +1,15 @@
-import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:barubatu_3_app/core/challenge/clear_style.dart';
 import 'package:barubatu_3_app/core/game/game_turn_style.dart';
 import 'package:barubatu_3_app/core/game/win_style.dart';
-import 'package:barubatu_3_app/ui/components/app_dialog.dart';
 import 'package:barubatu_3_app/model/model.dart';
 import 'package:barubatu_3_app/preference/shared_preference.dart';
+import 'package:barubatu_3_app/ui/components/app_dialog.dart';
+import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class ChallengeScreen extends StatefulWidget {
-  const ChallengeScreen({super.key, required this.id});
+  const ChallengeScreen({required this.id, super.key});
   final ChallengeId id;
 
   @override
@@ -24,7 +24,7 @@ class _ChallengeScreenState extends State<ChallengeScreen> {
   List<PieceStatus> statusList = List.filled(25, PieceStatus.none);
   GameStatus gameStatus = GameStatus.play;
   List<Widget> buildLine = [Container()];
-  double lineThickness = 3.0;
+  double lineThickness = 3;
 
   @override
   void initState() {
@@ -102,7 +102,9 @@ class _ChallengeScreenState extends State<ChallengeScreen> {
                   padding: const EdgeInsets.fromLTRB(16, 12, 16, 0),
                   child: Container(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 16, vertical: 12),
+                      horizontal: 16,
+                      vertical: 12,
+                    ),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(16),
                       gradient: const LinearGradient(
@@ -201,7 +203,7 @@ class _ChallengeScreenState extends State<ChallengeScreen> {
                                 end: Alignment.bottomCenter,
                                 colors: [
                                   Colors.white.withValues(alpha: 0.06),
-                                  Colors.white.withValues(alpha: 0.0),
+                                  Colors.white.withValues(alpha: 0),
                                 ],
                               ),
                             ),
@@ -211,39 +213,42 @@ class _ChallengeScreenState extends State<ChallengeScreen> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              turnOfPlayer1
-                                  ? const Icon(
-                                      FontAwesomeIcons.circle,
-                                      size: 60,
-                                      color: Colors.blue,
-                                    )
-                                  : const Icon(
-                                      FontAwesomeIcons.circle,
-                                      size: 60,
-                                      color: Colors.grey,
-                                    ),
-                              turnOfPlayer2
-                                  ? const Icon(
-                                      Icons.clear,
-                                      size: 80,
-                                      color: Colors.red,
-                                    )
-                                  : const Icon(
-                                      Icons.clear,
-                                      size: 80,
-                                      color: Colors.grey,
-                                    ),
-                              turnOfPlayer3
-                                  ? const Icon(
-                                      FontAwesomeIcons.square,
-                                      color: Color(0xFF00FFA3),
-                                      size: 60,
-                                    )
-                                  : const Icon(
-                                      FontAwesomeIcons.square,
-                                      color: Colors.grey,
-                                      size: 60,
-                                    ),
+                              if (turnOfPlayer1)
+                                const Icon(
+                                  FontAwesomeIcons.circle,
+                                  size: 60,
+                                  color: Colors.blue,
+                                )
+                              else
+                                const Icon(
+                                  FontAwesomeIcons.circle,
+                                  size: 60,
+                                  color: Colors.grey,
+                                ),
+                              if (turnOfPlayer2)
+                                const Icon(
+                                  Icons.clear,
+                                  size: 80,
+                                  color: Colors.red,
+                                )
+                              else
+                                const Icon(
+                                  Icons.clear,
+                                  size: 80,
+                                  color: Colors.grey,
+                                ),
+                              if (turnOfPlayer3)
+                                const Icon(
+                                  FontAwesomeIcons.square,
+                                  color: Color(0xFF00FFA3),
+                                  size: 60,
+                                )
+                              else
+                                const Icon(
+                                  FontAwesomeIcons.square,
+                                  color: Colors.grey,
+                                  size: 60,
+                                ),
                             ],
                           ),
                         ),
@@ -255,17 +260,17 @@ class _ChallengeScreenState extends State<ChallengeScreen> {
                 Padding(
                   padding: const EdgeInsets.all(12),
                   child: () {
-                    List<Widget> columnChildren = [
+                    final columnChildren = <Widget>[
                       Divider(
-                        height: 0.0,
+                        height: 0,
                         thickness: lineThickness,
                         color: const Color(0xFFFFFFFF),
-                      )
+                      ),
                     ];
-                    List<Widget> rowChildren = [];
-                    for (int j = 0; j < 5; j++) {
-                      for (int i = 0; i < 5; i++) {
-                        int index = j * 5 + i;
+                    var rowChildren = <Widget>[];
+                    for (var j = 0; j < 5; j++) {
+                      for (var i = 0; i < 5; i++) {
+                        final index = j * 5 + i;
                         rowChildren.add(
                           Expanded(
                             child: InkWell(
@@ -310,7 +315,7 @@ class _ChallengeScreenState extends State<ChallengeScreen> {
                                     }
                                   : null,
                               child: AspectRatio(
-                                aspectRatio: 1.0,
+                                aspectRatio: 1,
                                 child: Row(
                                   children: [
                                     Expanded(
@@ -328,7 +333,8 @@ class _ChallengeScreenState extends State<ChallengeScreen> {
                                                       decoration: BoxDecoration(
                                                         color: Colors.white
                                                             .withValues(
-                                                                alpha: 0.15),
+                                                          alpha: 0.15,
+                                                        ),
                                                         shape: BoxShape.circle,
                                                       ),
                                                     )
@@ -355,13 +361,14 @@ class _ChallengeScreenState extends State<ChallengeScreen> {
                                         }
                                       }(),
                                     ),
-                                    (i == 4)
-                                        ? Container()
-                                        : VerticalDivider(
-                                            width: 0.0,
-                                            thickness: lineThickness,
-                                            color: const Color(0xFFFFFFFF),
-                                          ),
+                                    if (i == 4)
+                                      Container()
+                                    else
+                                      VerticalDivider(
+                                        width: 0,
+                                        thickness: lineThickness,
+                                        color: const Color(0xFFFFFFFF),
+                                      ),
                                   ],
                                 ),
                               ),
@@ -372,7 +379,7 @@ class _ChallengeScreenState extends State<ChallengeScreen> {
                       columnChildren.add(Row(children: rowChildren));
                       columnChildren.add(
                         Divider(
-                          height: 0.0,
+                          height: 0,
                           thickness: lineThickness,
                           color: const Color(0xFFFFFFFF),
                         ),
@@ -390,16 +397,18 @@ class _ChallengeScreenState extends State<ChallengeScreen> {
                           top: 0,
                           bottom: 0,
                           child: Container(
-                              width: lineThickness,
-                              color: const Color(0xFFFFFFFF)),
+                            width: lineThickness,
+                            color: const Color(0xFFFFFFFF),
+                          ),
                         ),
                         Positioned(
                           right: 0,
                           top: 0,
                           bottom: 0,
                           child: Container(
-                              width: lineThickness,
-                              color: const Color(0xFFFFFFFF)),
+                            width: lineThickness,
+                            color: const Color(0xFFFFFFFF),
+                          ),
                         ),
                         Stack(children: buildLine),
                       ],
@@ -419,22 +428,17 @@ class _ChallengeScreenState extends State<ChallengeScreen> {
     switch (widget.id) {
       case ChallengeId.level1:
         key = PreferenceKey.stage1;
-        break;
       case ChallengeId.level2:
         key = PreferenceKey.stage2;
-        break;
       case ChallengeId.level3:
         key = PreferenceKey.stage3;
-        break;
       case ChallengeId.level4:
         key = PreferenceKey.stage4;
-        break;
       case ChallengeId.level5:
         key = PreferenceKey.stage5;
-        break;
     }
     // 非同期で保存（待たずに継続）
-    Preference().setBool(key, true);
+    Preference().setBool(key: key, value: true);
   }
 
   void _openClearDialog() {
@@ -444,9 +448,7 @@ class _ChallengeScreenState extends State<ChallengeScreen> {
       onCancel: () {
         Navigator.pop(context);
       },
-      onOk: () {
-        clear();
-      },
+      onOk: clear,
     );
   }
 
@@ -457,9 +459,7 @@ class _ChallengeScreenState extends State<ChallengeScreen> {
       onCancel: () {
         Navigator.pop(context);
       },
-      onOk: () {
-        clear();
-      },
+      onOk: clear,
     );
   }
 
@@ -470,9 +470,7 @@ class _ChallengeScreenState extends State<ChallengeScreen> {
       onCancel: () {
         Navigator.pop(context);
       },
-      onOk: () {
-        clear();
-      },
+      onOk: clear,
     );
   }
 }

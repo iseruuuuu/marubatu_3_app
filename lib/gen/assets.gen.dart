@@ -1,11 +1,3 @@
-/// GENERATED CODE - DO NOT MODIFY BY HAND
-/// *****************************************************
-///  FlutterGen
-/// *****************************************************
-
-// ignore_for_file: directives_ordering,unnecessary_import
-
-// Flutter imports:
 import 'package:flutter/widgets.dart';
 
 class $AssetsImagesGen {
@@ -55,7 +47,7 @@ class Assets {
 }
 
 class AssetGenImage extends AssetImage {
-  const AssetGenImage(String assetName) : super(assetName);
+  const AssetGenImage(super.assetName);
 
   Image image({
     Key? key,

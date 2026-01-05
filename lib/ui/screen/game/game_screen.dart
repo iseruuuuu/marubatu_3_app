@@ -1,22 +1,22 @@
+import 'package:barubatu_3_app/model/model.dart';
+import 'package:barubatu_3_app/ui/components/app_dialog.dart';
 import 'package:barubatu_3_app/ui/screen/game/game_screen_controler.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:barubatu_3_app/ui/components/app_dialog.dart';
-import 'package:barubatu_3_app/model/model.dart';
 
 class GameScreen extends StatefulWidget {
   const GameScreen({super.key});
 
   @override
-  _GameScreenState createState() => _GameScreenState();
+  State<GameScreen> createState() => _GameScreenState();
 }
 
 class _GameScreenState extends State<GameScreen> {
   late final GameScreenControler c;
   List<Widget> buildLine = [Container()];
-  double lineThickness = 1.0;
+  double lineThickness = 1;
   late double lineWidth;
 
   @override
@@ -41,7 +41,7 @@ class _GameScreenState extends State<GameScreen> {
               buildLine = [Container()];
             });
           },
-          child: Text(
+          child: const Text(
             'リセット',
             style: TextStyle(
               color: Color(0xFF00FFA3),
@@ -65,7 +65,7 @@ class _GameScreenState extends State<GameScreen> {
         actions: [
           TextButton(
             onPressed: () => c.onTapImageDialog(context),
-            child: Text(
+            child: const Text(
               '?',
               style: TextStyle(
                 fontSize: 32,
@@ -88,7 +88,7 @@ class _GameScreenState extends State<GameScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                SizedBox(),
+                const SizedBox.shrink(),
                 Center(
                   child: () {
                     switch (c.gameStatus) {
@@ -108,7 +108,7 @@ class _GameScreenState extends State<GameScreen> {
                                   color: const Color(0xFF0F172A),
                                   border: Border.all(
                                     width: 3,
-                                    color: Color(0xFF00FFA3),
+                                    color: const Color(0xFF00FFA3),
                                   ),
                                   borderRadius: BorderRadius.circular(12),
                                   boxShadow: [
@@ -141,7 +141,7 @@ class _GameScreenState extends State<GameScreen> {
                                       end: Alignment.bottomCenter,
                                       colors: [
                                         Colors.white.withValues(alpha: 0.06),
-                                        Colors.white.withValues(alpha: 0.0),
+                                        Colors.white.withValues(alpha: 0),
                                       ],
                                     ),
                                   ),
@@ -152,39 +152,42 @@ class _GameScreenState extends State<GameScreen> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceEvenly,
                                   children: [
-                                    c.turnOfPlayer1
-                                        ? const Icon(
-                                            FontAwesomeIcons.circle,
-                                            size: 70,
-                                            color: Colors.blue,
-                                          )
-                                        : const Icon(
-                                            FontAwesomeIcons.circle,
-                                            size: 70,
-                                            color: Colors.grey,
-                                          ),
-                                    c.turnOfPlayer2
-                                        ? const Icon(
-                                            Icons.clear,
-                                            size: 90,
-                                            color: Colors.red,
-                                          )
-                                        : const Icon(
-                                            Icons.clear,
-                                            size: 90,
-                                            color: Colors.grey,
-                                          ),
-                                    c.turnOfPlayer3
-                                        ? const Icon(
-                                            FontAwesomeIcons.square,
-                                            color: Color(0xFF00FFA3),
-                                            size: 70,
-                                          )
-                                        : const Icon(
-                                            FontAwesomeIcons.square,
-                                            color: Colors.grey,
-                                            size: 70,
-                                          ),
+                                    if (c.turnOfPlayer1)
+                                      const Icon(
+                                        FontAwesomeIcons.circle,
+                                        size: 70,
+                                        color: Colors.blue,
+                                      )
+                                    else
+                                      const Icon(
+                                        FontAwesomeIcons.circle,
+                                        size: 70,
+                                        color: Colors.grey,
+                                      ),
+                                    if (c.turnOfPlayer2)
+                                      const Icon(
+                                        Icons.clear,
+                                        size: 90,
+                                        color: Colors.red,
+                                      )
+                                    else
+                                      const Icon(
+                                        Icons.clear,
+                                        size: 90,
+                                        color: Colors.grey,
+                                      ),
+                                    if (c.turnOfPlayer3)
+                                      const Icon(
+                                        FontAwesomeIcons.square,
+                                        color: Color(0xFF00FFA3),
+                                        size: 70,
+                                      )
+                                    else
+                                      const Icon(
+                                        FontAwesomeIcons.square,
+                                        color: Colors.grey,
+                                        size: 70,
+                                      ),
                                   ],
                                 ),
                               ),
@@ -204,7 +207,9 @@ class _GameScreenState extends State<GameScreen> {
                             decoration: BoxDecoration(
                               color: const Color(0xFF0F172A),
                               border: Border.all(
-                                  width: 3, color: const Color(0xFF5FEAD1)),
+                                width: 3,
+                                color: const Color(0xFF5FEAD1),
+                              ),
                               borderRadius: BorderRadius.circular(12),
                             ),
                             child: Center(
@@ -213,7 +218,7 @@ class _GameScreenState extends State<GameScreen> {
                                 style: GoogleFonts.dotGothic16(
                                   fontSize: 24.w,
                                   color: const Color(0xFF5FEAD1),
-                                  letterSpacing: 1.0,
+                                  letterSpacing: 1,
                                 ),
                               ),
                             ),
@@ -232,40 +237,39 @@ class _GameScreenState extends State<GameScreen> {
                             decoration: BoxDecoration(
                               color: const Color(0xFF0F172A),
                               border: Border.all(
-                                  width: 3, color: const Color(0xFF5FEAD1)),
+                                width: 3,
+                                color: const Color(0xFF5FEAD1),
+                              ),
                               borderRadius: BorderRadius.circular(12),
                             ),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                c.turnOfPlayer2
-                                    ? Icon(
-                                        FontAwesomeIcons.circle,
-                                        size: 50.w,
-                                        color: const Color(0xFF4FDFFF),
-                                      )
-                                    : Container(),
-                                c.turnOfPlayer3
-                                    ? const Icon(
-                                        Icons.clear,
-                                        size: 70,
-                                        color: Color(0xFFFF6B6B),
-                                      )
-                                    : Container(),
-                                c.turnOfPlayer1
-                                    ? const Icon(
-                                        FontAwesomeIcons.square,
-                                        color: Color(0xFF00FFA3),
-                                        size: 50,
-                                      )
-                                    : Container(),
+                                if (c.turnOfPlayer2)
+                                  Icon(
+                                    FontAwesomeIcons.circle,
+                                    size: 50.w,
+                                    color: const Color(0xFF4FDFFF),
+                                  ),
+                                if (c.turnOfPlayer3)
+                                  const Icon(
+                                    Icons.clear,
+                                    size: 70,
+                                    color: Color(0xFFFF6B6B),
+                                  ),
+                                if (c.turnOfPlayer1)
+                                  const Icon(
+                                    FontAwesomeIcons.square,
+                                    color: Color(0xFF00FFA3),
+                                    size: 50,
+                                  ),
                                 const SizedBox(width: 8),
                                 Text(
                                   'の勝利',
                                   style: GoogleFonts.dotGothic16(
                                     fontSize: 36,
                                     color: const Color(0xFF5FEAD1),
-                                    letterSpacing: 1.0,
+                                    letterSpacing: 1,
                                   ),
                                 ),
                               ],
@@ -278,17 +282,17 @@ class _GameScreenState extends State<GameScreen> {
                 Padding(
                   padding: const EdgeInsets.all(12),
                   child: () {
-                    List<Widget> columnChildren = [
+                    final columnChildren = <Widget>[
                       Divider(
-                        height: 0.0,
+                        height: 0,
                         thickness: lineThickness,
-                        color: Color(0xFFFFFFFF),
-                      )
+                        color: const Color(0xFFFFFFFF),
+                      ),
                     ];
-                    List<Widget> rowChildren = [];
-                    for (int j = 0; j < 5; j++) {
-                      for (int i = 0; i < 5; i++) {
-                        int index = j * 5 + i;
+                    var rowChildren = <Widget>[];
+                    for (var j = 0; j < 5; j++) {
+                      for (var i = 0; i < 5; i++) {
+                        final index = j * 5 + i;
                         rowChildren.add(
                           Expanded(
                             child: InkWell(
@@ -297,16 +301,16 @@ class _GameScreenState extends State<GameScreen> {
                                       setState(() {
                                         c.handleTap(index);
                                         if (c.gameStatus == GameStatus.draw) {
-                                          openWinningDialog(false);
+                                          openWinningDialog(isWin: false);
                                         } else if (c.gameStatus ==
                                             GameStatus.settlement) {
-                                          openWinningDialog(true);
+                                          openWinningDialog(isWin: true);
                                         }
                                       });
                                     }
                                   : null,
                               child: AspectRatio(
-                                aspectRatio: 1.0,
+                                aspectRatio: 1,
                                 child: Row(
                                   children: [
                                     Expanded(
@@ -324,7 +328,8 @@ class _GameScreenState extends State<GameScreen> {
                                                       decoration: BoxDecoration(
                                                         color: Colors.white
                                                             .withValues(
-                                                                alpha: 0.15),
+                                                          alpha: 0.15,
+                                                        ),
                                                         shape: BoxShape.circle,
                                                       ),
                                                     )
@@ -351,13 +356,12 @@ class _GameScreenState extends State<GameScreen> {
                                         }
                                       }(),
                                     ),
-                                    (i == 4)
-                                        ? Container()
-                                        : VerticalDivider(
-                                            width: 0.0,
-                                            thickness: lineThickness,
-                                            color: Color(0xFFFFFFFF),
-                                          ),
+                                    if (i != 4)
+                                      VerticalDivider(
+                                        width: 0,
+                                        thickness: lineThickness,
+                                        color: const Color(0xFFFFFFFF),
+                                      ),
                                   ],
                                 ),
                               ),
@@ -368,9 +372,9 @@ class _GameScreenState extends State<GameScreen> {
                       columnChildren.add(Row(children: rowChildren));
                       columnChildren.add(
                         Divider(
-                          height: 0.0,
+                          height: 0,
                           thickness: lineThickness,
-                          color: Color(0xFFFFFFFF),
+                          color: const Color(0xFFFFFFFF),
                         ),
                       );
                       rowChildren = [];
@@ -421,8 +425,8 @@ class _GameScreenState extends State<GameScreen> {
     );
   }
 
-  void openWinningDialog(bool isWin) {
-    String whoWin = '';
+  void openWinningDialog({required bool isWin}) {
+    var whoWin = '';
     if (isWin) {
       if (c.turnOfPlayer1) {
         whoWin = '□の勝ち';
@@ -434,6 +438,8 @@ class _GameScreenState extends State<GameScreen> {
     } else {
       whoWin = '引き分け';
     }
+    // Don't await; just present.
+    // ignore: discarded_futures
     AppDialog.showWinDialog(
       context,
       title: whoWin,

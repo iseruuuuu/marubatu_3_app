@@ -1,14 +1,15 @@
 import 'package:barubatu_3_app/ui/screen/challenge_list/challenge_list_screen.dart';
 import 'package:barubatu_3_app/ui/screen/game/game_screen.dart';
+import 'package:barubatu_3_app/ui/screen/home/component/sprite_button.dart';
+import 'package:barubatu_3_app/ui/screen/home/home_screen_controller.dart';
 import 'package:barubatu_3_app/ui/screen/setting/setting_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'component/sprite_button.dart';
-import 'home_screen_controller.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
-  final controller = Get.put(HomeScreenController(), tag: '');
+  final HomeScreenController controller =
+      Get.put(HomeScreenController(), tag: '');
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +38,8 @@ class HomeScreen extends StatelessWidget {
                     Tween<double>(begin: 1, end: 1.04),
                   ),
                   child: SpriteButton(
-                    onPressed: () => Get.to(() => const GameScreen()),
+                    onPressed: () async =>
+                        await Get.to<void>(() => const GameScreen()),
                     bgImagePath: 'assets/home/circle_button.png',
                   ),
                 ),
@@ -47,7 +49,8 @@ class HomeScreen extends StatelessWidget {
                     Tween<double>(begin: 1.04, end: 1),
                   ),
                   child: SpriteButton(
-                    onPressed: () => Get.to(() => const ChallengeListScreen()),
+                    onPressed: () async =>
+                        await Get.to<void>(() => const ChallengeListScreen()),
                     bgImagePath: 'assets/home/cross_button.png',
                   ),
                 ),
@@ -57,7 +60,8 @@ class HomeScreen extends StatelessWidget {
                     Tween<double>(begin: 1, end: 1.04),
                   ),
                   child: SpriteButton(
-                    onPressed: () => Get.to(() => const SettingScreen()),
+                    onPressed: () async =>
+                        await Get.to<void>(() => const SettingScreen()),
                     bgImagePath: 'assets/home/square_button.png',
                   ),
                 ),

@@ -1,14 +1,14 @@
+import 'package:barubatu_3_app/preference/shared_preference.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:barubatu_3_app/preference/shared_preference.dart';
 
 class ChallengeScreenController extends GetxController
     with GetSingleTickerProviderStateMixin, WidgetsBindingObserver, RouteAware {
-  var stage1 = false.obs;
-  var stage2 = false.obs;
-  var stage3 = false.obs;
-  var stage4 = false.obs;
-  var stage5 = false.obs;
+  RxBool stage1 = false.obs;
+  RxBool stage2 = false.obs;
+  RxBool stage3 = false.obs;
+  RxBool stage4 = false.obs;
+  RxBool stage5 = false.obs;
 
   late AnimationController animationController;
 
@@ -40,7 +40,7 @@ class ChallengeScreenController extends GetxController
   }
 
   void onTapBack() {
-    Get.back();
+    Get.back<void>();
   }
 
   Future<void> sharedPreference() async {
