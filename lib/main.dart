@@ -1,8 +1,8 @@
+import 'package:barubatu_3_app/gen/l10n/l10n.dart';
 import 'package:barubatu_3_app/ui/screen/home/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:barubatu_3_app/gen/l10n/l10n.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
