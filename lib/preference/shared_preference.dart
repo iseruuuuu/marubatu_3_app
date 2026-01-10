@@ -11,7 +11,7 @@ enum PreferenceKey {
 }
 
 class Preference {
-  final preference = SharedPreferences.getInstance();
+  final Future<SharedPreferences> preference = SharedPreferences.getInstance();
 
   Future<bool> getBool(PreferenceKey key) async {
     final pref = await preference;
@@ -19,7 +19,10 @@ class Preference {
     return value;
   }
 
-  Future<void> setBool(PreferenceKey key, bool value) async {
+  Future<void> setBool({
+    required PreferenceKey key,
+    required bool value,
+  }) async {
     final pref = await preference;
     await pref.setBool(EnumToString.convertToString(key), value);
   }

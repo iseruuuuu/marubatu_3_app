@@ -9,32 +9,34 @@ environment:
   flutter: ^3.38.2
 
 dependencies:
+  audioplayers: ^6.5.1
+  awesome_dialog: ^3.3.0
+  cupertino_icons: ^1.0.8
+  enum_to_string: ^2.2.1
   flutter:
     sdk: flutter
-  cupertino_icons: ^1.0.8
-  font_awesome_flutter:
-  settings_ui: ^2.0.2
-  url_launcher: ^6.3.2
-  in_app_review: ^2.0.11
-  flutter_screenutil: 5.9.3
-  awesome_dialog: ^3.3.0
   flutter_image_slideshow: ^0.1.6
-  panara_dialogs: ^0.1.5
-  get: ^4.7.3
-  shared_preferences: ^2.5.4
-  audioplayers: ^6.5.1
-  provider: ^6.1.5+1
-  enum_to_string: ^2.2.1
-  google_fonts: ^6.2.1
   flutter_localizations:
     sdk: flutter
+  flutter_screenutil: 5.9.3
+  font_awesome_flutter: ^10.12.0
+  get: ^4.7.3
+  google_fonts: ^6.2.1
+  in_app_review: ^2.0.11
+  panara_dialogs: ^0.1.5
+  provider: ^6.1.5+1
+  settings_ui: ^2.0.2
+  shared_preferences: ^2.5.4
+  url_launcher: ^6.3.2
 
 dev_dependencies:
+  custom_lint: ^0.7.3
+  flutter_launcher_icons: ^0.14.4
+  flutter_lints: ^6.0.0
+  flutter_native_splash: ^2.4.7
   flutter_test:
     sdk: flutter
-  flutter_lints: ^6.0.0
-  flutter_launcher_icons: ^0.14.4
-  flutter_native_splash: ^2.4.7
+  yumemi_lints: ^3.1.0
 
 flutter_launcher_icons:
   android: true

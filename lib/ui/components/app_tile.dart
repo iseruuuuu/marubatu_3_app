@@ -1,12 +1,12 @@
+import 'package:barubatu_3_app/model/model.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:barubatu_3_app/model/model.dart';
 
 class AppTile extends StatelessWidget {
   const AppTile({
-    super.key,
     required this.pieceStatus,
     required this.showGuide,
+    super.key,
   });
 
   final PieceStatus pieceStatus;

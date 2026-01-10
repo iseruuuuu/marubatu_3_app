@@ -1,3 +1,5 @@
+// Static-only class is used intentionally to provide a namespaced API.
+// ignore_for_file: avoid_classes_with_only_static_members
 import 'package:barubatu_3_app/model/model.dart';
 
 enum GameOutcome { none, win, draw }
@@ -74,21 +76,21 @@ class WinStyle {
       return const WinInfo(GameOutcome.draw);
     }
     // horizontal
-    for (int i = 0; i < settlementListHorizontal.length; i++) {
+    for (var i = 0; i < settlementListHorizontal.length; i++) {
       final a = settlementListHorizontal[i];
       if (_sameTriple(statusList, a)) {
         return WinInfo(GameOutcome.win, category: 'h', index: i);
       }
     }
     // vertical
-    for (int i = 0; i < settlementListVertical.length; i++) {
+    for (var i = 0; i < settlementListVertical.length; i++) {
       final a = settlementListVertical[i];
       if (_sameTriple(statusList, a)) {
         return WinInfo(GameOutcome.win, category: 'v', index: i);
       }
     }
     // diagonal
-    for (int i = 0; i < settlementListDiagonal.length; i++) {
+    for (var i = 0; i < settlementListDiagonal.length; i++) {
       final a = settlementListDiagonal[i];
       if (_sameTriple(statusList, a)) {
         return WinInfo(GameOutcome.win, category: 'd', index: i);

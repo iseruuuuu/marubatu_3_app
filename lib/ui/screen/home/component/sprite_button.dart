@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 class SpriteButton extends StatelessWidget {
   const SpriteButton({
-    super.key,
     required this.onPressed,
     required this.bgImagePath,
+    super.key,
     this.textColor = Colors.white,
   });
 
@@ -14,7 +14,7 @@ class SpriteButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double width = MediaQuery.of(context).size.width * 0.9;
+    final width = MediaQuery.of(context).size.width * 0.9;
     return InkWell(
       onTap: onPressed,
       borderRadius: BorderRadius.circular(28),

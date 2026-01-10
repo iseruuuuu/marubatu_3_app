@@ -1,11 +1,10 @@
-// Flutter imports:
 import 'package:flutter/material.dart';
 
 class CheckText extends StatelessWidget {
   const CheckText({
-    Key? key,
     required this.isOpen,
-  }) : super(key: key);
+    super.key,
+  });
 
   final bool isOpen;
 

@@ -11,15 +11,15 @@ abstract class ChallengeRule {
 }
 
 class SimpleWinRule implements ChallengeRule {
-  @override
-  final String title;
-  @override
-  final String description;
-
   const SimpleWinRule({
     this.title = '3つ並べで勝利',
     this.description = '誰かが3つ並べで勝利したらクリア',
   });
+
+  @override
+  final String title;
+  @override
+  final String description;
 
   @override
   bool isCleared(List<PieceStatus> statusList) {
@@ -34,13 +34,6 @@ class SimpleWinRule implements ChallengeRule {
 }
 
 class WinnerAtMostMovesRule implements ChallengeRule {
-  @override
-  final String title;
-  @override
-  final String description;
-  final PieceStatus winner;
-  final int maxMoves;
-
   const WinnerAtMostMovesRule({
     required this.winner,
     required this.maxMoves,
@@ -49,9 +42,18 @@ class WinnerAtMostMovesRule implements ChallengeRule {
   });
 
   @override
+  final String title;
+  @override
+  final String description;
+  final PieceStatus winner;
+  final int maxMoves;
+
+  @override
   bool isCleared(List<PieceStatus> statusList) {
     final info = WinStyle.judgeBoard(statusList);
-    if (info.outcome != GameOutcome.win) return false;
+    if (info.outcome != GameOutcome.win) {
+      return false;
+    }
     final winningPiece = _winningPiece(statusList, info);
     final moves = _moveCount(statusList);
     return winningPiece == winner && moves <= maxMoves;
@@ -65,13 +67,6 @@ class WinnerAtMostMovesRule implements ChallengeRule {
 }
 
 class WinnerExactMovesRule implements ChallengeRule {
-  @override
-  final String title;
-  @override
-  final String description;
-  final PieceStatus winner;
-  final int exactMoves;
-
   const WinnerExactMovesRule({
     required this.winner,
     required this.exactMoves,
@@ -80,9 +75,18 @@ class WinnerExactMovesRule implements ChallengeRule {
   });
 
   @override
+  final String title;
+  @override
+  final String description;
+  final PieceStatus winner;
+  final int exactMoves;
+
+  @override
   bool isCleared(List<PieceStatus> statusList) {
     final info = WinStyle.judgeBoard(statusList);
-    if (info.outcome != GameOutcome.win) return false;
+    if (info.outcome != GameOutcome.win) {
+      return false;
+    }
     final winningPiece = _winningPiece(statusList, info);
     final moves = _moveCount(statusList);
     return winningPiece == winner && moves == exactMoves;
@@ -93,29 +97,37 @@ class WinnerExactMovesRule implements ChallengeRule {
     final info = WinStyle.judgeBoard(statusList);
     final moves = _moveCount(statusList);
     // 手数超過は即失敗
-    if (moves > exactMoves) return true;
+    if (moves > exactMoves) {
+      return true;
+    }
     // 早すぎる勝利も失敗（厳密に exactMoves 手目のみ可）
-    if (info.outcome == GameOutcome.win && moves < exactMoves) return true;
+    if (info.outcome == GameOutcome.win && moves < exactMoves) {
+      return true;
+    }
     // ちょうど exactMoves 手目で未勝利または別勝者も失敗
     if (moves == exactMoves) {
-      if (info.outcome != GameOutcome.win) return true;
+      if (info.outcome != GameOutcome.win) {
+        return true;
+      }
       final winningPiece = _winningPiece(statusList, info);
-      if (winningPiece != winner) return true;
+      if (winningPiece != winner) {
+        return true;
+      }
     }
     return false;
   }
 }
 
 class DrawRule implements ChallengeRule {
-  @override
-  final String title;
-  @override
-  final String description;
-
   const DrawRule({
     required this.title,
     required this.description,
   });
+
+  @override
+  final String title;
+  @override
+  final String description;
 
   @override
   bool isCleared(List<PieceStatus> statusList) {
@@ -130,26 +142,27 @@ class DrawRule implements ChallengeRule {
 }
 
 int _moveCount(List<PieceStatus> statusList) {
-  int count = 0;
+  var count = 0;
   for (final p in statusList) {
-    if (p != PieceStatus.none) count++;
+    if (p != PieceStatus.none) {
+      count++;
+    }
   }
   return count;
 }
 
 PieceStatus? _winningPiece(List<PieceStatus> s, WinInfo info) {
-  if (info.outcome != GameOutcome.win || info.index == null) return null;
+  if (info.outcome != GameOutcome.win || info.index == null) {
+    return null;
+  }
   List<List<int>> list;
   switch (info.category) {
     case 'h':
       list = WinStyle.settlementListHorizontal;
-      break;
     case 'v':
       list = WinStyle.settlementListVertical;
-      break;
     case 'd':
       list = WinStyle.settlementListDiagonal;
-      break;
     default:
       return null;
   }

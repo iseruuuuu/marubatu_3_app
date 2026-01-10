@@ -1,3 +1,5 @@
+// Static-only class is used intentionally to provide a namespaced API.
+// ignore_for_file: avoid_classes_with_only_static_members
 import 'package:barubatu_3_app/model/model.dart';
 
 typedef Turn = ({bool p1, bool p2, bool p3});
